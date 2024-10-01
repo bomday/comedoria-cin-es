@@ -11,7 +11,9 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    "@radix-ui/react-avatar": "^1.1.0",
     "@radix-ui/react-icons": "^1.3.0",
+    "@radix-ui/react-scroll-area": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@typescript-eslint/eslint-plugin": "^8.6.0",
     "class-variance-authority": "^0.7.0",
