@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { UserPlus, CalendarPlus, MapPin, CreditCard, Package, Instagram, Facebook, Linkedin } from 'lucide-react'
 import CoxinhaImage from '../../../public/assets/coxinha_home_page.png'
 import Navbar from '@/components/ui/Navbar'
+import Footer from '@/components/ui/footer'
 import ".././globals.css";
 
 export default function LandingPage() {
@@ -101,41 +102,7 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-
-      <footer className="bg-[#8B1A1A] text-white py-6">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-4 md:mb-0">
-              <Image
-                src="/placeholder.svg?height=40&width=150"
-                alt="Comedoria Logo"
-                width={150}
-                height={40}
-              />
-            </div>
-            <div className="text-center md:text-left mb-4 md:mb-0">
-              © 2023 Altos Ltd. All rights reserved.
-            </div>
-            <div className="flex flex-col md:flex-row items-center">
-              <div className="mb-2 md:mb-0 md:mr-4">
-                <a href="#" className="text-white hover:text-gray-300 mr-2">Terms & Conditions</a>
-                <a href="#" className="text-white hover:text-gray-300">Privacy Policy</a>
-              </div>
-              <div className="flex space-x-4">
-                <a href="#" className="text-white hover:text-gray-300">
-                  <Instagram className="w-6 h-6" />
-                </a>
-                <a href="#" className="text-white hover:text-gray-300">
-                  <Facebook className="w-6 h-6" />
-                </a>
-                <a href="#" className="text-white hover:text-gray-300">
-                  <Linkedin className="w-6 h-6" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </>
   )
 }
