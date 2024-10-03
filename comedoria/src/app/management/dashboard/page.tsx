@@ -14,6 +14,7 @@ import AlertTableReserve from '@/components/ui/alert-table-reserve'
 import AlertTableMostSale from '@/components/ui/alert-table-mostSale'
 import AlertTableInventory from '@/components/ui/alert-table-inventory'
 import AlertAtribution from '@/components/ui/alert-atribution'
+import ExportDialog from '@/components/ui/export-dialog'
 
 interface WeeklyData {
   dia: string
@@ -60,6 +61,16 @@ const historyItems = [
 ]
 
 export default function ManagementDashboard() {
+
+  const [isModalOpen6, setIsModalOpen6] = useState(false)
+  
+  const handleExportPDF = () => {
+      console.log('Exporting as PDF')
+    }
+  
+  const handleExportCSV = () => {
+      console.log('Exporting as CSV')
+    }
 
   const [view, setView] = useState<'chart' | 'list'>('chart')
 
@@ -216,16 +227,26 @@ export default function ManagementDashboard() {
               </CardContent>
             </Card>
             <div className="flex flex-col justify-center gap-y-[16px] mt-4">
-              <Button onClick={handleOpenModal5} variant="outline">
-                <span className="mr-2 h-4 w-4" />Gerar Sugestão de Estoque
+              <div>
+              <Button onClick={handleOpenModal5} variant="outline" className="w-full">
+                <span className="text-center mr-2 h-4 w-4" />Gerar Sugestão de Estoque
               </Button>
               <AlertTableInventory
                   isOpen={isModalOpen5}
                   onClose={handleCloseModal5}
                 />
-              <Button variant="outline">
-                <span className="mr-2 h-4 w-4" /> Exportar Estatísticas
+              </div>
+              <div>
+              <Button onClick={() => setIsModalOpen6(true)} variant="outline" className="w-full">
+                <span className="text-center mr-2 h-4 w-4" /> Exportar Estatísticas
               </Button>
+              <ExportDialog
+                  isOpen={isModalOpen6}
+                  onClose={() => setIsModalOpen6(false)}
+                  onExportPDF={handleExportPDF}
+                  onExportCSV={handleExportCSV}
+                />
+              </div>
             </div>
           </div>
           <div className="flex flex-row items-start justify-between mt-4 mb-4">
