@@ -1,3 +1,6 @@
+'use client'
+
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { Button } from "@/components/ui/button"
 import { UserPlus, CalendarPlus, MapPin, CreditCard, Package, Instagram, Facebook, Linkedin } from 'lucide-react'
@@ -7,6 +10,15 @@ import Footer from '@/components/ui/footer'
 import ".././globals.css";
 
 export default function LandingPage() {
+
+  const router = useRouter();
+
+  const handleLogin = (e: { preventDefault: () => void }) => {
+    e.preventDefault()
+
+    router.push('/staff-products')
+  };
+  
   return (
     <>
       <Navbar />

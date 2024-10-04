@@ -1,5 +1,6 @@
 "use client"
 
+import { useRouter } from 'next/navigation'
 import { useState } from 'react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -29,6 +30,7 @@ const products: Product[] = [
 ]
 
 export default function InventoryManagement() {
+  
   const [searchTerm, setSearchTerm] = useState('')
 
   const filteredProducts = products.filter(product =>

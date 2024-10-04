@@ -9,10 +9,12 @@ import Navbar from '@/components/ui/Navbar'
 export default function StaffLogin() {
   const router = useRouter();
 
-  const handleLogin = (e: { preventDefault: () => void }) => {
-    e.preventDefault()
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-    router.push('/staff-products')
+    // adicionar a lógica de autenticação
+    
+    router.push('/staff-products');
   };
 
   return (
