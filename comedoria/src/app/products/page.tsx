@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import Image from 'next/image'
 import ".././globals.css";
 import ProdutosImage from '../../app/assets/images/produtos.png'
+import {useRouter} from 'next/navigation'
 
 interface Product {
   id: number
@@ -30,7 +31,11 @@ const products: Product[] = [
   { id: 6, name: "Hamburguer com Cheddar", price: 15.00, available: 8, type: "Hamburguer", flavor: "Cheddar"},
 ]
 
-function CartComponent({ cartItems, updateQuantity }: { cartItems: CartItem[], updateQuantity: (id: number, change: number) => void }) {
+function CartComponent({ cartItems, updateQuantity, onCheckout}: { //essa função é importante
+  cartItems: CartItem[],
+  updateQuantity: (id: number, change: number) => void,
+  onCheckout: () => void}) {
+  
   return (
     <div className="w-64 bg-white shadow-md p-4">
       <h2 className="text-xl font-bold mb-4">Seu carrinho</h2>
@@ -86,6 +91,7 @@ function CartComponent({ cartItems, updateQuantity }: { cartItems: CartItem[], u
         </div>
       ))}
       <button
+        onClick={onCheckout} //isso também é importante
         style={{ color: 'white', backgroundColor: '#8B4513' }}
         className="w-full py-2 px-4 font-bold rounded-lg shadow-md hover:bg-[#A0522D] transition-colors duration-200"
       >
@@ -96,7 +102,7 @@ function CartComponent({ cartItems, updateQuantity }: { cartItems: CartItem[], u
 }
 
 export default function Component() {
-  const [cartItems, setCartItems] = useState<CartItem[]>([])
+  const [cartItems, setCartItems] = useState<CartItem[]>([])  //isso também é importante
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(products)
   const [selectedType, setSelectedType] = useState<string | null>(null)
   const [selectedFlavor, setSelectedFlavor] = useState<string | null>(null)
@@ -125,7 +131,7 @@ export default function Component() {
     )
   }
 
-  useEffect(() => {
+  useEffect(() => {  //isso também é importante
     const filtered = products.filter(product => {
       const matchesType = !selectedType || product.type === selectedType
       const matchesFlavor = !selectedFlavor || product.flavor === selectedFlavor
@@ -137,6 +143,14 @@ export default function Component() {
 
   const types = Array.from(new Set(products.map(p => p.type)))
   const flavors = Array.from(new Set(products.map(p => p.flavor)))
+
+  const router = useRouter()  //isso também é importante
+
+
+  const handleCheckout = () => {
+    const cartData = JSON.stringify(cartItems)  //isso também é importante
+    router.push(`/customer-reservations/finalize-reservations?cart=${encodeURIComponent(cartData)}`)  //isso também é importante
+  }
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
@@ -257,7 +271,10 @@ export default function Component() {
         </div>
 
         {/* Cart */}
-        <CartComponent cartItems={cartItems} updateQuantity={updateQuantity} />
+        <CartComponent
+        cartItems={cartItems}
+        updateQuantity={updateQuantity}
+        onCheckout={handleCheckout}/>  //isso também é importante
       </div>
     </div>
   )

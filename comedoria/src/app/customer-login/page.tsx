@@ -1,3 +1,4 @@
+'use client';
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
@@ -6,8 +7,21 @@ import { Facebook, Mail } from "lucide-react"
 import Navbar from '@/components/ui/Navbar'
 import Footer from '@/components/ui/footer'
 import ".././globals.css";
+import {useRouter} from 'next/navigation'
+import { useState } from 'react'
 
 export default function CostumerLogin() {
+  const router = useRouter()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  router.push;
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault()
+    // validar input aqui chamando a api
+    console.log('Logging in with:', email, password)
+    router.push('/products')
+  }
   return (
     <>
       <Navbar />
@@ -16,19 +30,32 @@ export default function CostumerLogin() {
           <div className="absolute left-[70px] z-10 bg-black bg-opacity-40 p-8 rounded-lg w-[30%]">
             <h2 className="text-3xl font-bold text-[#45480F] mb-2">Já possui uma conta?</h2>
             <p className="text-gray-600 mb-4">Acesse sua conta aqui.</p>
-            <form className="space-y-4">
+            <form onSubmit={handleLogin} className="space-y-4">
               <div className="w-full mb-4">
                 <Label htmlFor="login-email">E-mail</Label>
-                <Input id="login-email" placeholder="Digite seu e-mail" />
+                <Input
+                id="login-email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Digite seu e-mail" />
+                required
               </div>
               <div className="w-full mb-4">
                 <Label htmlFor="login-password">Senha</Label>
-                <Input id="login-password" type="password" placeholder="Digite sua senha" />
+                <Input
+                id="login-password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Digite sua senha" />
+                required
               </div>
               <div className="flex justify-center">
                 <a href="#" className="text-sm text-gray-600 hover:underline">Esqueceu a Senha?</a>
               </div>
-              <Button className="w-full bg-[#556B2F] hover:bg-[#4c6128]">Entrar</Button>
+              <Button
+              type="submit"
+              className="w-full bg-[#556B2F] hover:bg-[#4c6128]">Entrar</Button>
             </form>
             <div className="mt-4 text-center">
               <p className="text-sm text-gray-600 mb-2">ou acesse via:</p>

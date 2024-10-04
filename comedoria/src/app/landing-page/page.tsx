@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image'
 import { Banner, Mission } from './sections/index'
 import { Button } from "@/components/ui/button"
@@ -5,6 +6,7 @@ import { UserPlus, CalendarPlus, MapPin, CreditCard, Package, Instagram, Faceboo
 import Footer from '@/components/ui/footer'
 import ".././globals.css";
 import Navbar  from "@/components/ui/Navbar"
+import {useRouter} from 'next/navigation'
 
 export default function LandingPage() {
   return (

@@ -2,9 +2,9 @@ import Image from 'next/image'
 import { Instagram, Facebook, Linkedin } from 'lucide-react'
 import logozinhoImageWhite from '../../app/assets/images/logo_icon_branco.png';
 
-export default function Footer (){
+export default function Footer() {
     return (
-        <footer className="bg-[#8B1A1A] text-white py-6">
+        <footer className="bg-[#8B1A1A] text-white py-6 mt-auto">
             <div className="container mx-auto px-4">
                 <div className="flex flex-col md:flex-row justify-between items-start">
                     <div className="mb-4 md:mb-0">
