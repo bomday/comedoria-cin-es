@@ -1,6 +1,8 @@
 "use client"; 
 import React, { useState, useEffect } from 'react';
 import { Check, CircleX } from 'lucide-react';
+import NavbarStaff from "@/components/ui/Navbar-staff"
+import Footer from "@/components/ui/footer"
 
 interface Reservation {
   id: string;
@@ -106,6 +108,8 @@ export default function Component() {
   const formatItems = (items: string[]) => items.join(' + ');
 
   return (
+    <>
+    <NavbarStaff />
     <div style={{
       fontFamily: 'Arial, sans-serif',
       backgroundColor: '#f0f0f0',
@@ -191,5 +195,7 @@ export default function Component() {
         </div>
       </div>
     </div>
-  );
+    <Footer />
+  </>
+  )
 }

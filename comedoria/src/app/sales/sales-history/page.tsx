@@ -7,6 +7,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import NavbarStaff from "@/components/ui/Navbar-staff"
+import Footer from "@/components/ui/footer"
 
 
 export default function SalesHistory() {
@@ -23,6 +25,8 @@ export default function SalesHistory() {
 
 
   return (
+    <>
+    <NavbarStaff />
     <div className="p-6 bg-white">      
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold text-[#45480F]">Vendas</h1>
@@ -37,7 +41,7 @@ export default function SalesHistory() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="border-dashed border-b border-r p-1 text-center text-black">salgados</TableHead>
+              <TableHead className="border-dashed border-b border-r p-1 text-center text-black">Salgados</TableHead>
               <TableHead className="border-dashed border-b border-r p-1 text-center text-black">Vendedor</TableHead>
               <TableHead className="border-dashed border-b border-r p-1 text-center text-black">Cliente</TableHead>
               <TableHead className="border-dashed border-b border-r p-1 text-center text-black">Tipo</TableHead>
@@ -60,5 +64,7 @@ export default function SalesHistory() {
         </Table>
       </div>
     </div>
+    <Footer />
+    </>
   )
 }

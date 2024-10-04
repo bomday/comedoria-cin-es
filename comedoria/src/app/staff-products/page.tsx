@@ -6,7 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
 import Image from 'next/image'
+import NavbarStaff from "@/components/ui/Navbar-staff"
 import ProdutosImage from '../../../public/assets/produtos.png';
+import Footer from '@/components/ui/footer';
 
 interface Product {
   id: number
@@ -31,6 +33,8 @@ const products: Product[] = [
 
 export default function InventoryManagement() {
   
+  const router = useRouter()
+
   const [searchTerm, setSearchTerm] = useState('')
 
   const filteredProducts = products.filter(product =>
@@ -39,6 +43,8 @@ export default function InventoryManagement() {
   )
 
   return (
+    <>
+    <NavbarStaff />
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold text-[#556B2F] mb-6">Estoque</h1>
       <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
@@ -54,10 +60,10 @@ export default function InventoryManagement() {
             />
         </div>
         <div className="flex gap-4 w-full">
-        <Button className="bg-[#F0C14B] !text-white hover:bg-[#DDB347] md:w-full h-12 text-lg font-semibold">
+        <Button onClick={() => router.push('/sales')} className="bg-[#F0C14B] !text-white hover:bg-[#DDB347] md:w-full h-12 text-lg font-semibold">
             Realizar Venda
         </Button>
-        <Button className="bg-[#8B4513] hover:bg-[#A0522D] !text-white md:w-full h-12 text-lg font-semibold">
+        <Button onClick={() => router.push('/inventory')} className="bg-[#8B4513] hover:bg-[#A0522D] !text-white md:w-full h-12 text-lg font-semibold">
             Repor Estoque
         </Button>
         </div>
@@ -87,5 +93,7 @@ export default function InventoryManagement() {
             ))}
       </div>
     </div>
+    <Footer />
+    </>
   )
 }
