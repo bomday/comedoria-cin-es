@@ -67,3 +67,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+.button-container {
+  display: flex;
+  flex-direction: column; /* Coloca os botões um embaixo do outro */
+  gap: 16px; /* Espaçamento entre os botões */
+}
