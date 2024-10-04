@@ -3,9 +3,9 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Facebook, Mail } from "lucide-react"
-import Navbar from '@/components/ui/Navbar'
+import Navbar from '@/components/ui/navbar'
 import Footer from '@/components/ui/footer'
-import ".././globals.css";
+import "@/app/globals.css"
 
 export default function CostumerLogin() {
   return (
@@ -33,10 +33,10 @@ export default function CostumerLogin() {
             <div className="mt-4 text-center">
               <p className="text-sm text-gray-600 mb-2">ou acesse via:</p>
               <div className="flex justify-center space-x-4">
-                <Button variant="outline" size="icon">
+                <Button variant="btnWine" size="default">
                   <Mail className="h-4 w-4" />
                 </Button>
-                <Button variant="outline" size="icon">
+                <Button variant="btnWine" size="default">
                   <Facebook className="h-4 w-4" />
                 </Button>
               </div>
@@ -75,10 +75,10 @@ export default function CostumerLogin() {
             <div className="mt-4 text-center">
               <p className="text-sm text-gray-600 mb-2">ou cadastre-se via:</p>
               <div className="flex justify-center space-x-4">
-                <Button variant="outline" size="icon">
+                <Button variant="btnWine" size="default">
                   <Mail className="h-4 w-4" />
                 </Button>
-                <Button variant="outline" size="icon">
+                <Button variant="btnWine" size="default">
                   <Facebook className="h-4 w-4" />
                 </Button>
               </div>

@@ -19,10 +19,10 @@ export default function NavbarLogged() {
         <div className="text-black text-2xl font-semibold">Comedoria</div>
       </div>
       <div className="flex items-center space-x-4">
-        <Button variant="ghost" className="text-gray-600 hover:text-black">Salgados</Button>
-        <Button variant="ghost" className="text-gray-600 hover:text-black">Suas Reservas</Button>
-        <Button variant="ghost" className="text-gray-600 hover:text-black">Sua Conta</Button>
-        <Button variant="destructive" className="text-[#FF6B6B] hover-red-600 text-[#FFFFFF]">
+        <Button /*variant="ghost"*/ className="text-gray-600 hover:text-black">Salgados</Button>
+        <Button /*variant="ghost"*/ className="text-gray-600 hover:text-black">Suas Reservas</Button>
+        <Button /*variant="ghost"*/ className="text-gray-600 hover:text-black">Sua Conta</Button>
+        <Button /*variant="destructive"*/ className="text-[#FF6B6B] hover-red-600 text-[#FFFFFF]">
           Sair <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
       </div>
