@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import {Rubik, Advent_Pro} from "next/font/google";
 import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
+const rubik = Rubik({
+  subsets:['latin'],
+  weight: ['400', '600', '700'],
+  variable: '--font-rubik',
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const advent = Advent_Pro({
+  subsets:['latin'],
+  weight: ['400', '600', '700'],
+  variable: '--font-advent',
 });
 
 export const metadata: Metadata = {
@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${rubik.variable} ${advent.variable} antialiased`}
       >
         {children}
       </body>

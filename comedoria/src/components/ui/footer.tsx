@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { Instagram, Facebook, Linkedin } from 'lucide-react'
-import logozinhoImageWhite from '../../../public/assets/logo_icon_branco.png'
+import logozinhoImageWhite from '../../app/assets/images/logo_icon_branco.png';
 
 export default function Footer (){
     return (

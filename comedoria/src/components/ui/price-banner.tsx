@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import BannerImage from '../../../public/assets/price-banner-image.svg'
+import BannerImage from '../../app/assets/images/price-banner-image.svg'
 
 export default function PriceBanner() {
   

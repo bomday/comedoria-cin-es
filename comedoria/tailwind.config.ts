@@ -8,8 +8,39 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    screens: {
+      'sm': '640px',
+      /* => @media (min-width: 640px) { ... }*/
+
+      'md': '768px',
+      /* => @media (min-width: 768px) { ... }*/
+
+      'lg': '1024px',
+      /* => @media (min-width: 1024px) { ... }*/
+
+      'xl': '1280px',
+      /* => @media (min-width: 1280px) { ... }*/
+
+      '2xl': '1536px',
+      /* => @media (min-width: 1536px) { ... }*/
+    },
   	extend: {
   		colors: {
+        /* Cores Principais */
+        'wine': 'hsl(var(--main-wine))',
+        'brown': 'hsl(var(--main-brown))',
+        'darkgreen': 'hsl(var(--main-darkgreen))',
+        'yellow': 'hsl(var(--main-yellow))',
+        'beige': 'hsl(var(--main-beige))',
+
+        /*Cores Hover*/
+        'wine-hover': 'hsl(var(--wine-hover))',
+        'darkgreen-hover': 'hsl(var(--darkgreen-hover))',
+
+        /* Cores de Feedback */
+        'lightgreen': 'hsl(var(--lightgreen))',
+        'red': 'hsl(var(--red))',
+
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
@@ -51,7 +82,29 @@ const config: Config = {
   				'5': 'hsl(var(--chart-5))'
   			}
   		},
+      fontFamily: {
+        rubik: ['Rubik', 'sans-serif'],
+        advent: ["Advent Pro", 'sans-serif'],
+      },
+      fontWeight: {
+        300: '300',
+        400: '400',
+        500: '500',
+        600: '600',
+        700: '700',
+        800: '800',
+        900: '900',
+      },
+      fontSize: {
+        'lg-title': '6rem',
+        'lg-mdtitle': '4rem',
+        'lg-subtitle': '2.5rem',
+        'lg-text': '1.4rem',
+        'lg-mdtext': '1rem',
+        'lg-smtext': '0.75rem',
+      },
   		borderRadius: {
+        default: 'var(--radius-default)',
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'

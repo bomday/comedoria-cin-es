@@ -11,7 +11,7 @@ export default function CostumerLogin() {
   return (
     <>
       <Navbar />
-      <header className="relative h-[calc(100vh-64px)] mt-2">
+      <header className="relative h-[calc(100vh-64px)] mt-12">
         <div className="flex justify-center absolute inset-0 bg-black bg-opacity-40 z-10">
           <div className="absolute left-[70px] z-10 bg-black bg-opacity-40 p-8 rounded-lg w-[30%]">
             <h2 className="text-3xl font-bold text-[#45480F] mb-2">Já possui uma conta?</h2>
@@ -33,10 +33,10 @@ export default function CostumerLogin() {
             <div className="mt-4 text-center">
               <p className="text-sm text-gray-600 mb-2">ou acesse via:</p>
               <div className="flex justify-center space-x-4">
-                <Button variant="outline" size="icon">
+                <Button variant={null} size={null}>
                   <Mail className="h-4 w-4" />
                 </Button>
-                <Button variant="outline" size="icon">
+                <Button variant={null} size={null}>
                   <Facebook className="h-4 w-4" />
                 </Button>
               </div>
@@ -75,10 +75,10 @@ export default function CostumerLogin() {
             <div className="mt-4 text-center">
               <p className="text-sm text-gray-600 mb-2">ou cadastre-se via:</p>
               <div className="flex justify-center space-x-4">
-                <Button variant="outline" size="icon">
+                <Button variant={null} size={null}>
                   <Mail className="h-4 w-4" />
                 </Button>
-                <Button variant="outline" size="icon">
+                <Button variant={null} size={null}>
                   <Facebook className="h-4 w-4" />
                 </Button>
               </div>

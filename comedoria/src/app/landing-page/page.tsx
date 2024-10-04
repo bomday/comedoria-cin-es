@@ -1,57 +1,17 @@
 import Image from 'next/image'
+import { Banner, Mission } from './sections/index'
 import { Button } from "@/components/ui/button"
 import { UserPlus, CalendarPlus, MapPin, CreditCard, Package, Instagram, Facebook, Linkedin } from 'lucide-react'
-import CoxinhaImage from '../../../public/assets/coxinha_home_page.png'
-import Navbar from '@/components/ui/Navbar'
 import Footer from '@/components/ui/footer'
 import ".././globals.css";
+import Navbar  from "@/components/ui/Navbar"
 
 export default function LandingPage() {
   return (
     <>
-      <Navbar />
-      <header className="relative h-[calc(100vh-64px)]">
-        <Image
-          src={CoxinhaImage}
-          alt="Coxinhas fritas"
-          layout="fill"
-          objectFit="cover"
-          className="z-0"
-        />
-        <div className="absolute inset-0 bg-black bg-opacity-40 z-10">
-        <div className="flex flex-col items-start justify-center h-full text-white pl-8 md:pl-16 lg:pl-24">
-            <h1 className="text-6xl font-bold mb-4">Comedoria</h1>
-            <p className="text-2xl mb-8">Um salgado do tamanho da sua fome</p>
-            <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white">
-              Se torne um cliente
-            </Button>
-          </div>
-        </div>
-      </header>
-
-      <section className="container mx-auto py-16 px-4 md:px-0">
-        <div className="flex flex-col md:flex-row items-center">
-          <div className="md:w-1/2 md:pr-8">
-            <h2 className="text-4xl font-bold text-[#4a6741] mb-6">Nossa Missão</h2>
-            <p className="text-gray-700 leading-relaxed">
-              Garantir que nenhuma mente brilhante fique sem energia durante um dia de programação intensa
-              ou brainstormings maratonas. Entre um código e outro, venha experimentar nossos salgados, que
-              são verdadeiros "breakpoints" de sabor! Afinal, quem disse que só os algoritmos merecem
-              upgrades? Com nossos quitutes, você vai encontrar o equilíbrio perfeito entre bytes e bites,
-              e com certeza vai sair daqui com um sorriso tão grande quanto uma linha de código sem bugs!
-            </p>
-          </div>
-          <div className="md:w-1/2 mt-8 md:mt-0">
-            <Image
-              src="/placeholder.svg?height=400&width=600"
-              alt="Estudante com mochila"
-              width={600}
-              height={400}
-              className="rounded-lg shadow-lg"
-            />
-          </div>
-        </div>
-      </section>
+    <Navbar/>
+      <Banner/>
+      <Mission/>
 
       <section className="bg-[#8B4513] py-16">
         <div className="container mx-auto px-4">

@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import Image from 'next/image'
 import ".././globals.css";
-import ProdutosImage from '../../../public/assets/produtos.png'
+import ProdutosImage from '../../app/assets/images/produtos.png'
 
 interface Product {
   id: number
@@ -60,7 +60,7 @@ function CartComponent({ cartItems, updateQuantity }: { cartItems: CartItem[], u
               justifyContent: 'center',
               cursor: 'pointer',
             }}
-            size="icon" variant="ghost" onClick={() => updateQuantity(item.id, -1)} className="rounded-full w-6 h-6 p-0">
+            size="default" variant="btnGreen" onClick={() => updateQuantity(item.id, -1)} className="rounded-full w-6 h-6 p-0">
               <Minus className="h-4 w-4" />
             </Button>
               <span className="mx-2">{item.quantity}</span>
@@ -77,7 +77,7 @@ function CartComponent({ cartItems, updateQuantity }: { cartItems: CartItem[], u
                 justifyContent: 'center',
                 cursor: 'pointer',
               }}
-              size="icon" variant="ghost" onClick={() => updateQuantity(item.id, 1)} className="w-6 h-6 p-0">
+              size="default" variant="btnGreen" onClick={() => updateQuantity(item.id, 1)} className="w-6 h-6 p-0">
               <Plus className="h-4 w-4" />
             </Button>
             </div>
@@ -161,12 +161,16 @@ export default function Component() {
               {types.map((tipo) => (
                 <Button 
                 key={tipo} 
-                variant="outline" 
+                variant={null}
                 style={{
                   backgroundColor: selectedType === tipo ? "#FEF3C7" : "#FFFBEB",
                   borderColor: "#FEF3C7",
-                  color: "#000000",
-                  transition: "background-color 0.3s",
+                  padding: '0.5rem 1rem',
+                  borderRadius: '0.25rem',
+                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  transition: 'background-color 0.2s',
                 }}
                 onClick={() => setSelectedType(selectedType === tipo ? null : tipo)}
                 onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#FEF3C7"}

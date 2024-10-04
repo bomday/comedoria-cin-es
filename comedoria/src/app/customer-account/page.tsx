@@ -13,7 +13,7 @@ export default function UserAccount() {
             <AvatarImage src="/placeholder.svg" alt="Fulano Ciclano"/>
             <AvatarFallback>FC</AvatarFallback>
           </Avatar>
-          <Button variant="ghost"
+          <Button variant={null}
           className="absolute bottom-0 right-0 bg-transparent p-2 ">
           <CirclePlus style={{color:'black'}}/>
             </Button>

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import Image from 'next/image'
-import logozinho from '../../../public/assets/logo_icon.png'
+import logozinho from '../../app/assets/images/logo_icon.png'
 import { ArrowRight } from 'lucide-react'
 
 export default function NavbarLogged() {
