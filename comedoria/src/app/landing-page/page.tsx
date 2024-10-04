@@ -1,9 +1,10 @@
-import Image from 'next/image';
-import { Button } from "@/components/ui/button";
-import { UserPlus, CalendarPlus, MapPin, CreditCard, Package, Instagram, Facebook, Linkedin } from 'lucide-react';
-import CoxinhaImage from '../../../public/assets/coxinha_home_page.png';
-import Navbar from '@/components/ui/Navbar';
-import "../globals.css";
+import Image from 'next/image'
+import { Button } from "@/components/ui/button"
+import { UserPlus, CalendarPlus, MapPin, CreditCard, Package, Instagram, Facebook, Linkedin } from 'lucide-react'
+import CoxinhaImage from '../../../public/assets/coxinha_home_page.png'
+import Navbar from '@/components/ui/Navbar'
+import Footer from '@/components/ui/footer'
+import ".././globals.css";
 
 export default function LandingPage() {
   return (
@@ -137,6 +138,7 @@ export default function LandingPage() {
           </div>
         </div>
       </footer>
+      <Footer />
     </>
   )
 }
