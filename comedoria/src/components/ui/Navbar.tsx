@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button"
 import Image from 'next/image'
 import logozinhoImage from '../../../public/assets/logo_icon.png'
+import Image from 'next/image'
+import logozinhoImage from '../../../public/assets/logo_icon.png'
 
 export default function Navbar() {
   return (
