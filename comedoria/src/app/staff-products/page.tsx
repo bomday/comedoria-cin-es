@@ -1,9 +1,10 @@
-"use client"; // This line makes the component a Client Component
+"use client"
+
 import { useState } from 'react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
-import Image from 'next/image'; // Certifique-se de importar o Image corretamente
+import Image from 'next/image'
 import ProdutosImage from '../../../public/assets/produtos.png';
 
 interface Product {
@@ -44,7 +45,7 @@ export default function InventoryManagement() {
           <Input
             type="search"
             placeholder="Buscar"
-            className="pl-10 pr-4 py-2 w-full border-none bg-transparent focus:outline-none" // Ajuste aqui
+            className="pl-10 pr-4 py-2 w-full border-none bg-transparent focus:outline-none"
             style={{ borderRadius: '9999px' }}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
