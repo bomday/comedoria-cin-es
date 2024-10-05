@@ -39,7 +39,7 @@ export default function NavbarStaff() {
             Vendas
           </Button>
         </Link>
-        <Link href="/staff-login">
+        <Link href="/landing-page">
           <Button size="sm" className="bg-[#FF6B6B] hover:bg-[#FF4D4D]">
             Sair
             <LogOut className="ml-2 h-4 w-4" />
