@@ -8,19 +8,22 @@ export default function Navbar() {
 
   return (
     <nav className="flex justify-between items-center p-4 w-full bg-background fixed top-0 left-0 z-50">
-      <div className="flex items-center justify-start">
+      <div className="flex items-center space-x-2">
+      <Link href="/landing-page">
         <Image
           src={Logo}
           alt={"Logo"}
           className="w-36 h-auto ml-12"
         />
-      <Link href="/landing-page">
-        <div className="text-[#000000] text-3xl font-bold">Comedoria</div>
       </Link>
       </div>
       <div> 
-        <Button size="lg" variant="btnGreen" className="mr-2 rubik-600">Área do Cliente →</Button>
-        <Button size="lg" variant="btnWine" className="mr-12 rubik-600">Área do Funcionário →</Button>
+        <Link href="/customer-login">
+          <Button size="lg" variant="btnGreen" className="mr-2 rubik-600">Área do Cliente →</Button>
+        </Link>
+        <Link href="/staff-login">
+          <Button size="lg" variant="btnWine" className="mr-12 rubik-600">Área do Funcionário →</Button>
+        </Link>
       </div>
     </nav>
   )

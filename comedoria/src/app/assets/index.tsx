@@ -4,6 +4,7 @@ import CoxinhaBackground from './images/coxinhaBanner.png'
 import Student from './images/student.png'
 import PriceBanner from './images/priceBanner.svg'
 import WhatsappBanner from './images/whatsappBanner.png'
+import Products from './images/produtos.png'
 
 export { 
     Logo, 
@@ -11,5 +12,6 @@ export {
     CoxinhaBackground, 
     Student, 
     PriceBanner,
-    WhatsappBanner
+    WhatsappBanner,
+    Products
 };
