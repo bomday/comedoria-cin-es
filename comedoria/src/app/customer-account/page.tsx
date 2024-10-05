@@ -35,7 +35,7 @@ export default function UserAccount() {
           </div>
         </div>
 
-        <Button className="w-full bg-destructive hover:bg-destructive/90 text-white py-3 h-16">
+        <Button className="w-full bg-destructive hover:bg-destructive/90 text-white py-3 h-16" style={{color:'white'}}>
           Excluir conta
         </Button>
       </div>

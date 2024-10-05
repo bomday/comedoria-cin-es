@@ -9,11 +9,11 @@ export default function Navbar() {
   const router = useRouter();
 
   const handleClientClick = () => {
-    router.push('/customer-login'); // Substitua pela rota desejada
+    router.push('/customer-login'); 
   };
 
   const handleEmployeeClick = () => {
-    router.push('/staff-login'); // Substitua pela rota desejada
+    router.push('/staff-login');
   };
 
   return (
