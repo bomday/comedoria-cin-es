@@ -78,7 +78,7 @@ export default function InventoryReposition() {
     <div className="container mx-auto max-w-auto flex flex-col items-center justify-center px-4">
       <div className="flex justify-between items-center mt-4 mb-4 w-full max-w-7xl">
         <h1 className="text-3xl font-bold text-[#8B4513]">Repor Estoque</h1>
-        <Button onClick={() => router.push('/staff-products')} variant="ghost" className="text-[#000000]">
+        <Button onClick={() => router.push('/staff-products')} className="text-[#000000]">
           <ArrowLeft className="mr-2 h-8 w-8" />
         </Button>
       </div>
@@ -107,9 +107,8 @@ export default function InventoryReposition() {
                   <p>Sabores: {product.flavors}</p>
                 </div>
               </div>
-              <Button 
-                variant="outline" 
-                size="icon"
+              <Button
+                size="sm"
                 className="h-[57.61px] w-[57.61px] bg-[#AED970] hover:bg-[#98C256] text-[#FFFFFF] mr-4 rounded-lg"
                 onClick={() => handleProductSelect(product)}>
                 <Plus className="h-8 w-8" />
@@ -130,18 +129,16 @@ export default function InventoryReposition() {
                   <p className="text-xs text-gray-600">Details</p>
                 </div>
                 <div className="flex items-center ml-auto">
-                  <Button 
-                    variant="outline" 
-                    size="icon"
+                  <Button
+                    size="sm"
                     className="h-8 w-8 bg-[#F9F9DF] hover:bg-[#E0E0B0] border-[#8B4513]" 
                     onClick={() => handleQuantityChange(product.id, -1)}
                   >
                     <Minus className="h-4 w-4 text-[#8B4513]" />
                   </Button>
                   <span className="w-6 text-center font-bold">{product.quantity}</span>
-                  <Button 
-                    variant="outline" 
-                    size="icon"
+                  <Button
+                    size="sm"
                     className="h-8 w-8 bg-[#F9F9DF] hover:bg-[#E0E0B0] border-[#8B4513]"
                     onClick={() => handleQuantityChange(product.id, 1)}
                   >

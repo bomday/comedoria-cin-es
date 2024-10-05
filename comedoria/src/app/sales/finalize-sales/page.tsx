@@ -62,7 +62,7 @@ export default function FinalizeSales() {
       <div className="mx-[70px] max-w-[calc(100%-140px)] mb-[32px]">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-4xl font-bold text-[#F2BF5E]">Finalize sua venda</h1>
-          <Button onClick={() => router.push('/sales')} variant="ghost" className="text-[#000000]">
+          <Button onClick={() => router.push('/sales')} className="text-[#000000]">
             <ArrowLeft className="mr-2 h-8 w-8" />
           </Button>
         </div>
