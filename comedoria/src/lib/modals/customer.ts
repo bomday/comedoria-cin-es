@@ -17,6 +17,7 @@ const CustomerSchema = new Schema (
         }
     },
     {
+        // Registra data de criação e atualização para gerenciamento
         timestamps: true
     }
 );

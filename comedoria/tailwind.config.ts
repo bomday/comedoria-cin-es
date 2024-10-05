@@ -98,6 +98,7 @@ const config: Config = {
       fontSize: {
         'lg-title': '6rem',
         'lg-mdtitle': '4rem',
+        'lg-smtitle': '3rem',
         'lg-subtitle': '2.5rem',
         'lg-text': '1.4rem',
         'lg-mdtext': '1rem',

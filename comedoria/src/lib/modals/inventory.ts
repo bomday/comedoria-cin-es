@@ -2,7 +2,7 @@ import { Schema, model, models } from "mongoose";
 
 const InventorySchema = new Schema (
     {
-        name: {
+        product_name: {
             type: String, 
             required: true, 
             unique: true
@@ -16,18 +16,14 @@ const InventorySchema = new Schema (
             type: Number,
             required: true
         },
-        flavor: {
-            type: [
-                {
-                    type: String,
-                    enum: ["chicken", "catupiry", "cheese", "meat", "vegetarian"], // Limita as opções permitidas
-                    required: true
-                }
-            ],
-            default: [] // Array vazio por padrão
+        // Adiciona o campo para armazenar o link da imagem do produto
+        image_url: {
+            type: String, // URL da imagem do produto
+            default: ""
         }
     },
     {
+        // Registra data de criação e atualização para gerenciamento
         timestamps: true
     }
 );

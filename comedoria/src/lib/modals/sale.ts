@@ -1,27 +1,42 @@
-import { Schema, Types, model, models } from "mongoose";
+import { Schema, model, models } from "mongoose";
 
 const SaleSchema = new Schema (
-    {
-        _id: {
-            type: Schema.Types.ObjectId, // O ID da Sale será o mesmo da Reservation
-            ref: 'Reservation', // Refere-se à coleção Reservation
-            required: true
-        },
-        quantity_products_sold: {
-            type: Number,
-            required: true
-        },
+    {   
+        // Recebe vendedor responsável
         seller: {
-            type: String, 
+            type: Schema.Types.ObjectId, // Referência ao modelo Seller
+            ref: 'Seller', // Relaciona com o Seller
             required: true
         },
-        shift: {
+        // O pedido pode conter mais de um mesmo salgado ou de salgados diferentes 
+        order: [
+            {
+                product_name: {
+                    type: String,
+                    required: true
+                },
+                quantity_products: {
+                    type: Number,
+                    required: true
+                }
+            }
+        ],
+        reservation_id: {
             type: String,
-            enum: ["morning", "afternoon", "night"],
-            default: "morning"
+            default: ""
+        },
+        discount: {
+            type: Boolean,
+            default: false
+        },
+        payment: {
+            type: String,
+            enum: ['cash', 'credit_card', 'debit_card', 'pix'],
+            required: true
         }
     },
     {
+        // Registra data de criação e atualização para gerenciamento
         timestamps: true
     }
 );

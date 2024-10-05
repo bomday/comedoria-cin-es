@@ -1,5 +1,15 @@
 import Logo from './images/logo.svg'
-import CoxinhaBackground from './images/coxinha_home_page.png'
+import WhiteLogo from './images/whiteLogo.svg'
+import CoxinhaBackground from './images/coxinhaBanner.png'
 import Student from './images/student.png'
+import PriceBanner from './images/priceBanner.svg'
+import WhatsappBanner from './images/whatsappBanner.png'
 
-export { Logo, CoxinhaBackground, Student };
+export { 
+    Logo, 
+    WhiteLogo,
+    CoxinhaBackground, 
+    Student, 
+    PriceBanner,
+    WhatsappBanner
+};

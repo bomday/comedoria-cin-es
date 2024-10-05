@@ -7,13 +7,17 @@
     /* Cores principais */
     --main-wine: 351 57% 37%;
     --main-brown: 27 99% 31%;
-    --main-darkgreen: 63 66% 17%;
+    --main-darkgreen: hsl(63 66% 17%);
     --main-yellow: 39 85% 66%;
     --main-beige: 60 68% 93%;
+    --brown-button: 155, 71, 1, 1;
+    --light-yellow: 242, 191, 94;
 
     /*Cores Hover*/
     --wine-hover: 351 80% 20%;
     --darkgreen-hover: 63 66% 10%;
+    --brown-hover: 170, 85, 15;
+    --yellow-hover: hsl(39, 85%, 60%); 
 
     /* Cores de Alertas */
     --lightgreen: 84 75% 44% 0.63;
@@ -89,42 +93,42 @@
 
 /* Fontes e tamanhos dos textos*/
 @layer utilities {
-  .rubik-title {
+  .rubik-700 {
     font-family: var(--font-rubik);
     font-optical-sizing: auto;
     font-weight: 700;
     font-style: normal;
   }
 
-  .rubik-subtitle {
+  .rubik-600 {
     font-family: var(--font-rubik);
     font-optical-sizing: auto;
     font-weight: 600;
     font-style: normal;
   }
 
-  .rubik-text {
+  .rubik-400 {
     font-family: var(--font-rubik);
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
   }
 
-  .advent-pro-title {
+  .advent-pro-700 {
     font-family: var(--font-advent);
     font-optical-sizing: auto;
     font-weight: 700;
     font-style: normal;
   }
 
-  .advent-pro-subtitle {
+  .advent-pro-600 {
     font-family: var(--font-advent);
     font-optical-sizing: auto;
     font-weight: 600;
     font-style: normal;
   }
 
-  .advent-pro-text {
+  .advent-pro-400 {
     font-family: var(--font-advent);
     font-optical-sizing: auto;
     font-weight: 400;
@@ -137,3 +141,4 @@
   flex-direction: column; /* Coloca os botões um embaixo do outro */
   gap: 16px; /* Espaçamento entre os botões */
 }
+

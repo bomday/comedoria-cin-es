@@ -1,31 +1,51 @@
-import { Button } from "@/components/ui/button"
-import Image from 'next/image'
-import logozinho from '../../app/assets/images/logo_icon.png'
-import { ArrowRight } from 'lucide-react'
+import { LogOut } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {Logo} from '../../app/assets';
+import Image from "next/image";
+import Link from 'next/link';
 
-export default function NavbarLogged() {
-  
+export default function NavbarStaff() {
+
   return (
-    <nav className="flex justify-between items-center px-4 py-2 bg-white w-full border-b border-gray-200">
-      <div className="flex items-center">
-        <Image
-          src={logozinho}
-          alt="Comedoria Logo"
-          width={40} 
-          height={40} 
-          style={{ objectFit: 'cover' }}
-          className="h-10 w-auto mr-2"
-        />
-        <div className="text-black text-2xl font-semibold">Comedoria</div>
-      </div>
-      <div className="flex items-center space-x-4">
-        <Button variant="ghost" className="text-gray-600 hover:text-black">Salgados</Button>
-        <Button variant="ghost" className="text-gray-600 hover:text-black">Suas Reservas</Button>
-        <Button variant="ghost" className="text-gray-600 hover:text-black">Sua Conta</Button>
-        <Button variant="destructive" className="text-[#FF6B6B] hover-red-600 text-[#FFFFFF]">
-          Sair <ArrowRight className="ml-2 h-4 w-4" />
-        </Button>
+    <nav className="flex justify-between items-center p-4 w-full bg-background fixed top-0 left-0 z-50">
+        <div className="flex items-center space-x-2">
+          <Link href="/landing-page">
+            <Image
+              src={Logo}
+              alt={"Logo"}
+              className="w-36 h-auto ml-12"
+            />
+          </Link>
+        </div>
+      <div className="flex items-center rubik-600 justify-end space-x-4">
+        <Link href="/products">
+          <Button
+            size='md'
+            variant='btnSocialMedia'>
+            Salgados
+          </Button>
+        </Link>
+        <Link href="/customer-reservations">
+          <Button
+            size='md'
+            variant='btnSocialMedia'>
+            Suas Reservas
+          </Button>
+        </Link>
+        <Link href="/customer-account">
+          <Button
+            size='md'
+            variant='btnSocialMedia'>
+            Sua Conta
+          </Button>
+        </Link>
+        <Link href="/customer-login">
+          <Button size="sm" className="bg-[#FF6B6B] hover:bg-[#FF4D4D]">
+            Sair
+            <LogOut className="ml-2 h-4 w-4" />
+          </Button>
+        </Link>
       </div>
     </nav>
-  )
+  );
 }
