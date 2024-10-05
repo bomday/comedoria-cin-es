@@ -12,12 +12,17 @@ const buttonVariants = cva(
           "bg-wine text-beige hover:bg-wine-hover",
         btnGreen:
           "bg-darkgreen text-beige hover:bg-darkgreen-hover",
+        ghost:
+          "ghost",
+        outline:
+          "outline",
       },
       size: {
         default: "h-12 rounded-default px-20 py-2",
         sm: "h-8 rounded-sm px-3",
         md: "h-8 rounded-md px-5",
         lg: "h-8 rounded-lg px-8",
+        icon: "icon",
       },
     },
     defaultVariants: {

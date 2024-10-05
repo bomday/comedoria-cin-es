@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Minus, Plus, Image as ImageIcon } from 'lucide-react'
-import NavbarLogged from '@/components/ui/Navbar-logged'
+import NavbarLogged from '@/components/ui/navbar-logged'
 import Footer from '@/components/ui/footer'
 import PriceBanner from '@/components/ui/price-banner'
 import { Alert } from "@/components/ui/alert"

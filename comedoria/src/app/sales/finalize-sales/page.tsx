@@ -6,7 +6,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { Minus, Plus, ArrowLeft, Image as ImageIcon } from 'lucide-react'
-import Navbar from '@/components/ui/Navbar'
+import Navbar from '@/components/ui/navbar'
 import Footer from '@/components/ui/footer'
 import { Alert } from "@/components/ui/alert"
 

@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import Image from 'next/image'
 import ".././globals.css";
-import ProdutosImage from '../../../public/assets/produtos.png'
+import ProdutosImage from '../assets/images/produtos.png'
 
 interface Product {
   id: number

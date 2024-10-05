@@ -1,6 +1,7 @@
 "use client"; 
 import React, { useState, useEffect } from 'react';
 import { Check, CircleX } from 'lucide-react';
+import Link from 'next/link';
 
 interface Reservation {
   id: string;
