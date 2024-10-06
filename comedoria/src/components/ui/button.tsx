@@ -12,7 +12,7 @@ const buttonVariants = cva(
           "bg-wine text-beige hover:bg-wine-hover",
         btnGreen:
           "bg-darkgreen text-beige hover:bg-darkgreen-hover",
-        btnBrwon:
+        btnBrown:
           "bg-brown text-beige hover:bg-brown-hover",
       },
       size: {

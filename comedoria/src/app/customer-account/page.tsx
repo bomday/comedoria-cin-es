@@ -8,6 +8,7 @@ import UserInfo from './sections/userInfo/page'
 import ButtonGroup from './sections/buttonGroup/page'
 import ConfirmationModal from '@/components/ui/confirmation-modal';
 import { useState } from 'react';
+import Footer from "@/components/ui/footer";
 
 export default function UserAccount() {
   const [EditIsOpen, EditSetIsOpen] = useState(false);
@@ -25,22 +26,21 @@ export default function UserAccount() {
 
   return (
     <div className="flex flex-col h-screen bg-background text-foreground">
-    <NavbarLogged />
-    <div className="mt-16"> 
-      <PriceBanner/>
-      <h1 className="text-4xl font-bold p-4 pb-2 text-secondary">Sua conta</h1>
+      <NavbarLogged />
+      <div className="mt-16"> 
+        <PriceBanner/>
+        <h1 className="text-4xl font-bold p-4 pb-2 text-secondary">Sua conta</h1>
       </div>
 
       <div className="max-w-2xl mx-auto mt-10">
         <div className="flex items-start space-x-6 mb-6">
-        <div className="relative">
-        <Avatar className="w-48 h-48 border-2 border-border rounded-full overflow-hidden" style={{ borderRadius: '50%' }}>
-            <AvatarImage src="/placeholder.svg" alt="Fulano Ciclano"/>
-            <AvatarFallback>FC</AvatarFallback>
-          </Avatar>
-          <Button variant={null}
-          className="absolute bottom-0 right-0 bg-transparent p-2 ">
-          <CirclePlus className="text-foreground"/>
+          <div className="relative">
+            <Avatar className="w-48 h-48 border-2 border-border rounded-full overflow-hidden" style={{ borderRadius: '50%' }}>
+              <AvatarImage src="/placeholder.svg" alt="Fulano Ciclano"/>
+              <AvatarFallback>FC</AvatarFallback>
+            </Avatar>
+            <Button variant={null} className="absolute bottom-0 right-0 bg-transparent p-2 ">
+              <CirclePlus className="text-foreground"/>
             </Button>
           </div>
           <div className="flex-grow">
@@ -63,6 +63,7 @@ export default function UserAccount() {
         cancelText="Cancelar"
         description="Tem certeza de que deseja excluir sua conta?"
       />
+      <Footer />
     </div>
   );
 }
