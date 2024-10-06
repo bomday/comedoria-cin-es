@@ -52,7 +52,7 @@ export default function Navbar() {
           Vendas
         </Button>
         <Button size="sm"
-        onClick={() => handleNavigation('/landing-page')}
+        onClick={() => handleNavigation('/landing-page')} // como gerente deslogar e ir para a pagina inicial
         >
           Sair
           <LogOut className="ml-2 h-4 w-4" />

@@ -5,7 +5,7 @@ import { ArrowLeft, Search, Plus, Minus, Image as ImageIcon } from 'lucide-react
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import Image from 'next/image'
-import ProdutosImage from '../../../public/assets/produtos.png'
+import ProdutosImage from '../assets/images/produtos.png'
 import { useRouter } from 'next/navigation'
 
 interface Product {
