@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from 'react';
 import { LogOut, Menu } from "lucide-react";
@@ -7,9 +7,11 @@ import Image from "next/image";
 import { Logo } from '../../app/assets';
 import Link from 'next/link';
 import "@/app/globals.css";
+import { useAuth } from "@/context/auth"; // Importa o contexto de autenticação
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { isAuthenticated } = useAuth(); // Obtém o estado de autenticação
 
   return (
     <nav className="bg-background fixed top-0 left-0 w-full z-50">
@@ -37,9 +39,11 @@ export default function Navbar() {
 
         {/* Menu normal para telas maiores */}
         <div className="hidden md:flex items-center rubik-600 justify-end space-x-4">
-          <Link href="/management/dashboard">
-            <Button size='md' variant='btnSocialMedia'>Gerenciamento</Button>
-          </Link>
+          {isAuthenticated && ( // Verifica se o usuário está autenticado
+            <Link href="/management/dashboard">
+              <Button size='md' variant='btnSocialMedia'>Gerenciamento</Button>
+            </Link>
+          )}
           <Link href="/staff-products">
             <Button size='md' variant='btnSocialMedia'>Estoque</Button>
           </Link>
@@ -61,9 +65,11 @@ export default function Navbar() {
       {/* Menu suspenso para telas pequenas */}
       {isOpen && (
         <div className="md:hidden flex flex-col space-y-2 p-4">
-          <Link href="/management/dashboard">
-            <Button size='md' variant='btnSocialMedia' onClick={() => setIsOpen(false)}>Gerenciamento</Button>
-          </Link>
+          {isAuthenticated && ( // Verifica se o usuário está autenticado
+            <Link href="/management/dashboard">
+              <Button size='md' variant='btnSocialMedia' onClick={() => setIsOpen(false)}>Gerenciamento</Button>
+            </Link>
+          )}
           <Link href="/staff-products">
             <Button size='md' variant='btnSocialMedia' onClick={() => setIsOpen(false)}>Estoque</Button>
           </Link>

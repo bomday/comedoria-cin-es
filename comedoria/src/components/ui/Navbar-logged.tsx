@@ -37,13 +37,13 @@ export default function Navbar() {
 
         {/* Menu normal para telas maiores */}
         <div className="hidden md:flex items-center rubik-600 justify-end space-x-4">
-          <Link href="/staff-products"> 
+          <Link href="/products"> 
             <Button size="md" variant="btnSocialMedia">Salgados</Button>
           </Link>
-          <Link href="/staff-reservations"> 
+          <Link href="/customer-reservations"> 
             <Button size="md" variant="btnSocialMedia">Suas Reservas</Button>
           </Link>
-          <Link href="/sales/sales-history"> 
+          <Link href="/customer-account"> 
             <Button size="md" variant="btnSocialMedia">Sua Conta</Button>
           </Link>
           <Link href="/landing-page"> 
@@ -58,13 +58,13 @@ export default function Navbar() {
       {/* Menu suspenso para telas pequenas */}
       {isOpen && (
         <div className="md:hidden flex flex-col space-y-2 p-4">
-          <Link href="/staff-products">
+          <Link href="/products">
             <Button size="md" variant="btnSocialMedia" onClick={() => setIsOpen(false)}>Salgados</Button>
           </Link>
-          <Link href="/staff-reservations"> 
+          <Link href="/customer-reservations"> 
             <Button size="md" variant="btnSocialMedia" onClick={() => setIsOpen(false)}>Suas Reservas</Button>
           </Link>
-          <Link href="/sales/sales-history"> 
+          <Link href="/customer-account"> 
             <Button size="md" variant="btnSocialMedia" onClick={() => setIsOpen(false)}>Sua Conta</Button>
           </Link>
           <Link href="/landing-page"> 
