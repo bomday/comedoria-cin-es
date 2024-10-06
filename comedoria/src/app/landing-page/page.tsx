@@ -4,6 +4,7 @@ import Footer from '@/components/ui/footer'
 import "@/app/globals.css"
 
 export default function LandingPage() {
+  
   return (
     <>
       <Navbar/>

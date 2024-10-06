@@ -2,6 +2,7 @@ import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
+
 const alertVariants = cva(
   "relative w-[860px] h-[48px] mx-auto rounded-lg p-4 flex items-center justify-center [&>svg~*]:pl-7 [&>svg+*]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-1/2 [&>svg]:-translate-y-1/2 [&>svg]:text-foreground",
   {
@@ -36,6 +37,8 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
           role="alert"
           className={cn(
             alertVariants({ variant }),
+            "bg-[#AED970] pointer-events-auto shadow-md overflow-hidden",
+            className
           )}
           {...props}
         >
