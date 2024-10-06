@@ -96,7 +96,7 @@ export default function ManagementDashboard() {
   return (
     <>
       <Navbar />
-      <div className="flex flex-col h-screen bg-gray-100 mt-16">
+      <div className="flex flex-col h-screen bg-gray-100 mt-8">
       <h1 className="text-[52px] font-bold p-4 pb-2 text-[#556B2F]">Gerenciamento</h1>
       <div className="flex flex-1">
         <Sidebar />

@@ -18,7 +18,7 @@ export default function Navbar() {
           <Link href="/landing-page">
             <Image
               src={Logo}
-              alt="Logo"
+              alt={"Logo"}
               className="w-24 h-auto md:w-36 ml-4"
             />
           </Link>
@@ -28,7 +28,7 @@ export default function Navbar() {
         <div className="md:hidden">
           <Button 
             size="sm" 
-            variant="btnSocialMedia"
+            variant='btnSocialMedia'
             onClick={() => setIsOpen(!isOpen)}
           >
             <Menu className="h-6 w-6" />
@@ -38,13 +38,13 @@ export default function Navbar() {
         {/* Menu normal para telas maiores */}
         <div className="hidden md:flex items-center rubik-600 justify-end space-x-4">
           <Link href="/staff-products"> 
-            <Button size="md" variant="btnSocialMedia">Salgados</Button>
+            <Button size='md' variant='btnSocialMedia'>Estoque</Button>
           </Link>
           <Link href="/staff-reservations"> 
-            <Button size="md" variant="btnSocialMedia">Suas Reservas</Button>
+            <Button size='md' variant='btnSocialMedia'>Reservas</Button>
           </Link>
           <Link href="/sales/sales-history"> 
-            <Button size="md" variant="btnSocialMedia">Sua Conta</Button>
+            <Button size='md' variant='btnSocialMedia'>Vendas</Button>
           </Link>
           <Link href="/landing-page"> 
             <Button size="sm" className="bg-[#FF6B6B] hover:bg-[#FF4D4D]">
@@ -59,13 +59,13 @@ export default function Navbar() {
       {isOpen && (
         <div className="md:hidden flex flex-col space-y-2 p-4">
           <Link href="/staff-products">
-            <Button size="md" variant="btnSocialMedia" onClick={() => setIsOpen(false)}>Salgados</Button>
+            <Button size='md' variant='btnSocialMedia' onClick={() => setIsOpen(false)}>Estoque</Button>
           </Link>
           <Link href="/staff-reservations"> 
-            <Button size="md" variant="btnSocialMedia" onClick={() => setIsOpen(false)}>Suas Reservas</Button>
+            <Button size='md' variant='btnSocialMedia' onClick={() => setIsOpen(false)}>Reservas</Button>
           </Link>
           <Link href="/sales/sales-history"> 
-            <Button size="md" variant="btnSocialMedia" onClick={() => setIsOpen(false)}>Sua Conta</Button>
+            <Button size='md' variant='btnSocialMedia' onClick={() => setIsOpen(false)}>Vendas</Button>
           </Link>
           <Link href="/landing-page"> 
             <Button size="sm" className="bg-[#FF6B6B] hover:bg-[#FF4D4D]" onClick={() => setIsOpen(false)}>
