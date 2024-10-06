@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import {Logo} from '../../app/assets';
 import Image from "next/image";
 import Link from 'next/link';
+import { signOut } from "next-auth/react";
 
 export default function NavbarStaff() {
 
@@ -21,30 +22,28 @@ export default function NavbarStaff() {
         <Link href="/products">
           <Button
             size='md'
-            variant='btnSocialMedia'>
+            variant='btnNav'>
             Salgados
           </Button>
         </Link>
         <Link href="/customer-reservations">
           <Button
             size='md'
-            variant='btnSocialMedia'>
+            variant='btnNav'>
             Suas Reservas
           </Button>
         </Link>
         <Link href="/customer-account">
           <Button
             size='md'
-            variant='btnSocialMedia'>
+            variant='btnNav'>
             Sua Conta
           </Button>
         </Link>
-        <Link href="/landing-page">
-          <Button size="sm" className="bg-[#FF6B6B] hover:bg-[#FF4D4D]">
-            Sair
-            <LogOut className="ml-2 h-4 w-4" />
-          </Button>
-        </Link>
+        <Button size="sm" className="bg-[#FF6B6B] hover:bg-[#FF4D4D]" onClick={() => signOut({ callbackUrl: '/landing-page' })}>
+          Sair
+          <LogOut className="ml-2 h-4 w-4" />
+        </Button>
       </div>
     </nav>
   );

@@ -44,17 +44,21 @@ export const GET = async (request: Request) => {
 export const POST = async (request: Request) => {
   try {
     const { customer, order, shift } = await request.json();
-
+    console.log(order)
     // Validação dos campos obrigatórios
     if (!customer || !order || !shift) {
       return new NextResponse('All fields (customer, order, shift) are required', { status: 400 });
     }
 
     await connect();
-
+    console.log("CONECTOU")
+    console.log(order)
+    
     // Criar uma nova reserva
     const newReservation = new Reservation({ customer, order, shift });
+    console.log('Reservation Data:', JSON.stringify(newReservation));
     await newReservation.save();
+    console.log("SALVOU")
     return new NextResponse(JSON.stringify(newReservation), { status: 201 });
   } catch (error: any) {
     return new NextResponse(error.message, { status: 500 });

@@ -8,6 +8,9 @@ import {CartComponent} from './sections/CartComponent/cartComponent';
 import {ProductGrid} from './sections/ProductGrid/page';
 import {SearchBar} from './sections/SearchBar/page';
 import { useCart } from './sections/CartComponent/useCartHook/page'
+import { useSession } from 'next-auth/react'
+import Loading from '@/app/(errors)/loading/loading'
+import AuthenticationError from '@/app/(errors)/authentication-error/authentication-error'
 
 export interface Product {
   product_name: string,
@@ -16,31 +19,20 @@ export interface Product {
   image_url: string
 }
 
-/* export const products: Product[] = [
-  { product_name: 'Esfiha de Frango e Cheddar', stock: 10, price: 4.00, image_url: '' },
-  { product_name: 'Esfiha de Frango e Catupiry', stock: 8, price: 4.00, image_url: "" },
-  { product_name: 'Esfiha de Frango e Calabresa', stock: 5, price: 4.00, image_url: "" },
-  { product_name: 'Esfiha de Queijo', stock: 0, price: 4.00, image_url: "" },
-  { product_name: 'Esfiha de Carne', stock: 15, price: 4.00, image_url: "" },
-  { product_name: 'Esfiha de Calabresa', stock: 12, price: 4.00, image_url: "" },
-  { product_name: 'Esfiha de Frango', stock: 7, price: 4.00, image_url: "" },
-  { product_name: 'Esfiha de Chocolate', stock: 20, price: 4.00, image_url: "" }
-]; */
-
 export default function FecharVenda() {
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(products)
   const [searchTerm, setSearchTerm] = useState<string>('')
   const router = useRouter()
   const { cartItems, addToCart, updateQuantity, calculateTotal } = useCart()
+  const { data: session, status } = useSession();
 
   useEffect(() => {
     // Função para buscar produtos da API
     const fetchProducts = async () => {
       try {
-        console.log("CHMANDO API")
         const response = await fetch('/api/inventory'); // Ajuste a URL para corresponder ao seu endpoint
-        console.log("RESPOSTA " + response)
+
         if (!response.ok) {
           throw new Error('Falha ao buscar produtos');
         }
@@ -54,6 +46,17 @@ export default function FecharVenda() {
 
     fetchProducts();
   }, []);
+  
+  if (status === "loading") {
+    return <Loading/>
+  }
+
+  if (status === "unauthenticated") {
+    return <AuthenticationError/>
+  }
+
+  // Só tenta acessar o usuário quando a sessão estiver autenticada
+  const user = session?.user
 
   const handleSearchTermChange = (term: string) => {
     setSearchTerm(term)

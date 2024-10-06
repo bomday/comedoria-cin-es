@@ -14,6 +14,8 @@ const buttonVariants = cva(
           "bg-darkgreen text-beige hover:bg-darkgreen-hover",
         btnBrown:
           "bg-brown text-beige hover:bg-brown-hover",
+        btnNav:
+          "text-foreground hover:pb-1 hover:rounded hover:shadow-md",
       },
       size: {
         default: "h-12 rounded-default px-20 py-2",
