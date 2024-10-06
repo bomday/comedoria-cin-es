@@ -1,6 +1,6 @@
 'use client'
 
-import Navbar from '@/components/ui/navbar'
+import Navbar from '@/components/ui/Navbar-manager'
 import { useState, useCallback } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -64,7 +64,9 @@ export default function EmployeeManagement() {
   }
 
   return (
-    <><Navbar /><div className="flex flex-col h-screen bg-gray-100">
+    <>
+    <Navbar />
+    <div className="flex flex-col h-screen bg-gray-100 mt-16">
       <h1 className="text-[52px] font-bold p-4 pb-2 text-[#556B2F]">Gerenciamento</h1>
       <div className="flex flex-1 overflow-hidden">
         <Sidebar />

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { SquarePen, SquarePlus, FileDown, BarChart2 } from 'lucide-react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
-import Navbar from '@/components/ui/navbar'
+import Navbar from '@/components/ui/Navbar-manager'
 import Footer from '@/components/ui/footer'
 import Sidebar from '@/components/ui/sidebar'
 import WeeklyViewList from "@/components/ui/weekly-view-list"
@@ -61,16 +61,15 @@ const historyItems = [
 ]
 
 export default function ManagementDashboard() {
-
   const [isModalOpen6, setIsModalOpen6] = useState(false)
   
   const handleExportPDF = () => {
-      console.log('Exporting as PDF')
-    }
+    console.log('Exporting as PDF')
+  }
   
   const handleExportCSV = () => {
-      console.log('Exporting as CSV')
-    }
+    console.log('Exporting as CSV')
+  }
 
   const [view, setView] = useState<'chart' | 'list'>('chart')
 
@@ -97,12 +96,11 @@ export default function ManagementDashboard() {
   return (
     <>
       <Navbar />
-      <div className="flex h-screen bg-gray-100 mr-[70px] ml-[70px] mt-[32px]">
-        <aside className="w-64 bg-white p-6">
-          <h1 className="text-2xl font-bold text-green-800 mb-6">Gerenciamento</h1>
-          <Sidebar />
-        </aside>
-        <main className="flex-1 overflow-auto">
+      <div className="flex flex-col h-screen bg-gray-100 mt-16">
+      <h1 className="text-[52px] font-bold p-4 pb-2 text-[#556B2F]">Gerenciamento</h1>
+      <div className="flex flex-1">
+        <Sidebar />
+        <main className="flex-1 overflow-auto p-6">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <Card className="flex flex-col">
               <CardHeader className="flex flex-row items-center">
@@ -228,19 +226,19 @@ export default function ManagementDashboard() {
             </Card>
             <div className="flex flex-col justify-center gap-y-[16px] mt-4">
               <div>
-              <Button onClick={handleOpenModal5} variant="outline" className="w-full">
-                <span className="text-center mr-2 h-4 w-4" />Gerar Sugestão de Estoque
-              </Button>
-              <AlertTableInventory
+                <Button onClick={handleOpenModal5} variant="outline" className="w-full">
+                  <span className="text-center mr-2 h-4 w-4" />Gerar Sugestão de Estoque
+                </Button>
+                <AlertTableInventory
                   isOpen={isModalOpen5}
                   onClose={handleCloseModal5}
                 />
               </div>
               <div>
-              <Button onClick={() => setIsModalOpen6(true)} variant="outline" className="w-full">
-                <span className="text-center mr-2 h-4 w-4" /> Exportar Estatísticas
-              </Button>
-              <ExportDialog
+                <Button onClick={() => setIsModalOpen6(true)} variant="outline" className="w-full">
+                  <span className="text-center mr-2 h-4 w-4" /> Exportar Estatísticas
+                </Button>
+                <ExportDialog
                   isOpen={isModalOpen6}
                   onClose={() => setIsModalOpen6(false)}
                   onExportPDF={handleExportPDF}
@@ -249,45 +247,45 @@ export default function ManagementDashboard() {
               </div>
             </div>
           </div>
-          <div className="flex flex-row items-start justify-between mt-4 mb-4">
-          <Card className="w-full max-w-3xl mx-auto">
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="text-2xl font-bold">Visão Semanal</CardTitle>
-              <div className="flex space-x-2">
-                <Button variant="ghost" size="sm" className="text-orange-600">
-                  <FileDown className="h-4 w-4 mr-2" />
-                  Gerar PDF
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-green-700"
-                  onClick={() => setView(view === 'chart' ? 'list' : 'chart')}
-                >
-                  <BarChart2 className="h-4 w-4 mr-2" />
-                  {view === 'chart' ? 'Ver lista' : 'Ver gráfico'}
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent>
-              {view === 'chart' ? (
-                <ResponsiveContainer width="100%" height={300}>
-                  <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="day" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Bar dataKey="Manhã" fill="#FFD700" />
-                    <Bar dataKey="Tarde" fill="#8B4513" />
-                  </BarChart>
-                </ResponsiveContainer>
-              ) : (
-                <WeeklyViewList data={data} />
-              )}
-            </CardContent>
-          </Card>
-          <div className="w-[425px] pl-6 space-y-4">
+          <div className="flex flex-col lg:flex-row items-start justify-between mt-4 mb-4">
+            <Card className="w-full lg:w-2/3 mb-4 lg:mb-0 lg:mr-4">
+              <CardHeader className="flex flex-row items-center justify-between">
+                <CardTitle className="text-2xl font-bold">Visão Semanal</CardTitle>
+                <div className="flex space-x-2">
+                  <Button variant="ghost" size="sm" className="text-orange-600">
+                    <FileDown className="h-4 w-4 mr-2" />
+                    Gerar PDF
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-green-700"
+                    onClick={() => setView(view === 'chart' ? 'list' : 'chart')}
+                  >
+                    <BarChart2 className="h-4 w-4 mr-2" />
+                    {view === 'chart' ? 'Ver lista' : 'Ver gráfico'}
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                {view === 'chart' ? (
+                  <ResponsiveContainer width="100%" height={300}>
+                    <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="day" />
+                      <YAxis />
+                      <Tooltip />
+                      <Legend />
+                      <Bar dataKey="Manhã" fill="#FFD700" />
+                      <Bar dataKey="Tarde" fill="#8B4513" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <WeeklyViewList data={data} />
+                )}
+              </CardContent>
+            </Card>
+            <div className="w-full lg:w-1/3 space-y-4">
               <h2 className="text-4xl font-semibold text-[#000000]">Últimas reservas</h2>
               <p className="item-start">Reservas no último turno</p>
               <div className="space-y-2">
@@ -311,6 +309,7 @@ export default function ManagementDashboard() {
         </main>
       </div>
       <Footer />
+    </div>
     </>
   )
 }
