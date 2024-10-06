@@ -4,7 +4,6 @@ import {CoxinhaBackground} from '@/app/assets/index'
 import { Button } from "@/components/ui/button"
 import { useRouter } from 'next/navigation'
 import "@/app/globals.css"
-import { useRouter } from 'next/navigation'
 
 export default function Banner() {
   const router = useRouter();
