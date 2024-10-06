@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/table";
 
 export default function SalesHistory() {
-  const salesData = [ //INSERIR HISTORICO DE VENDAS
+  const salesData = [
     { salgados: "Esfiha de Frango Cheddar + Coxinha de Frango", vendedor: "Maria Antonia", cliente: "Jose Gabriel", tipo: "Reservado", dataHora: "23/09/24 17:38", valor: "R$ 12,00" },
     { salgados: "Quibe + Pão de Queijo", vendedor: "Maria Antonia", cliente: "Ana Luiza", tipo: "Finalizado", dataHora: "24/09/24 09:15", valor: "R$ 10,00" },
     { salgados: "Esfiha de Calabresa + Pastel de Carne", vendedor: "Maria Antonia", cliente: "Carlos Eduardo", tipo: "Cancelado", dataHora: "24/09/24 11:45", valor: "R$ 15,00" },
@@ -20,48 +20,47 @@ export default function SalesHistory() {
     { salgados: "Coxinha de Frango + Pastel de Queijo", vendedor: "Maria Antonia", cliente: "Gabriela Santos", tipo: "Cancelado", dataHora: "24/09/24 17:00", valor: "R$ 9,50" },
     { salgados: "Esfiha de Calabresa + Pastel de Frango", vendedor: "Maria Antonia", cliente: "Thiago Costa", tipo: "Reservado", dataHora: "24/09/24 17:25", valor: "R$ 14,00" },
     { salgados: "Quibe + Esfiha de Queijo", vendedor: "Maria Antonia", cliente: "Rafael Martins", tipo: "Finalizado", dataHora: "24/09/24 18:05", valor: "R$ 12,50" },
-  ]
-
+  ];
 
   return (
     <section className="mt-2">
-        <div className="flex flex-col items-center inset-0 p-20 justify-start bg-black bg-opacity-40 z-10">
-            <div className="bg-black bg-opacity-40 p-8 rounded-lg w-full">
-                <h1 className="text-5xl advent-pro-700 text-[#45480F] mb-6">Vendas</h1>
-                <div className="flex flex-row gap-6 justify-between items-center mb-4">
-                    <h2 className="text-4xl advent-pro-700 text-[#000000]">Histórico</h2>
-                    <Button variant='btnGreen' className="text-beige">
-                    Gerar PDF
-                    </Button>        
-                </div>
-                <div className="overflow-hidden">
-                    <Table>
-                    <TableHeader>
-                        <TableRow>
-                        <TableHead className="border-dashed border-r p-1 text-center text-black">Salgados</TableHead>
-                        <TableHead className="border-dashed border-r p-1 text-center text-black">Vendedor</TableHead>
-                        <TableHead className="border-dashed border-r p-1 text-center text-black">Cliente</TableHead>
-                        <TableHead className="border-dashed border-r p-1 text-center text-black">Tipo</TableHead>
-                        <TableHead className="border-dashed border-r p-1 text-center text-black">Data / Hora</TableHead>
-                        <TableHead className="border-dashed p-1 text-center text-black">Valor</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {salesData.map((sale, index) => (
-                        <TableRow key={index}>
-                            <TableCell className="border-dashed border-r p-1 text-center">{sale.salgados}</TableCell>
-                            <TableCell className="border-dashed border-r p-1 text-center">{sale.vendedor}</TableCell>
-                            <TableCell className="border-dashed border-r p-1 text-center">{sale.cliente}</TableCell>
-                            <TableCell className="border-dashed border-r p-1 text-center">{sale.tipo}</TableCell>
-                            <TableCell className="border-dashed border-r p-1 text-center">{sale.dataHora}</TableCell>
-                            <TableCell className="p-1 text-center">{sale.valor}</TableCell>
-                        </TableRow >
-                        ))}
-                    </TableBody>
-                    </Table>
-                </div>
-            </div>
+      <div className="flex flex-col items-center inset-0 px-4 lg:px-20 py-6 lg:py-20 justify-start bg-black bg-opacity-40 z-10">
+        <div className="bg-black bg-opacity-40 p-6 lg:p-8 rounded-lg w-full max-w-screen-lg">
+          <h1 className="text-3xl lg:text-5xl advent-pro-700 text-[#45480F] mb-6 text-center lg:text-left">Vendas</h1>
+          <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 justify-between items-center mb-4">
+            <h2 className="text-2xl lg:text-4xl advent-pro-700 text-[#000000] text-center lg:text-left">Histórico</h2>
+            <Button variant="btnGreen" className="text-beige w-full lg:w-auto">
+              Gerar PDF
+            </Button>
+          </div>
+          <div className="overflow-x-auto">
+            <Table className="w-full">
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="border-dashed border-r p-1 text-center text-black">Salgados</TableHead>
+                  <TableHead className="border-dashed border-r p-1 text-center text-black">Vendedor</TableHead>
+                  <TableHead className="border-dashed border-r p-1 text-center text-black">Cliente</TableHead>
+                  <TableHead className="border-dashed border-r p-1 text-center text-black">Tipo</TableHead>
+                  <TableHead className="border-dashed border-r p-1 text-center text-black">Data / Hora</TableHead>
+                  <TableHead className="border-dashed p-1 text-center text-black">Valor</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {salesData.map((sale, index) => (
+                  <TableRow key={index}>
+                    <TableCell className="border-dashed border-r p-1 text-center">{sale.salgados}</TableCell>
+                    <TableCell className="border-dashed border-r p-1 text-center">{sale.vendedor}</TableCell>
+                    <TableCell className="border-dashed border-r p-1 text-center">{sale.cliente}</TableCell>
+                    <TableCell className="border-dashed border-r p-1 text-center">{sale.tipo}</TableCell>
+                    <TableCell className="border-dashed border-r p-1 text-center">{sale.dataHora}</TableCell>
+                    <TableCell className="p-1 text-center">{sale.valor}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </div>
+      </div>
     </section>
   )
 }
