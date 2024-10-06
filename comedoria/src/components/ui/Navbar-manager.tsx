@@ -28,7 +28,7 @@ export default function NavbarManager() {
         <div className="md:hidden">
           <Button 
             size="sm" 
-            variant='btnSocialMedia'
+            variant="outline"
             onClick={() => setIsOpen(!isOpen)}
           >
             <Menu className="h-6 w-6" />
@@ -38,16 +38,16 @@ export default function NavbarManager() {
         {/* Menu normal para telas maiores */}
         <div className="hidden md:flex items-center rubik-600 justify-end space-x-4">
           <Link href="/management/dashboard">
-            <Button size='md' variant='btnSocialMedia'>Gerenciamento</Button>
+            <Button size='md' variant="ghost">Gerenciamento</Button>
           </Link>
           <Link href="/staff-products">
-            <Button size='md' variant='btnSocialMedia'>Estoque</Button>
+            <Button size='md' variant="outline">Estoque</Button>
           </Link>
           <Link href="/staff-reservations">
-            <Button size='md' variant='btnSocialMedia'>Reservas</Button>
+            <Button size='md' variant="outline">Reservas</Button>
           </Link>
           <Link href="/sales">
-            <Button size='md' variant='btnSocialMedia'>Vendas</Button>
+            <Button size='md' variant="outline">Vendas</Button>
           </Link>
           <Link href="/landing-page">
             <Button size="sm" className="bg-[#FF6B6B] hover:bg-[#FF4D4D]">
@@ -62,16 +62,16 @@ export default function NavbarManager() {
       {isOpen && (
         <div className="md:hidden flex flex-col space-y-2 p-4">
           <Link href="/management/dashboard">
-            <Button size='md' variant='btnSocialMedia' onClick={() => setIsOpen(false)}>Gerenciamento</Button>
+            <Button size='md' variant="outline" onClick={() => setIsOpen(false)}>Gerenciamento</Button>
           </Link>
           <Link href="/staff-products">
-            <Button size='md' variant='btnSocialMedia' onClick={() => setIsOpen(false)}>Estoque</Button>
+            <Button size='md' variant="outline" onClick={() => setIsOpen(false)}>Estoque</Button>
           </Link>
           <Link href="/staff-reservations">
-            <Button size='md' variant='btnSocialMedia' onClick={() => setIsOpen(false)}>Reservas</Button>
+            <Button size='md' variant="outline" onClick={() => setIsOpen(false)}>Reservas</Button>
           </Link>
           <Link href="/sales">
-            <Button size='md' variant='btnSocialMedia' onClick={() => setIsOpen(false)}>Vendas</Button>
+            <Button size='md' variant="outline" onClick={() => setIsOpen(false)}>Vendas</Button>
           </Link>
           <Link href="/landing-page">
             <Button size="sm" className="bg-[#FF6B6B] hover:bg-[#FF4D4D]" onClick={() => setIsOpen(false)}>

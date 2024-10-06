@@ -22,7 +22,7 @@ export default function NavbarLogged() {
 
         {/* Botão de menu para telas pequenas */}
         <div className="md:hidden">
-          <Button size="sm" variant="btnSocialMedia" onClick={() => setIsOpen(!isOpen)}>
+          <Button size="sm" variant="ghost" onClick={() => setIsOpen(!isOpen)}>
             <Menu className="h-6 w-6" />
           </Button>
         </div>
@@ -30,17 +30,17 @@ export default function NavbarLogged() {
         {/* Menu normal para telas maiores */}
         <div className="hidden md:flex items-center rubik-600 justify-end space-x-4">
           <Link href="/products">
-            <Button size="md" variant="btnSocialMedia">
+            <Button size="md" variant="ghost">
               Salgados
             </Button>
           </Link>
           <Link href="/customer-reservations">
-            <Button size="md" variant="btnSocialMedia">
+            <Button size="md" variant="ghost">
               Suas Reservas
             </Button>
           </Link>
           <Link href="/customer-account">
-            <Button size="md" variant="btnSocialMedia">
+            <Button size="md" variant="ghost">
               Sua Conta
             </Button>
           </Link>
@@ -57,17 +57,17 @@ export default function NavbarLogged() {
       {isOpen && (
         <div className="md:hidden flex flex-col space-y-2 p-4">
           <Link href="/products">
-            <Button size="md" variant="btnSocialMedia" onClick={() => setIsOpen(false)}>
+            <Button size="md" variant="ghost" onClick={() => setIsOpen(false)}>
               Salgados
             </Button>
           </Link>
           <Link href="/customer-reservations">
-            <Button size="md" variant="btnSocialMedia" onClick={() => setIsOpen(false)}>
+            <Button size="md" variant="ghost" onClick={() => setIsOpen(false)}>
               Suas Reservas
             </Button>
           </Link>
           <Link href="/customer-account">
-            <Button size="md" variant="btnSocialMedia" onClick={() => setIsOpen(false)}>
+            <Button size="md" variant="ghost" onClick={() => setIsOpen(false)}>
               Sua Conta
             </Button>
           </Link>
