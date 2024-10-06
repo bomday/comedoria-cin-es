@@ -1,7 +1,7 @@
 import React from 'react';
-import SearchBar from '@/app/staff-clients/SearchBar';
-import NavigationMenu from '@/app/staff-clients/NavigationMenu';
-import CustomerList from '@/app/staff-clients/CustomerList';
+import SearchBar from '@/app/management/customers/search-bar/page';
+import Sidebar from '@/components/ui/sidebar'
+import CustomerList from '@/app/management/customers/customer-list/page';
 
 const ClientManagementPage: React.FC = () => {
   return (
@@ -11,7 +11,7 @@ const ClientManagementPage: React.FC = () => {
           Gerenciamento
         </h1>
         <div className="flex overflow-hidden flex-wrap gap-8 items-start mt-4 w-full max-md:max-w-full">
-          <NavigationMenu />
+          <Sidebar />
           <div className="flex flex-col flex-1 shrink basis-4 min-w-[240px] max-md:max-w-full">
             <SearchBar />
             <CustomerList />

@@ -4,7 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
 import Image from 'next/image'; // Certifique-se de importar o Image corretamente
-import ProdutosImage from '../../../public/assets/produtos.png';
+import ProdutosImage from '../assets/images/produtos.png'
+
 
 interface Product {
   id: number

@@ -1,5 +1,6 @@
 'use client'
 
+import Navbar from '@/components/ui/navbar'
 import { useState, useCallback } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -66,7 +67,7 @@ export default function ProductManagement() {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-gray-100">
+    <><Navbar /><div className="flex flex-col h-screen bg-gray-100">
       <h1 className="text-[52px] font-bold p-4 pb-2 text-[#556B2F]">Gerenciamento</h1>
       <div className="flex flex-1 overflow-hidden">
         <Sidebar />
@@ -77,13 +78,12 @@ export default function ProductManagement() {
               <Input
                 type="search"
                 placeholder="Buscar"
-                className="pl-10 pr-4 py-2 w-full border-none bg-white focus:outline-none shadow-sm" 
-                style={{ borderRadius: '9999px', height: '64.91px', fontSize: '18px'}}
+                className="pl-10 pr-4 py-2 w-full border-none bg-white focus:outline-none shadow-sm"
+                style={{ borderRadius: '9999px', height: '64.91px', fontSize: '18px' }}
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
+                onChange={(e) => setSearchTerm(e.target.value)} />
             </div>
-            <Button 
+            <Button
               className="bg-[#90EE90] hover:bg-[#7CFC00] py-5 px-6 text-lg font-semibold"
               style={{ color: 'white', height: '64px', padding: '0 30px', fontSize: '17px' }}
               onClick={() => setIsNewProductModalOpen(true)}
@@ -96,7 +96,7 @@ export default function ProductManagement() {
             {filteredProducts.map(product => (
               <div key={product.id} className="flex items-center mb-4 bg-[#FFFFFF] border-[0.29px] border-[#9B470180] rounded-lg">
                 <div className="w-[10%] h-[80px] bg-[#F9F9DF] rounded-lg flex items-center justify-center mr-4">
-                  <ImageIcon className="w-10 h-10 text-[#FFA500]"/>
+                  <ImageIcon className="w-10 h-10 text-[#FFA500]" />
                 </div>
                 <div className="flex-grow">
                   <h2 className="font-bold">{product.name}</h2>
@@ -106,16 +106,16 @@ export default function ProductManagement() {
                   </div>
                 </div>
                 <div className="flex space-x-2 mr-4">
-                  <Button 
-                    variant="ghost" 
+                  <Button
+                    variant="ghost"
                     size="icon"
                     className="h-[57.61px] w-[57.61px] hover:bg-transparent"
                     onClick={() => setIsEditProductOpen(true)}
                   >
-                    <SquarePen className="h-6 w-6" style={{ color: '#9B4701' }}/>
+                    <SquarePen className="h-6 w-6" style={{ color: '#9B4701' }} />
                   </Button>
-                  <Button 
-                    variant="ghost" 
+                  <Button
+                    variant="ghost"
                     size="icon"
                     className="h-[57.61px] w-[57.61px] hover:bg-transparent"
                     onClick={() => setIsDeleteConfirmationOpen(true)}
@@ -129,27 +129,24 @@ export default function ProductManagement() {
         </main>
       </div>
       <NewProduct
-        isOpen={isNewProductModalOpen} 
+        isOpen={isNewProductModalOpen}
         onClose={() => setIsNewProductModalOpen(false)}
-        onSave={handleNewProduct}
-      />
+        onSave={handleNewProduct} />
       <EditProduct
-              isOpen={isEditProductOpen}
-              onClose={() => setIsEditProductOpen(false)}
-              onSave={handleProductEdit} product={null}      />
+        isOpen={isEditProductOpen}
+        onClose={() => setIsEditProductOpen(false)}
+        onSave={handleProductEdit} product={null} />
       <ConfirmationModal
         isOpen={isDeleteConfirmationOpen}
         onClose={() => setIsDeleteConfirmationOpen(false)}
         onConfirm={handleProductExclusion}
         title="Você tem certeza que deseja excluir este produto?"
         confirmText="Sim, quero excluir"
-        cancelText="Não, não quero"
-      />
+        cancelText="Não, não quero" />
       <Alert
         message={alertState.message}
         isVisible={alertState.isVisible}
-        onClose={hideAlert}
-      />
-    </div>
+        onClose={hideAlert} />
+    </div></>
   )
 }

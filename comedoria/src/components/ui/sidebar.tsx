@@ -14,7 +14,7 @@ export default function Sidebar() {
   const buttons = [
     { name: 'Estatísticas', icon: BarChart2, path: 'dashboard' },
     { name: 'Funcionários', icon: Users, path: 'staff' },
-    { name: 'Produtos', icon: ShoppingBag, path: 'products' },
+    { name: 'Produtos', icon: ShoppingBag, path:'products' },
     { name: 'Clientes', icon: ClientsIcon, path: 'customers' },
   ];
 

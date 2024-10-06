@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { SquarePen, SquarePlus, FileDown, BarChart2 } from 'lucide-react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
-import Navbar from '@/components/ui/navbar-logged'
+import Navbar from '@/components/ui/navbar'
 import Footer from '@/components/ui/footer'
 import Sidebar from '@/components/ui/sidebar'
 import WeeklyViewList from "@/components/ui/weekly-view-list"

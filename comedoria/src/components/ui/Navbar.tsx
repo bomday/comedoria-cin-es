@@ -33,7 +33,7 @@ export default function Navbar() {
         <Button
           size='md'
           className="text-sm font-medium bg-[#FFFFFF] hover:bg-[#F0F0F0] text-gray-700 hover:text-gray-900"
-          onClick={() => handleNavigation('/inventory')} // como gerente ver o estoque
+          onClick={() => handleNavigation('/staff-products')} // como gerente ver o estoque
         >
           Estoque
         </Button>

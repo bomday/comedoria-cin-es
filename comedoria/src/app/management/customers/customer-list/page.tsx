@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomerItem from '@/app/staff-clients/CustomerItem'
+import CustomerItem from '@/app/management/customers/customer-item/page'
 
 interface Customer {
   id: number;
