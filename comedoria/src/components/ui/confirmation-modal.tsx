@@ -36,7 +36,7 @@ export default function ConfirmationModal({
           <span className="sr-only">Close</span>
         </Button>
         <DialogHeader className="pt-6 px-5">
-          <DialogTitle className="text-center text-lg font-semibold">{title}</DialogTitle>
+          <DialogTitle className="text-center text-lg advent-pro-700">{title}</DialogTitle>
           {description && (
             <DialogDescription className="text-center">
               {description}
@@ -46,7 +46,7 @@ export default function ConfirmationModal({
         <div className="flex flex-col sm:flex-row gap-2 p-6">
           <Button
             onClick={onConfirm}
-            className="flex-1 bg-[#AED970] hover:bg-[#9DC560] text-white font-semibold py-2 px-4 rounded"
+            className="flex-1 bg-[#AED970] hover:bg-[#9DC560] text-white rubik-600 py-2 px-4 rounded"
             style={{ color: 'white' }}
           >
             {confirmText}
@@ -54,7 +54,7 @@ export default function ConfirmationModal({
           <Button
             onClick={onClose}
             style={{ color: 'white' }}
-            className="flex-1 bg-[#FF6B6B] hover:bg-[#E55A5A] text-white font-semibold py-2 px-4 rounded"
+            className="flex-1 bg-[#FF6B6B] hover:bg-[#E55A5A] text-white rubik-600 py-2 px-4 rounded"
           >
             {cancelText}
           </Button>

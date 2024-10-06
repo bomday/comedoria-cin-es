@@ -1,4 +1,4 @@
-import Navbar from '@/components/ui/Navbar'
+import Navbar from '@/components/ui/Navbar-manager'
 import Footer from '@/components/ui/footer'
 import Forms from './sections/forms/forms'
 import "@/app/globals.css"
