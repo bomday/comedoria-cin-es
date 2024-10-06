@@ -8,7 +8,7 @@ interface SearchBarProps {
 }
 
 export const SearchBar: React.FC<SearchBarProps> = ({ searchTerm, setSearchTerm }) => (
-  <div className="relative flex justify-between mb-4">
+  <div className="rubik-400 relative flex justify-between mb-4">
     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
     <Input 
       type="text" 

@@ -5,12 +5,11 @@ import { Button } from "@/components/ui/button";
 import ProdutosImage from '../../../assets/images/produtos.png';
 
 export interface Product {
-    id: number;
-    name: string;
-    quantity: number;
-    price: number;
-    available: number;
-  }
+  product_name: string,
+  stock: number,
+  price: number,
+  image_url: string
+}
 
 interface ProductGridProps {
   products: Product[];
@@ -18,30 +17,30 @@ interface ProductGridProps {
 }
 
 export const ProductGrid: React.FC<ProductGridProps> = ({ products, addToCart }) => (
-  <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+  <div className="rubik-400 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
     {products.map((product) => (
-      <div key={product.id} className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+      <div key={product.product_name} className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
         <div className="relative w-full" style={{ paddingTop: '100%' }}>
           <Image
-            src={ProdutosImage}
-            alt={product.name}
+            src={product.image_url || ProdutosImage}
+            alt={product.product_name}
             layout="fill"
             objectFit="cover"
-            className={product.available === 0 ? 'grayscale' : ''}
+            className={product.stock === 0 ? 'grayscale' : ''}
           />
-          <div className="absolute top-2 right-2 text-xs text-gray-500 bg-white bg-opacity-75 px-2 py-1 rounded">
-            {product.available === 0 ? 'Indisponível' : `Disponível: ${product.available}`}
+          <div className="rubik-600 absolute rounded-lg top-4 right-4 text-xs text-foreground bg-background bg-opacity-75 px-2 py-1">
+            {product.stock === 0 ? 'Indisponível' : `Disponível: ${product.stock}`}
           </div>
         </div>
         <div className="p-4 flex-1 flex flex-col justify-between">
-          <h3 className="font-semibold text-base mb-2">{product.name}</h3>
+          <h3 className="text-base mb-2">{product.product_name}</h3>
           <div className="flex justify-between items-center">
             <span className="text-base font-bold">R${product.price.toFixed(2)}</span>
             <Button 
               variant="outline"
               size="icon"
               className="h-8 w-8 bg-[#AED970] hover:bg-[#98C256] text-[#FFFFFF] rounded-lg"
-              disabled={product.available === 0}
+              disabled={product.stock === 0}
               onClick={() => addToCart(product)}
             >
               <Plus className="h-5 w-5" />

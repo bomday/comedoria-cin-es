@@ -2,11 +2,10 @@
 import { useState } from 'react';
 
 export interface Product {
-  id: number;
-  name: string;
-  quantity: number;
-  price: number;
-  available: number;
+  product_name: string,
+  stock: number,
+  price: number,
+  image_url: string
 }
 
 export interface CartItem extends Product {
@@ -18,10 +17,10 @@ export const useCart = () => {
 
   const addToCart = (product: Product) => {
     setCartItems(prevItems => {
-      const existingItem = prevItems.find(item => item.id === product.id);
+      const existingItem = prevItems.find(item => item.product_name === product.product_name);
       if (existingItem) {
         return prevItems.map(item =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+          item.product_name === product.product_name ? { ...item, quantity: item.quantity + 1 } : item
         );
       } else {
         return [...prevItems, { ...product, quantity: 1 }];
@@ -29,13 +28,15 @@ export const useCart = () => {
     });
   };
 
-  const updateQuantity = (id: number, change: number) => {
+  const updateQuantity = (productName: string, change: number) => {
     setCartItems(prevItems => 
       prevItems.reduce((acc, item) => {
-        if (item.id === id) {
+        if (item.product_name === productName) {
           const newQuantity = Math.max(0, item.quantity + change);
           if (newQuantity === 0) {
             return acc;
+          } if (newQuantity >= item.stock) {
+            return acc.concat({ ...item, quantity: item.stock });
           }
           return [...acc, { ...item, quantity: newQuantity }];
         }

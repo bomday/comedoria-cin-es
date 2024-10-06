@@ -1,6 +1,5 @@
 'use client'
-
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import NavbarLogged from '@/components/ui/Navbar-logged'
 import PriceBanner from '@/components/ui/price-banner'
@@ -11,35 +10,55 @@ import {SearchBar} from './sections/SearchBar/page';
 import { useCart } from './sections/CartComponent/useCartHook/page'
 
 export interface Product {
-  id: number;
-  name: string;
-  quantity: number;
-  price: number;
-  available: number;
+  product_name: string,
+  stock: number,
+  price: number,
+  image_url: string
 }
 
-export const products: Product[] = [
-  { id: 1, name: 'Esfiha de Frango e Cheddar', quantity: 0, price: 5.50, available: 10 },
-  { id: 2, name: 'Esfiha de Frango e Catupiry', quantity: 0, price: 5.50, available: 8 },
-  { id: 3, name: 'Esfiha de Frango e Calabresa', quantity: 0, price: 6.00, available: 5 },
-  { id: 4, name: 'Esfiha de Queijo', quantity: 0, price: 5.00, available: 0 },
-  { id: 5, name: 'Esfiha de Carne', quantity: 0, price: 6.50, available: 15 },
-  { id: 6, name: 'Esfiha de Calabresa', quantity: 0, price: 5.50, available: 12 },
-  { id: 7, name: 'Esfiha de Frango', quantity: 0, price: 5.50, available: 7 },
-  { id: 8, name: 'Esfiha de Chocolate', quantity: 0, price: 6.00, available: 20 },
-  { id: 9, name: 'Esfiha de Chocolate', quantity: 0, price: 6.00, available: 20 }
-];
+/* export const products: Product[] = [
+  { product_name: 'Esfiha de Frango e Cheddar', stock: 10, price: 4.00, image_url: '' },
+  { product_name: 'Esfiha de Frango e Catupiry', stock: 8, price: 4.00, image_url: "" },
+  { product_name: 'Esfiha de Frango e Calabresa', stock: 5, price: 4.00, image_url: "" },
+  { product_name: 'Esfiha de Queijo', stock: 0, price: 4.00, image_url: "" },
+  { product_name: 'Esfiha de Carne', stock: 15, price: 4.00, image_url: "" },
+  { product_name: 'Esfiha de Calabresa', stock: 12, price: 4.00, image_url: "" },
+  { product_name: 'Esfiha de Frango', stock: 7, price: 4.00, image_url: "" },
+  { product_name: 'Esfiha de Chocolate', stock: 20, price: 4.00, image_url: "" }
+]; */
 
 export default function FecharVenda() {
+  const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(products)
   const [searchTerm, setSearchTerm] = useState<string>('')
   const router = useRouter()
   const { cartItems, addToCart, updateQuantity, calculateTotal } = useCart()
 
+  useEffect(() => {
+    // Função para buscar produtos da API
+    const fetchProducts = async () => {
+      try {
+        console.log("CHMANDO API")
+        const response = await fetch('/api/inventory'); // Ajuste a URL para corresponder ao seu endpoint
+        console.log("RESPOSTA " + response)
+        if (!response.ok) {
+          throw new Error('Falha ao buscar produtos');
+        }
+        const data = await response.json();
+        setProducts(data); // Armazena produtos retornados da API
+        setFilteredProducts(data); // Inicializa produtos filtrados
+      } catch (error) {
+        console.error('Erro ao buscar produtos:', error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
   const handleSearchTermChange = (term: string) => {
     setSearchTerm(term)
     setFilteredProducts(products.filter(product =>
-      product.name.toLowerCase().includes(term.toLowerCase())
+      product.product_name.toLowerCase().includes(term.toLowerCase())
     ))
   }
 
@@ -54,9 +73,9 @@ export default function FecharVenda() {
       <div className="mt-16"> 
         <PriceBanner/>
       </div>
-      <div className="container mx-auto max-w-auto flex flex-col items-center justify-center px-4 mt-8 mb-8">
+      <div className="min-h-[57vh] container mx-auto max-w-auto flex flex-col items-center justify-top mt-8 mb-8">
         <div className="flex justify-between flex-col md:flex-row md:space-x-4 w-full max-w-7xl">
-          <div className="w-full md:w-2/3">
+          <div className="w-full md:w-2/3 pt-4">
             <SearchBar searchTerm={searchTerm} setSearchTerm={handleSearchTermChange} />
             <ProductGrid products={filteredProducts} addToCart={addToCart} />
           </div>

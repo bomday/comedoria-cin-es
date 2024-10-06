@@ -36,6 +36,7 @@ const config: Config = {
         /*Cores Hover*/
         'wine-hover': 'hsl(var(--wine-hover))',
         'darkgreen-hover': 'hsl(var(--darkgreen-hover))',
+        'brown-hover': 'hsl(var(--brown-hover))',
 
         /* Cores de Feedback */
         'lightgreen': 'hsl(var(--lightgreen))',
