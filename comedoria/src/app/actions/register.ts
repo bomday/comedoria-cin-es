@@ -1,10 +1,9 @@
 "use server"
 import connect from "@/lib/db";
 import Customer from "@/lib/modals/customer";
-import bcrypt from "bcryptjs";
 import { CustomerAPI } from "@/app/api/customer/route";
 
-export const register = async (values: any) => {
+export const registerClient = async (values: any) => {
 
     const { email, password, username } = values;
 
