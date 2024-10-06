@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import PriceBanner from '@/components/ui/price-banner';
 import NavbarLogged from '@/components/ui/Navbar-logged';
 import ConfirmationModal from '@/components/ui/confirmation-modal';
+import Footer from '@/components/ui/footer';
 
 interface Reservation {
   id: string;
@@ -195,6 +196,7 @@ export default function ReserveView() {
         cancelText="Cancelar"
         description="Tem certeza de que deseja cancelar essa reserva?"
       />
+      <Footer />
     </div>
   );
 }

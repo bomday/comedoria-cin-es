@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import { Plus } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-import ProdutosImage from '../../../assets/images/produtos.png';
+import ProdutosImage from '@/app/assets/images/produtos.png';
 
 export interface Product {
   product_name: string,

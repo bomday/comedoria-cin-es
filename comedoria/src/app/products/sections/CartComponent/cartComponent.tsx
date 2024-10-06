@@ -27,7 +27,7 @@ export const CartComponent: React.FC<CartComponentProps> = ({
   calculateTotal
 }) => {
   return (
-    <div className="rubik-400 w-full md:w-[419px] bg-white p-2 flex flex-col">
+    <div className="rubik-400 w-full md:w-[419px] p-2 flex flex-col">
       <div className="flex items-center justify-center mb-4">
         <ShoppingCart className="w-6 h-6 md:w-[3rem] md:h-[3rem] text-brown mr-2" />
         <h2 className="advent-pro-700 text-lg-subtitle text-brown">Seu Carrinho</h2>
@@ -78,7 +78,7 @@ export const CartComponent: React.FC<CartComponentProps> = ({
           <span className="text-lg font-semibold text-[#8B4513]">Total:</span>
           <span className="text-2xl font-bold text-[#8B4513]">R${calculateTotal().toFixed(2)}</span>
         </div>
-        <Button variant="btnBrwon" className="w-full" onClick={onCheckout}>
+        <Button variant="btnBrown" className="w-full" onClick={onCheckout}>
           Fazer Reserva
         </Button>
       </div>
