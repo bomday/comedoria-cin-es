@@ -45,7 +45,7 @@ const historyItems: HistoryItem[] = [
 
 export default function ReserveView() {
   const [showAlert, setShowAlert] = useState(false);
-  const [showCancelAlert, setShowCancelAlert] = useState(false);
+  const [showCancellationAlert, setShowCancellationAlert] = useState(false);
   const [activeReservations, setActiveReservations] = useState<Reservation[]>(initialActiveReservations);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -60,12 +60,6 @@ export default function ReserveView() {
     }
   }, [searchParams, router]);
 
-  const handleProductExclusion = () => {
-    setIsDeleteConfirmationOpen(false);
-    setShowCancelAlert(true);
-    setTimeout(() => setShowCancelAlert(false), 2000);
-  };
-
   const renderAlert = (message: string, isVisible: boolean, closeHandler: () => void) => (
     <motion.div
       initial={{ opacity: 0, y: -50 }}
@@ -78,13 +72,30 @@ export default function ReserveView() {
     </motion.div>
   );
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpen = () => setIsOpen(true);
+  const handleClose = () => setIsOpen(false);
+
+  const handleConfirm = () => {
+    //if (currentReservationId) {
+      // Remove a reserva do estado activeReservations
+      //setActiveReservations((prev) => prev.filter(reservation => reservation.id !== currentReservationId));}
+
+    // Mostra o alerta de cancelamento
+    setShowCancellationAlert(true);
+    setTimeout(() => setShowCancellationAlert(false), 2000); // Fecha após 5 segundos
+    setIsOpen(false); // Fecha o modal após a confirmação
+  };
+
+
   return (
     <div className="flex flex-col min-h-screen">
       <NavbarLogged />
       <div className="mt-16">
         <AnimatePresence>
           {showAlert && renderAlert("Sua reserva foi efetuada com sucesso!", showAlert, () => setShowAlert(false))}
-          {showCancelAlert && renderAlert("Sua reserva foi cancelada com sucesso!", showCancelAlert, () => setShowCancelAlert(false))}
+          {showCancellationAlert && renderAlert("Sua reserva foi cancelada com sucesso!", showCancellationAlert, () => setShowCancellationAlert(false))}
         </AnimatePresence>
         <PriceBanner />
       </div>
@@ -115,7 +126,12 @@ export default function ReserveView() {
                         aria-label="Delete reservation"
                         onClick={() => setIsDeleteConfirmationOpen(true)}
                       >
-                        <Trash2 className="text-[#45480F] hover:text-[#606A0F] w-6 h-6" />
+                        <Trash2
+                        onClick={() => {
+                          setIsDeleteConfirmationOpen(true);
+                          handleOpen(); // Abre o modal de confirmação antes de cancelar
+                        }}
+                        className="text-[#45480F] hover:text-[#606A0F] w-6 h-6" />
                       </button>
                     </div>
                     <div className="p-4">
@@ -172,10 +188,13 @@ export default function ReserveView() {
       </div>
 
       <ConfirmationModal
-        isOpen={isDeleteConfirmationOpen}
-        onClose={() => setIsDeleteConfirmationOpen(false)}
-        onConfirm={handleProductExclusion}
-        title="Você tem certeza que deseja excluir esta reserva?"
+        isOpen={isOpen}
+        onClose={handleClose}
+        onConfirm={handleConfirm}
+        title="Confirmação Necessária"
+        confirmText="Confirmar"
+        cancelText="Cancelar"
+        description="Tem certeza de que deseja cancelar essa reserva?"
       />
     </div>
   );
