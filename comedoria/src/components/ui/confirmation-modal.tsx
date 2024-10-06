@@ -32,8 +32,6 @@ export default function ConfirmationModal({
           onClick={onClose}
           className="absolute right-2 top-2 p-1 rounded-full text-[#000000] bg-transparent hover:bg-gray-200"
         >
-          <X className="h-4 w-4 text-gray-500" />
-          <span className="sr-only">Close</span>
         </Button>
         <DialogHeader className="pt-6 px-5">
           <DialogTitle className="text-center text-lg advent-pro-700">{title}</DialogTitle>

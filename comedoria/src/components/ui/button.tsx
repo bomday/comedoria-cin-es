@@ -16,8 +16,8 @@ const buttonVariants = cva(
           "ghost",
         outline:
           "outline",
-        btnSocialMedia:
-          "bg-white border border-gray-200 rounded-full p-4 p-3 shadow-md hover:shadow-lg transition-all",
+        btnBrwon:
+          "bg-brown text-beige hover:bg-brown-hover",
       },
       size: {
         default: "h-12 rounded-default px-20 py-2",

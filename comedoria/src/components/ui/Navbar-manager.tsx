@@ -8,7 +8,7 @@ import { Logo } from '../../app/assets';
 import Link from 'next/link';
 import "@/app/globals.css";
 
-export default function Navbar() {
+export default function NavbarManager() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (

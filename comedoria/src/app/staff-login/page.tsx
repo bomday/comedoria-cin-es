@@ -6,9 +6,9 @@ import "@/app/globals.css"
 export default function StaffLogin() {
   return (
     <>
-      <Navbar />
-      <Forms />
-      <Footer />
+        <Navbar/>
+        <Forms/>
+        <Footer/>
     </>
   )
 }
