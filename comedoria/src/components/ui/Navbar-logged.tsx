@@ -39,7 +39,7 @@ export default function NavbarStaff() {
             Sua Conta
           </Button>
         </Link>
-        <Link href="/customer-login">
+        <Link href="/landing-page">
           <Button size="sm" className="bg-[#FF6B6B] hover:bg-[#FF4D4D]">
             Sair
             <LogOut className="ml-2 h-4 w-4" />

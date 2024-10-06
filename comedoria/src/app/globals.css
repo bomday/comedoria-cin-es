@@ -142,3 +142,10 @@
   gap: 16px; /* Espaçamento entre os botões */
 }
 
+.edit-staff-modal-content {
+  background-color: white;
+  padding: 26px;
+  border-radius: 18px;
+  max-width: 90%;
+  overflow-y: auto;
+}
