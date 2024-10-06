@@ -2,8 +2,8 @@
 import Image from 'next/image'
 import { Logo } from '../../app/assets'
 import { Button } from "@/components/ui/button"
-import "../../app/globals.css";
 import { useRouter } from 'next/navigation'
+import "../../app/globals.css"
 
 export default function Navbar() {
   const router = useRouter();
@@ -17,7 +17,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="flex justify-between items-center p-4 w-full bg-background fixed top-0 left-0 z-50">
+    <nav className="flex h-[4.5rem] justify-between items-center p-4 w-full bg-background fixed top-0 left-0 z-50">
       <div className="flex items-center justify-start">
         <Image
           src={Logo}

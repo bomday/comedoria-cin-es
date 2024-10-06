@@ -4,7 +4,7 @@ import { WhiteLogo } from '@/app/assets/index'
 
 export default function Footer (){
     return (
-        <footer className="bg-[#8B1A1A] text-white py-6">
+        <footer className="bg-wine h-[4.5rem] text-white py-6">
             <div className="container mx-auto px-4">
                 <div className="flex flex-col md:flex-row justify-between items-start">
                     <div className="mb-4 md:mb-0">

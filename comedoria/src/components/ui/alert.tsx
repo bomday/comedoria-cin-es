@@ -7,9 +7,10 @@ const alertVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-background text-foreground",
+        default: "bg-lightgreen text-darkgreen pointer-events-auto shadow-md overflow-hidden",
+        error: "bg-red text-wine pointer-events-auto shadow-md overflow-hidden",
         destructive:
-          "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive",
+          "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive pointer-events-auto shadow-md overflow-hidden",
       },
     },
     defaultVariants: {
@@ -35,8 +36,6 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
           role="alert"
           className={cn(
             alertVariants({ variant }),
-            "bg-[#AED970] pointer-events-auto shadow-md overflow-hidden",
-            className
           )}
           {...props}
         >
@@ -59,8 +58,6 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
     );
   }
 );
-
-Alert.displayName = "Alert";
 
 const AlertDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
   ({ className, ...props }, ref) => (

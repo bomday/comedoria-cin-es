@@ -4,7 +4,7 @@ import BannerImage from '../../app/assets/images/price-banner-image.svg'
 export default function PriceBanner() {
   
     return (
-      <div className="relative h-[176px]">
+      <div className="relative h-[10rem]">
         <Image
           src={BannerImage}
           alt="Salgados promocionais"
@@ -12,8 +12,8 @@ export default function PriceBanner() {
           objectFit="cover"
           priority
         />
-        <div className="absolute top-[49px] inset-0 bg-black bg-opacity-30">
-          <h2 className="text-[#45480F] text-4xl font-bold text-left px-4 py-2 bg-green-800 bg-opacity-75 rounded">
+        <div className="flex items-center absolute m-auto inset-0 bg-black bg-opacity-30">
+          <h2 className="advent-pro-700 text-darkgreen text-lg-smtitle font-bold text-left pl-16">
             Qualquer salgado por R$ 4,00!
           </h2>
         </div>

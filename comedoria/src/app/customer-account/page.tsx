@@ -13,7 +13,7 @@ export default function UserAccount() {
     <div className="flex flex-col h-screen bg-background text-foreground">
     <NavbarLogged />
     <div className="mt-16"> 
-    <PriceBanner/>
+      <PriceBanner/>
       <h1 className="text-4xl font-bold p-4 pb-2 text-secondary">Sua conta</h1>
       </div>
 

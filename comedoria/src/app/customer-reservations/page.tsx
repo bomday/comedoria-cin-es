@@ -1,5 +1,4 @@
 "use client"
-
 import { useState, useEffect } from 'react';
 import { Trash2, Image as ImageIcon, Calendar, DollarSign } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -86,7 +85,7 @@ export default function ReserveView() {
           {showAlert && renderAlert("Sua reserva foi efetuada com sucesso!", showAlert, () => setShowAlert(false))}
           {showCancelAlert && renderAlert("Sua reserva foi cancelada com sucesso!", showCancelAlert, () => setShowCancelAlert(false))}
         </AnimatePresence>
-        <PriceBanner />
+        <PriceBanner/>
       </div>
 
       <div className="container mx-auto px-4 py-8 bg-gradient-to-br from-[#F0F4E8] to-[#E2F2CB] min-h-screen mt-8">
@@ -172,11 +171,10 @@ export default function ReserveView() {
       </div>
 
       <ConfirmationModal
-        isOpen={isDeleteConfirmationOpen}
-        onClose={() => setIsDeleteConfirmationOpen(false)}
-        onConfirm={handleProductExclusion}
-        title="Você tem certeza que deseja excluir esta reserva?"
-      />
+              isOpen={isDeleteConfirmationOpen}
+              onClose={() => setIsDeleteConfirmationOpen(false)}
+              onConfirm={handleProductExclusion}
+              title="Você tem certeza que deseja excluir esta reserva?" confirmText={''} cancelText={''}      />
     </div>
   );
 }
