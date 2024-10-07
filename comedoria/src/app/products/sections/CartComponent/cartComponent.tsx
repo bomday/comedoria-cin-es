@@ -49,18 +49,16 @@ export const CartComponent: React.FC<CartComponentProps> = ({
                   </div>
                   <div className="flex items-center">
                     <Button 
-                      variant="outline" 
                       size="icon"
-                      className="h-8 w-8 bg-[#F9F9DF] hover:bg-[#E0E0B0] border-[#8B4513] rounded-full" 
+                      className="rounded-[100%] h-8 w-8 bg-[#F9F9DF] hover:bg-[#E0E0B0] border-[#8B4513]" 
                       onClick={() => updateQuantity(product.product_name, -1)}
                     >
                       <Minus className="h-4 w-4 text-[#8B4513]" />
                     </Button>
                     <span className="w-6 text-center md:w-8 font-bold text-sm md:text-base text-[#8B4513]">{product.quantity}</span>
                     <Button 
-                      variant="outline" 
                       size="icon"
-                      className="h-8 w-8 bg-[#F9F9DF] hover:bg-[#E0E0B0] border-[#8B4513] rounded-full"
+                      className="rounded-[100%] h-8 w-8 bg-[#F9F9DF] hover:bg-[#E0E0B0] border-[#8B4513]"
                       onClick={() => updateQuantity(product.product_name, 1)}
                     >
                       <Plus className="h-4 w-4 text-[#8B4513]" />

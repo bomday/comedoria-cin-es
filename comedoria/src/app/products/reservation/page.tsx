@@ -15,6 +15,7 @@ import { useCart } from "./sections/useCartHook/useCart";
 const FinalizeReservation = () => {
   const router = useRouter();
   const { data: session, status } = useSession();
+  const { cartItems, calculateTotal } = useCart(); // Hook useCart agora é chamado diretamente no componente
 
   if (status === "loading") {
     return <Loading/>
@@ -53,8 +54,6 @@ const FinalizeReservation = () => {
   
       const customerData = await customerResponse.json();
       const customerId = customerData._id; // Supondo que o ID do cliente é retornado como _id
-
-      const { cartItems, calculateTotal } = useCart();
   
       // Prepare o corpo da requisição com os dados da reserva
       const reservationData = {
