@@ -18,8 +18,8 @@ const buttonVariants = cva(
           "outline",
         btnBrown:
           "bg-brown text-beige hover:bg-brown-hover",
-        btnNavbar:
-          "bg-white border border-gray-200 rounded-full p-4 p-3 shadow-md hover:shadow-lg transition-all",
+        btnNav:
+          "text-foreground hover:pb-1 hover:rounded hover:shadow-md",
       },
       size: {
         default: "h-12 rounded-default px-20 py-2",

@@ -96,7 +96,6 @@
     @apply bg-background text-foreground;
   }
 }
-
 /* Fontes e tamanhos dos textos*/
 @layer utilities {
   .rubik-700 {
@@ -177,4 +176,49 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* Fontes e tamanhos dos textos*/
+@layer utilities {
+  .rubik-700 {
+    font-family: var(--font-rubik);
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  .rubik-600 {
+    font-family: var(--font-rubik);
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  .rubik-400 {
+    font-family: var(--font-rubik);
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .advent-pro-700 {
+    font-family: var(--font-advent);
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  .advent-pro-600 {
+    font-family: var(--font-advent);
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  .advent-pro-400 {
+    font-family: var(--font-advent);
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
 }
