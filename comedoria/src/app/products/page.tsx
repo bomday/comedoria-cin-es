@@ -8,7 +8,6 @@ import {CartComponent} from './sections/CartComponent/cartComponent';
 import {ProductGrid} from './sections/ProductGrid/page';
 import {SearchBar} from './sections/SearchBar/page';
 import { useCart } from './sections/CartComponent/useCartHook/page'
-import { GET } from '../api/inventory/route'
 
 export interface Product {
   product_name: string,
@@ -39,7 +38,7 @@ export default function FecharVenda() {
     // Função para buscar produtos da API
     const fetchProducts = async () => {
       try {
-        console.log("CHMANDO API")
+        console.log("CHAMANDO API")
         const response = await fetch('/api/inventory'); // Ajuste a URL para corresponder ao seu endpoint
         console.log("RESPOSTA " + response)
         if (!response.ok) {

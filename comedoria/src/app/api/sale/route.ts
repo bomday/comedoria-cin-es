@@ -4,6 +4,7 @@ import Sale from '@/lib/modals/sale';
 
 // Listar todas as vendas ou buscar vendas por funcionário, timestamps, tipo de pagamento, reservation_id
 export const GET = async (request: Request) => {
+  console.log('GET sales API called');
   try {
     await connect();
 
@@ -24,11 +25,19 @@ export const GET = async (request: Request) => {
 
       // Filtro por intervalo de datas (timestamps)
       if (startDate && endDate) {
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        
+        // Verifica se as datas são válidas
+        if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+          return new NextResponse('Invalid date format', { status: 400 });
+        }
+
         query = { 
           ...query, 
           createdAt: { 
-            $gte: new Date(startDate), 
-            $lte: new Date(endDate) 
+            $gte: start, 
+            $lte: end  
           } 
         };
       }

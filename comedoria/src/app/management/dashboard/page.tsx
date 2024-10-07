@@ -1,55 +1,25 @@
 "use client"
 
+import SalesChart from './sales-chart/sales-chart';
 import React, { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { SquarePen, SquarePlus, FileDown, BarChart2 } from 'lucide-react'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 import Navbar from '@/components/ui/Navbar-manager'
 import Footer from '@/components/ui/footer'
 import Sidebar from '@/components/ui/sidebar'
-import WeeklyViewList from "@/components/ui/weekly-view-list"
+import WeeklyViewList from "./weekly-view-list/weekly-view-list"
 import AlertTable from '@/components/ui/alert-table'
 import AlertTableReserve from '@/components/ui/alert-table-reserve'
 import AlertTableMostSale from '@/components/ui/alert-table-mostSale'
 import AlertTableInventory from '@/components/ui/alert-table-inventory'
 import AlertAtribution from '@/components/ui/alert-atribution'
 import ExportDialog from '@/components/ui/export-dialog'
-
-interface WeeklyData {
-  dia: string
-  turno: string
-  data: string
-  salgadosVendidos: number
-}
-
-interface ChartData {
-  day: string;
-  Manhã: number;
-  Tarde: number;
-}
-
-const data: WeeklyData[] = [
-  { dia: 'Segunda', turno: 'Manhã', data: '23/09/24', salgadosVendidos: 35 },
-  { dia: 'Segunda', turno: 'Tarde', data: '23/09/24', salgadosVendidos: 14 },
-  { dia: 'Terça', turno: 'Manhã', data: '24/09/24', salgadosVendidos: 27 },
-  { dia: 'Terça', turno: 'Tarde', data: '24/09/24', salgadosVendidos: 64 },
-  { dia: 'Quarta', turno: 'Manhã', data: '25/09/24', salgadosVendidos: 37 },
-  { dia: 'Quarta', turno: 'Tarde', data: '25/09/24', salgadosVendidos: 18 },
-  { dia: 'Quinta', turno: 'Manhã', data: '26/09/24', salgadosVendidos: 29 },
-  { dia: 'Quinta', turno: 'Tarde', data: '26/09/24', salgadosVendidos: 45 },
-  { dia: 'Sexta', turno: 'Manhã', data: '27/09/24', salgadosVendidos: 41 },
-  { dia: 'Sexta', turno: 'Tarde', data: '27/09/24', salgadosVendidos: 0 },
-]
-
-const chartData = data.reduce<ChartData[]>((acc, curr) => {
-  const dayIndex = acc.findIndex(item => item.day === curr.dia)
-  if (dayIndex === -1) {
-    acc.push({ day: curr.dia, Manhã: 0, Tarde: 0 })
-  }
-  acc[dayIndex === -1 ? acc.length - 1 : dayIndex][curr.turno as 'Manhã' | 'Tarde'] += curr.salgadosVendidos
-  return acc
-}, [])
+import TotalSales from '@/components/ui/total-sales'
+import Receita from './receita/receita'
+import Custo from './custo/custo'
+import Lucro from './lucro/lucro'
+import MostSale from './most-sale/most-sale'
 
 const historyItems = [
   { id: 1, items: 'item 1 + item 2 + item 3', price: 12.00, status: 'highlighted', date: '2024-09-25' },
@@ -63,11 +33,11 @@ const historyItems = [
 export default function ManagementDashboard() {
   const [isModalOpen6, setIsModalOpen6] = useState(false)
   
-  const handleExportPDF = () => {
-    console.log('Exporting as PDF')
+  const handleExportPDF = () => { // função para incluir exportação PDF
+    console.log('Exporting as PDF') 
   }
   
-  const handleExportCSV = () => {
+  const handleExportCSV = () => { // função para incluir exportação CSV
     console.log('Exporting as CSV')
   }
 
@@ -110,7 +80,7 @@ export default function ManagementDashboard() {
                 <p className="text-xs text-muted-foreground">
                   Quantidade de vendas na última semana
                 </p>
-                <div className="text-2xl font-bold">324</div> 
+                <TotalSales />
               </CardContent>
               <div className="ml-auto flex flex-col items-center mb-4 mr-4">
                 <Button onClick={handleOpenModal1} variant="ghost" size="icon" className="h-8 w-8">
@@ -153,8 +123,7 @@ export default function ManagementDashboard() {
                   Salgado favorito do público na semana
                 </p>
                 <div className="flex flex-row items-start justify-start">
-                  <div className="text-xl font-bold mr-2">Esfiha de queijo</div>
-                  <div className="text-4xl font-bold">48</div>
+                  <MostSale />
                 </div>
               </CardContent>
               <div className="ml-auto flex flex-col items-center mb-4 mr-4">
@@ -163,10 +132,10 @@ export default function ManagementDashboard() {
                 </Button>
                 <span className="text-xs mt-1">Ver mais</span>
               </div>
-              <AlertTableMostSale
+              {/* <AlertTableMostSale
                 isOpen={isModalOpen3}
                 onClose={handleCloseModal3}
-              />
+              /> */}
             </Card>
             <Card className="flex flex-col">
               <CardHeader className="flex flex-row items-center justify-between space-y-0">
@@ -199,7 +168,7 @@ export default function ManagementDashboard() {
                 <p className="text-xs text-muted-foreground">
                   Valor total arrecadado na semana
                 </p>
-                <div className="text-2xl font-bold">R$ 324,00</div>
+                <Receita />
               </CardContent>
             </Card>
             <Card className="flex flex-col">
@@ -210,7 +179,7 @@ export default function ManagementDashboard() {
                 <p className="text-xs text-muted-foreground">
                   Valor total relativo à reposição de salgados
                 </p>
-                <div className="text-2xl font-bold">R$ 244,00</div>
+                <Custo />
               </CardContent>
             </Card>
             <Card className="flex flex-col">
@@ -221,7 +190,7 @@ export default function ManagementDashboard() {
                 <p className="text-xs text-muted-foreground">
                   Receita menos custos na semana
                 </p>
-                <div className="text-2xl font-bold">R$ 80,00</div>
+                <Lucro />
               </CardContent>
             </Card>
             <div className="flex flex-col justify-center gap-y-[16px] mt-4">
@@ -269,19 +238,9 @@ export default function ManagementDashboard() {
               </CardHeader>
               <CardContent>
                 {view === 'chart' ? (
-                  <ResponsiveContainer width="100%" height={300}>
-                    <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="day" />
-                      <YAxis />
-                      <Tooltip />
-                      <Legend />
-                      <Bar dataKey="Manhã" fill="#FFD700" />
-                      <Bar dataKey="Tarde" fill="#8B4513" />
-                    </BarChart>
-                  </ResponsiveContainer>
+                  <SalesChart />
                 ) : (
-                  <WeeklyViewList data={data} />
+                  <WeeklyViewList  />
                 )}
               </CardContent>
             </Card>
