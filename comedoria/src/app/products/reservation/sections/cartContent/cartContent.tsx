@@ -1,5 +1,5 @@
-import { CartItemDisplay } from "../cartItemDisplayCard/cartItemDisplay";
-import { TotalDisplay } from "../totalDisplayCard/totalDisplay";
+import { CartItemDisplay } from "../cartItemDisplayCard/cartItemDisplayCard";
+import { TotalDisplay } from "../totalDisplayCard/totalDisplayCard";
 import { useCart } from "../useCartHook/useCart";
 
 export const CartContent = () => {
