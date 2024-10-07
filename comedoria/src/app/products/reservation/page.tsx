@@ -5,29 +5,9 @@ import NavbarLogged from "@/components/ui/Navbar-logged";
 import Footer from "@/components/ui/footer";
 import PriceBanner from "@/components/ui/price-banner";
 import { useRouter } from "next/navigation";
-import CartItemDisplay from "./sections/CartItemDisplay/cartItemDisplay";
-import TotalDisplay from "./sections/TotalDisplay/totalDisplay";
-import { useCart } from "./sections/useCartHook/useCart";
 import { Suspense } from "react"; // Importando Suspense
 import { useSearchParams } from "next/navigation"; // Importando useSearchParams
-
-const CartContent = () => {
-  const { cartItems, calculateTotal } = useCart();
-
-  return (
-    <div className="flex flex-col mx-auto max-w-full md:max-w-[640px]">
-      <div className="space-y-4 mb-4">
-        {cartItems.map(item => (
-          <CartItemDisplay key={item.product_name} item={item} />
-        ))}
-      </div>
-      <TotalDisplay total={calculateTotal()} />
-      <p className="text-center text-sm text-gray-600 mb-6">
-        Seu pedido ficará reservado até as 17:00
-      </p>
-    </div>
-  );
-};
+import { CartContent } from "./sections/cartContent/cartContent";
 
 const FinalizeReservation = () => {
   const router = useRouter();
