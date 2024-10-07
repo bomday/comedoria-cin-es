@@ -23,8 +23,8 @@ export const registerClient = async (values: any) => {
             username
         };
 
-        // Envie a solicitação POST diretamente
-        const response = await POST(new Request('', {
+        // Ensure the correct endpoint is used
+        const response = await POST(new Request('/api/customer', { 
             method: 'POST',
             body: JSON.stringify(user),
             headers: {
@@ -41,4 +41,4 @@ export const registerClient = async (values: any) => {
         console.log(e);
         return { error: e.message };
     }
-}
+};
