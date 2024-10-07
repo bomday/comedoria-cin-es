@@ -62,15 +62,6 @@ export default function ReserveView() {
     setIsOpen(false);
   };
 
-
-  if (status === "loading") {
-    return <Loading />;
-  }
-
-  if (status === "unauthenticated") {
-    return <AuthenticationError />;
-  }  
-
   // Função para buscar o preço de um produto pelo nome
   const fetchProductPrice = async (productName: string): Promise<number> => {
     const response = await fetch(`/api/inventory?product_name=${encodeURIComponent(productName)}`);
@@ -168,8 +159,16 @@ export default function ReserveView() {
       }
     };
   
-    fetchReservationsCustomerStatus();
+    fetchReservationsCustomerStatus();  
   }, [session, status]);  
+
+  if (status === "loading") {
+    return <Loading />;
+  }
+
+  if (status === "unauthenticated") {
+    return <AuthenticationError />;
+  }  
 
   const SearchParamsWrapper = () => {
     const router = useRouter();
@@ -218,7 +217,7 @@ export default function ReserveView() {
               <CardTitle className="text-lg-subtitle advent-pro-600 font-semibold text-darkgreen">Ativas</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
+              <div className="space-y-4 md:min-h-[40vh]">
                 {activeReservations.map((reservation) => (
                   <motion.div
                     key={reservation.id}
@@ -252,6 +251,35 @@ export default function ReserveView() {
                           <p className="text-sm font-semibold">R$ {reservation.price}</p>
                         </div>
                       </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+          <Card className="text-lg-subtitle w-full lg:w-2/3">
+            <CardHeader>
+              <CardTitle className="text-lg-subtitle advent-pro-600 font-semibold text-darkgreen">Histórico</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2 md:min-h-[40vh]">
+                {historyItems.map((item) => (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="p-4 flex justify-between items-center shadow-lg rounded-[8px] flex overflow-hidden"
+                  >
+                    <div className="flex justify-start items-center flex-wrap">
+                      <ImageIcon className="w-10 h-10 mr-4" />
+                      <div>
+                        <p className="font-medium text-lg">{item.items}</p>
+                        <p className="text-xs text-gray-500">{item.date}</p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-2xl text-[#45480F] font-semibold">R$ {item.price.toFixed(2)}</p>
                     </div>
                   </motion.div>
                 ))}
