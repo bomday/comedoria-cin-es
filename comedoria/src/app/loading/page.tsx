@@ -1,18 +1,18 @@
-"use client"
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
+"use client";
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation'; // Alterado de next/router para next/navigation
 
 export default function LoadingPage() {
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     // Simulate a delay before redirecting (e.g., 3 seconds)
     const timer = setTimeout(() => {
-      router.push('/products')
-    }, 3000)
+      router.push('/products');
+    }, 3000);
 
-    return () => clearTimeout(timer)
-  }, [router])
+    return () => clearTimeout(timer);
+  }, [router]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
@@ -41,5 +41,5 @@ export default function LoadingPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

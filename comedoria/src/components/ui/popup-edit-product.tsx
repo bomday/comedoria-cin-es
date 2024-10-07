@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label"
 interface EditProductProps {
   isOpen: boolean
   onClose: () => void
-  onSave: (product: { name: string; value: string; imageLink: string }) => void
+  onSave: (product: { name: string; value: string; imageLink: string } | null) => void;
 }
 
 export default function EditProduct({ isOpen, onClose, onSave }: EditProductProps) {

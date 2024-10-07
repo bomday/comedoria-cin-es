@@ -1,6 +1,6 @@
 "use client"
-import { useState, useEffect } from 'react';
-import { Trash2, Image as ImageIcon, Calendar, DollarSign } from 'lucide-react';
+import { useState, useEffect, Suspense } from 'react';
+import { Trash2, Image as ImageIcon } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Alert } from "@/components/ui/alert";
 import { motion, AnimatePresence } from 'framer-motion';
@@ -47,18 +47,23 @@ export default function ReserveView() {
   const [showAlert, setShowAlert] = useState(false);
   const [showCancellationAlert, setShowCancellationAlert] = useState(false);
   const [activeReservations, setActiveReservations] = useState<Reservation[]>(initialActiveReservations);
-  const router = useRouter();
-  const searchParams = useSearchParams();
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
 
-  useEffect(() => {
-    const shouldShowAlert = searchParams.get('showAlert') === 'true';
-    if (shouldShowAlert) {
-      setShowAlert(true);
-      setTimeout(() => setShowAlert(false), 5000);
-      router.replace('/customer-reservations');
-    }
-  }, [searchParams, router]);
+  const SearchParamsWrapper = () => {
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
+    useEffect(() => {
+      const shouldShowAlert = searchParams.get('showAlert') === 'true';
+      if (shouldShowAlert) {
+        setShowAlert(true);
+        setTimeout(() => setShowAlert(false), 5000);
+        router.replace('/customer-reservations');
+      }
+    }, [searchParams, router]);
+
+    return null; // Este componente não precisa renderizar nada
+  };
 
   const renderAlert = (message: string, isVisible: boolean, closeHandler: () => void) => (
     <motion.div
@@ -185,6 +190,10 @@ export default function ReserveView() {
         </div>
       </div>
 
+      <Suspense fallback={<div>Loading...</div>}>
+        <SearchParamsWrapper />
+      </Suspense>
+
       <ConfirmationModal
         isOpen={isOpen}
         onClose={handleClose}
@@ -194,6 +203,7 @@ export default function ReserveView() {
         cancelText="Cancelar"
         description="Tem certeza de que deseja cancelar essa reserva?"
       />
+          
       <Footer />
     </div>
   );
