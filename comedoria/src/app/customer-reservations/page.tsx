@@ -1,55 +1,138 @@
-"use client"
+"use client";
 import { useState, useEffect } from 'react';
 import { Trash2, Image as ImageIcon, Calendar, DollarSign } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Alert } from "@/components/ui/alert";
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import PriceBanner from '@/components/ui/price-banner';
 import NavbarLogged from '@/components/ui/Navbar-logged';
 import ConfirmationModal from '@/components/ui/confirmation-modal';
 import Footer from '@/components/ui/footer';
-
-interface Reservation {
-  id: string;
-  items: string;
-  date: string;
-  price: number;
-  currency: string;
-}
+import Loading from '../(errors)/loading/loading';
+import AuthenticationError from '../(errors)/authentication-error/authentication-error';
+import { useSession } from 'next-auth/react';
 
 interface HistoryItem {
   id: string;
   items: string;
   price: number;
   date: string;
-  status: 'normal' | 'highlighted';
+  image: string;
 }
-
-const initialActiveReservations: Reservation[] = [
-  { id: '1', items: 'Item 1 + Item 2 + Item 3', date: '14/01/2024', price: 15.00, currency: '€' },
-  { id: '2', items: 'Item 1 + Item 2 + Item 3', date: '14/01/2024', price: 15.00, currency: '€' },
-  { id: '3', items: '', date: '', price: 0, currency: '€' },
-];
-
-const historyItems: HistoryItem[] = [
-  { id: '1', items: 'Item 1 + Item 2 + Item 3', price: 14.00, date: '14/02/2024', status: 'normal' },
-  { id: '2', items: 'Item 1 + Item 2', price: 14.00, date: '14/02/2024', status: 'highlighted' },
-  { id: '3', items: 'Item 1', price: 14.00, date: '14/02/2024', status: 'normal' },
-  { id: '4', items: 'Item 1 + Item 2 + Item 3 + Item 4', price: 14.00, date: '14/02/2024', status: 'normal' },
-  { id: '5', items: 'Product amaaaaaaaaaaaaa.', price: 14.00, date: '14/02/2024', status: 'normal' },
-  { id: '6', items: 'Product name', price: 14.00, date: '14/02/2024', status: 'highlighted' },
-  { id: '7', items: 'Product amaaaaaaaaaaaaaa', price: 14.00, date: '14/02/2024', status: 'normal' },
-  { id: '8', items: 'Product amaaaaaaaaaaa', price: 14.00, date: '14/02/2024', status: 'normal' },
-];
 
 export default function ReserveView() {
   const [showAlert, setShowAlert] = useState(false);
   const [showCancellationAlert, setShowCancellationAlert] = useState(false);
-  const [activeReservations, setActiveReservations] = useState<Reservation[]>(initialActiveReservations);
+  const [historyItems, setHistoryItems] = useState<HistoryItem[]>([]);
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
+  const [activeReservations, setActiveReservations] = useState<HistoryItem[]>([]);
+  const { data: session, status } = useSession();
+  const [selectedReservationId, setSelectedReservationId] = useState<string | null>(null);
+  
+
+  // Função para buscar o preço de um produto pelo nome
+  const fetchProductPrice = async (productName: string): Promise<number> => {
+    const response = await fetch(`/api/inventory?product_name=${encodeURIComponent(productName)}`);
+    const data = await response.json();
+    
+    if (data && data.length > 0) {
+      return data[0].price;
+    }
+    return 0;
+  };
+
+  useEffect(() => {
+    const fetchReservations = async () => {
+      if (status === 'authenticated' && session?.user) {
+        try {
+          const customerResponse = await fetch(`/api/customer?email=${session.user.email}`);
+          if (!customerResponse.ok) {
+            throw new Error('Failed to fetch customer details');
+          }
+          const customerData = await customerResponse.json();
+          const customerId = customerData._id;
+
+          const response = await fetch(`/api/reservation?customer_id=${customerId}`);
+          if (!response.ok) {
+            throw new Error("Erro ao buscar reservas");
+          }
+          const data = await response.json();
+
+          const formattedItems: HistoryItem[] = await Promise.all(
+            data.map(async (reservation: any) => {
+              const totalPrice = await Promise.all(
+                reservation.order.map(async (item: any) => {
+                  const productPrice = await fetchProductPrice(item.product_name);
+                  return productPrice * item.quantity_products; 
+                })
+              ).then(prices => prices.reduce((acc, price) => acc + price, 0));
+              
+              return {
+                id: reservation._id.$oid,
+                items: reservation.order.map((item: any) => `${item.product_name} (x${item.quantity_products})`).join(' + '),
+                price: totalPrice,
+                date: new Date(reservation.createdAt).toLocaleDateString(),
+              };
+            })
+          );
+
+          setHistoryItems(formattedItems);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+
+    fetchReservations();
+  }, [session, status]);
+
+  useEffect(() => {
+    const fetchReservations = async () => {
+      if (status === 'authenticated' && session?.user) {
+        try {
+          const customerResponse = await fetch(`/api/customer?email=${session.user.email}`);
+          if (!customerResponse.ok) {
+            throw new Error('Failed to fetch customer details');
+          }
+          const customerData = await customerResponse.json();
+          const customerId = customerData._id;
+  
+          // Aqui, você busca reservas com status true
+          const response = await fetch(`/api/reservation?customer_id=${customerId}&status=true`);
+          if (!response.ok) {
+            throw new Error("Erro ao buscar reservas");
+          }
+          const data = await response.json();
+  
+          const formattedReservations: HistoryItem[] = await Promise.all(
+            data.map(async (reservation: any) => {
+              const totalPrice = await Promise.all(
+                reservation.order.map(async (item: any) => {
+                  const productPrice = await fetchProductPrice(item.product_name);
+                  return productPrice * item.quantity_products; 
+                })
+              ).then(prices => prices.reduce((acc, price) => acc + price, 0));
+
+              return {
+                id: reservation._id,
+                items: reservation.order.map((item: any) => `${item.product_name} (x${item.quantity_products})`).join(' + '),
+                date: new Date(reservation.createdAt).toLocaleDateString(),
+                price: totalPrice, // Usar o preço total calculado
+              };
+            })
+          );
+  
+          setActiveReservations(formattedReservations);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+  
+    fetchReservations();
+  }, [session, status]);  
 
   useEffect(() => {
     const shouldShowAlert = searchParams.get('showAlert') === 'true';
@@ -77,36 +160,60 @@ export default function ReserveView() {
   const handleOpen = () => setIsOpen(true);
   const handleClose = () => setIsOpen(false);
 
-  const handleConfirm = () => {
-    //if (currentReservationId) {
-      // Remove a reserva do estado activeReservations
-      //setActiveReservations((prev) => prev.filter(reservation => reservation.id !== currentReservationId));}
-
-    // Mostra o alerta de cancelamento
+  const handleConfirm = async () => {
     setShowCancellationAlert(true);
-    setTimeout(() => setShowCancellationAlert(false), 2000); // Fecha após 5 segundos
-    setIsOpen(false); // Fecha o modal após a confirmação
+    
+    // Chame a API para cancelar a reserva (passando o ID da reserva)
+    try {
+        const response = await fetch(`/api/reservation?id=${selectedReservationId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ status: false }), // Mudando o status para falso
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to cancel the reservation');
+        }
+
+        // Aqui você pode atualizar o estado das reservas ativas, se necessário
+        // Exemplo:
+        setActiveReservations(prev => prev.filter(res => res.id !== selectedReservationId));
+    } catch (error) {
+        console.error('Error cancelling reservation:', error);
+    }
+
+    setTimeout(() => setShowCancellationAlert(false), 2000);
+    setIsOpen(false);
   };
 
 
+  if (status === "loading") {
+    return <Loading />;
+  }
+
+  if (status === "unauthenticated") {
+    return <AuthenticationError />;
+  }
+
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="rubik-400 flex flex-col min-h-screen">
       <NavbarLogged />
       <div className="mt-16">
         <AnimatePresence>
           {showAlert && renderAlert("Sua reserva foi efetuada com sucesso!", showAlert, () => setShowAlert(false))}
           {showCancellationAlert && renderAlert("Sua reserva foi cancelada com sucesso!", showCancellationAlert, () => setShowCancellationAlert(false))}
         </AnimatePresence>
-        <PriceBanner/>
       </div>
 
-      <div className="container mx-auto px-4 py-8 bg-gradient-to-br from-[#F0F4E8] to-[#E2F2CB] min-h-screen mt-8">
-        <h1 className="text-5xl font-bold text-[#45480F] mb-6">Minhas Reservas</h1>
+      <div className="container mx-auto px-16 py-8 bg-background min-h-45vh">
+        <h1 className="advent-pro-700 text-5xl font-bold text-darkgreen mb-12">Minhas Reservas</h1>
 
-        <div className="flex flex-col lg:flex-row gap-8">
-          <Card className="w-full lg:w-1/4">
+        <div className="flex justify-between flex-col lg:flex-row gap-12">
+          <Card className="text-lg-subtitle w-full lg:w-1/4">
             <CardHeader>
-              <CardTitle className="text-3xl font-semibold text-[#45480F]">Ativas</CardTitle>
+              <CardTitle className="text-lg-subtitle advent-pro-600 font-semibold text-darkgreen">Ativas</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -120,18 +227,17 @@ export default function ReserveView() {
                     className="bg-white rounded-lg shadow-md overflow-hidden"
                   >
                     <div className="bg-[#E2F2CB] h-32 relative">
-                      <ImageIcon className="text-[#45480F] w-12 h-12 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+                      <ImageIcon className="text-darkgreen w-12 h-12 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
                       <button
-                        className="absolute top-4 right-4 text-[#9AB89A] transition-colors duration-200"
-                        aria-label="Delete reservation"
-                        onClick={() => setIsDeleteConfirmationOpen(true)}
+                          className="absolute top-4 right-4 text-[#9AB89A] transition-colors duration-200"
+                          aria-label="Delete reservation"
+                          onClick={() => {
+                              setSelectedReservationId(reservation.id); // Armazena o ID da reserva
+                              setIsDeleteConfirmationOpen(true);
+                              handleOpen();
+                          }}
                       >
-                        <Trash2
-                        onClick={() => {
-                          setIsDeleteConfirmationOpen(true);
-                          handleOpen(); // Abre o modal de confirmação antes de cancelar
-                        }}
-                        className="text-[#45480F] hover:text-[#606A0F] w-6 h-6" />
+                          <Trash2 className="text-darkgreen hover:text-[#606A0F] w-6 h-6" />
                       </button>
                     </div>
                     <div className="p-4">
@@ -142,8 +248,7 @@ export default function ReserveView() {
                           <p className="text-sm font-semibold">{reservation.date}</p>
                         </div>
                         <div className="flex items-center text-[#4A6741]">
-                          <DollarSign className="w-4 h-4 mr-1" />
-                          <p className="text-lg font-bold">{reservation.currency} {reservation.price.toFixed(2)}</p>
+                          <p className="text-sm font-semibold">R$ {reservation.price}</p>
                         </div>
                       </div>
                     </div>
@@ -153,40 +258,35 @@ export default function ReserveView() {
             </CardContent>
           </Card>
 
-          <Card className="w-full lg:w-2/3">
+          <Card className="text-lg-subtitle w-full lg:w-3/4">
             <CardHeader>
-              <CardTitle className="text-3xl font-semibold text-[#45480F]">Histórico</CardTitle>
+              <CardTitle className="text-lg-subtitle advent-pro-600 font-semibold text-darkgreen">Histórico</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-2">
-                {historyItems.map((item) => (
-                  <motion.div
-                    key={item.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className={`p-4 flex justify-between items-center rounded-[8px] flex overflow-hidden ${
-                      item.status === 'highlighted' ? 'bg-[#FF9B9B]' : 'bg-white border border-[#9B470180]'
-                    }`}
-                  >
-                    <div className="flex justify-start items-center flex-wrap">
-                      <ImageIcon className="w-10 h-10 mr-4" />
+              {historyItems.length > 0 ? (
+                <ul className="space-y-4">
+                  {historyItems.map((item) => (
+                    <li
+                      key={item.id}
+                      className="flex justify-between items-center bg-[#F3F3F3] p-4 rounded-lg shadow-md"
+                    >
                       <div>
-                        <p className="font-medium text-lg">{item.items}</p>
-                        <p className="text-xs text-gray-500">{item.date}</p>
+                        <p className="advent-pro-600  text-lg-text text-darkgreen mb-1">{item.items}</p>
+                        <p className="text-lg-mdtext text-foreground">{item.date}</p>
                       </div>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-2xl text-[#45480F] font-semibold">{item.price.toFixed(2)} €</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
+                      <p className="text-darkgreen text-lg-text advent-pro-600">R${item.price.toFixed(2)}</p>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-lg-text text-darkgreen">Nenhum histórico de reservas encontrado.</p>
+              )}
             </CardContent>
           </Card>
         </div>
       </div>
 
+      <Footer />
       <ConfirmationModal
         isOpen={isOpen}
         onClose={handleClose}
@@ -196,7 +296,6 @@ export default function ReserveView() {
         cancelText="Cancelar"
         description="Tem certeza de que deseja cancelar essa reserva?"
       />
-      <Footer />
     </div>
   );
 }

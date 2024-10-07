@@ -30,11 +30,11 @@ export default function ConfirmationModal({
         >
           <Button
           onClick={onClose}
-          className="absolute right-2 top-2 p-1 rounded-full text-[#000000] bg-transparent hover:bg-gray-200"
+          className="absolute right-2 top-2 rounded-full text-[#000000] bg-transparent hover:bg-gray-200"
         >
         </Button>
         <DialogHeader className="pt-6 px-5">
-          <DialogTitle className="text-center text-lg advent-pro-700">{title}</DialogTitle>
+          <DialogTitle className="text-center text-lg-text advent-pro-700 pb-4">{title}</DialogTitle>
           {description && (
             <DialogDescription className="text-center">
               {description}

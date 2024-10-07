@@ -22,20 +22,18 @@ export default function UserAccount() {
         EditSetIsOpen(false); // Fecha o modal após a confirmação
     };
 
-
-
   return (
-    <div className="flex flex-col h-screen bg-background text-foreground">
+    <div className="rubik-400 flex flex-col h-screen bg-background text-foreground">
       <NavbarLogged />
       <div className="mt-16"> 
         <PriceBanner/>
-        <h1 className="text-4xl font-bold p-4 pb-2 text-secondary">Sua conta</h1>
+        <h1 className="advent-pro-700 text-lg-smtitle font-bold p-4 pb-2 text-secondary ml-12">Sua conta</h1>
       </div>
 
       <div className="max-w-2xl mx-auto mt-10">
         <div className="flex items-start space-x-6 mb-6">
           <div className="relative">
-            <Avatar className="w-48 h-48 border-2 border-border rounded-full overflow-hidden" style={{ borderRadius: '50%' }}>
+            <Avatar className="advent-pro-700 w-48 h-48 border-2 border-border rounded-full overflow-hidden" style={{ borderRadius: '50%' }}>
               <AvatarImage src="/placeholder.svg" alt="Fulano Ciclano"/>
               <AvatarFallback>FC</AvatarFallback>
             </Avatar>
@@ -43,9 +41,9 @@ export default function UserAccount() {
               <CirclePlus className="text-foreground"/>
             </Button>
           </div>
-          <div className="flex-grow">
+          <div className="advent-pro-600 flex-grow">
             <UserInfo name="Fulano Ciclano" email="fulanociclano@mail.com" />
-            <ButtonGroup />
+            <ButtonGroup/>
           </div>
         </div>
 

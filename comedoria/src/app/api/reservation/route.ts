@@ -13,26 +13,27 @@ export const GET = async (request: Request) => {
     const customerId = url.searchParams.get('customer_id'); // Buscar reservas pelo ID do cliente
     const status = url.searchParams.get('status'); // Buscar reservas pelo status
 
-    // Se o customerId estiver presente, busque as reservas desse cliente
+    // Criar o objeto de busca com base nos parâmetros
+    let query: any = {};
+
+    // Se o customerId estiver presente, adiciona ao filtro
     if (customerId) {
-      const reservations = await Reservation.find({ customer: customerId }).populate('customer');
-      if (reservations.length === 0) {
-        return new NextResponse('No reservations found for the specified customer', { status: 404 });
-      }
-      return new NextResponse(JSON.stringify(reservations), { status: 200 });
+      query.customer = customerId;
     }
 
-    // Se o status estiver presente, busque as reservas com base no status
-    if (status) {
-      const reservations = await Reservation.find({ status: status === 'true' }).populate('customer');
-      if (reservations.length === 0) {
-        return new NextResponse('No reservations found with the specified status', { status: 404 });
-      }
-      return new NextResponse(JSON.stringify(reservations), { status: 200 });
+    // Se o status estiver presente, adiciona ao filtro
+    if (status !== null) {
+      query.status = status === 'true'; // Converte o valor da string 'true'/'false' para booleano
     }
 
-    // Se nenhum parâmetro for passado, retorne todas as reservas
-    const reservations = await Reservation.find().populate('customer');
+    // Buscar as reservas com base nos filtros definidos
+    const reservations = await Reservation.find(query).populate('customer');
+
+    // Se nenhuma reserva for encontrada, retorna uma mensagem de erro
+    if (reservations.length === 0) {
+      return new NextResponse('No reservations found matching the criteria', { status: 404 });
+    }
+    
     return new NextResponse(JSON.stringify(reservations), { status: 200 });
 
   } catch (error: any) {
@@ -44,21 +45,17 @@ export const GET = async (request: Request) => {
 export const POST = async (request: Request) => {
   try {
     const { customer, order, shift } = await request.json();
-    console.log(order)
+
     // Validação dos campos obrigatórios
     if (!customer || !order || !shift) {
       return new NextResponse('All fields (customer, order, shift) are required', { status: 400 });
     }
 
     await connect();
-    console.log("CONECTOU")
-    console.log(order)
     
     // Criar uma nova reserva
     const newReservation = new Reservation({ customer, order, shift });
-    console.log('Reservation Data:', JSON.stringify(newReservation));
     await newReservation.save();
-    console.log("SALVOU")
     return new NextResponse(JSON.stringify(newReservation), { status: 201 });
   } catch (error: any) {
     return new NextResponse(error.message, { status: 500 });
