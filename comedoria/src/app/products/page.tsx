@@ -5,9 +5,9 @@ import NavbarLogged from '@/components/ui/Navbar-logged'
 import PriceBanner from '@/components/ui/price-banner'
 import Footer from '@/components/ui/footer'
 import {CartComponent} from './sections/CartComponent/cartComponent';
-import {ProductGrid} from './sections/ProductGrid/page';
-import {SearchBar} from './sections/SearchBar/page';
-import { useCart } from './sections/CartComponent/useCartHook/page'
+import {ProductGrid} from './sections/ProductGrid/productGrid';
+import {SearchBar} from './sections/SearchBar/searchBar';
+import { useCart } from './sections/CartComponent/useCartHook/useCart'
 import { useSession } from 'next-auth/react'
 import Loading from '@/app/(errors)/loading/loading'
 import AuthenticationError from '@/app/(errors)/authentication-error/authentication-error'

@@ -5,15 +5,14 @@ import NavbarLogged from "@/components/ui/Navbar-logged";
 import Footer from "@/components/ui/footer";
 import PriceBanner from "@/components/ui/price-banner";
 import { useRouter } from "next/navigation";
-import CartItemDisplay from "./sections/CartItemDisplay/page";
-import TotalDisplay from "./sections/TotalDisplay/page";
-import { useCart } from "./sections/useCartHook/page";
+import { Suspense } from "react"; // Importando Suspense
+import { CartContent } from "./sections/cartContent/cartContent";
 import AuthenticationError from "@/app/(errors)/authentication-error/authentication-error";
 import Loading from "@/app/(errors)/loading/loading";
 import { useSession } from 'next-auth/react'
+import { useCart } from "./sections/useCartHook/useCart";
 
 const FinalizeReservation = () => {
-  const { cartItems, calculateTotal } = useCart();
   const router = useRouter();
   const { data: session, status } = useSession();
 
@@ -54,6 +53,8 @@ const FinalizeReservation = () => {
   
       const customerData = await customerResponse.json();
       const customerId = customerData._id; // Supondo que o ID do cliente é retornado como _id
+
+      const { cartItems, calculateTotal } = useCart();
   
       // Prepare o corpo da requisição com os dados da reserva
       const reservationData = {
@@ -115,30 +116,18 @@ const FinalizeReservation = () => {
         <h2 className="rubik-700 text-4xl font-bold text-foreground mb-8 text-left">
           Finalize sua reserva
         </h2>
-        {cartItems.length > 0 ? (
-          <div className="flex flex-col mx-auto max-w-full md:max-w-[640px]">
-            <div className="space-y-4 mb-4">
-              {cartItems.map(item => (
-                <CartItemDisplay key={item.product_name} item={item} />
-              ))}
-            </div>
-            <TotalDisplay total={calculateTotal()} />
-            <p className="text-center text-sm text-gray-600 mb-6">
-              Seu pedido ficará reservado até as 17:00
-            </p>
-            <div className="flex justify-center">
-              <Button
-                variant="btnBrown"
-                className="rubik-600 w-full md:w-[420px] h-[64px]"
-                onClick={handleReservation}
-              >
-                Fazer Reserva
-              </Button>
-            </div>
-          </div>
-        ) : (
-          <p className="text-center text-gray-600">Seu carrinho está vazio.</p>
-        )}
+        <Suspense fallback={<div>Loading...</div>}> {/* Boundary de Suspense */}
+          <CartContent /> {/* Agora o conteúdo do carrinho está encapsulado no Suspense */}
+        </Suspense>
+        <div className="flex justify-center">
+          <Button
+            variant="btnBrown"
+            className="rubik-600 w-full md:w-[420px] h-[64px]"
+            onClick={handleReservation}
+          >
+            Fazer Reserva
+          </Button>
+        </div>
       </main>
       <Footer />
     </div>

@@ -1,6 +1,6 @@
 "use client";
-import { useState, useEffect } from 'react';
-import { Trash2, Image as ImageIcon, Calendar, DollarSign } from 'lucide-react';
+import { useState, useEffect, Suspense } from 'react';
+import { Trash2, Image as ImageIcon } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Alert } from "@/components/ui/alert";
 import { motion, AnimatePresence } from 'framer-motion';
@@ -24,13 +24,52 @@ export default function ReserveView() {
   const [showAlert, setShowAlert] = useState(false);
   const [showCancellationAlert, setShowCancellationAlert] = useState(false);
   const [historyItems, setHistoryItems] = useState<HistoryItem[]>([]);
-  const router = useRouter();
-  const searchParams = useSearchParams();
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
   const [activeReservations, setActiveReservations] = useState<HistoryItem[]>([]);
   const { data: session, status } = useSession();
   const [selectedReservationId, setSelectedReservationId] = useState<string | null>(null);
-  
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpen = () => setIsOpen(true);
+  const handleClose = () => setIsOpen(false);
+
+  const handleConfirm = async () => {
+    setShowCancellationAlert(true);
+    
+    // Chame a API para cancelar a reserva (passando o ID da reserva)
+    try {
+        const response = await fetch(`/api/reservation?id=${selectedReservationId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ status: false }), // Mudando o status para falso
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to cancel the reservation');
+        }
+
+        // Aqui você pode atualizar o estado das reservas ativas, se necessário
+        // Exemplo:
+        setActiveReservations(prev => prev.filter(res => res.id !== selectedReservationId));
+    } catch (error) {
+        console.error('Error cancelling reservation:', error);
+    }
+
+    setTimeout(() => setShowCancellationAlert(false), 2000);
+    setIsOpen(false);
+  };
+
+
+  if (status === "loading") {
+    return <Loading />;
+  }
+
+  if (status === "unauthenticated") {
+    return <AuthenticationError />;
+  }  
 
   // Função para buscar o preço de um produto pelo nome
   const fetchProductPrice = async (productName: string): Promise<number> => {
@@ -134,14 +173,21 @@ export default function ReserveView() {
     fetchReservations();
   }, [session, status]);  
 
-  useEffect(() => {
-    const shouldShowAlert = searchParams.get('showAlert') === 'true';
-    if (shouldShowAlert) {
-      setShowAlert(true);
-      setTimeout(() => setShowAlert(false), 5000);
-      router.replace('/customer-reservations');
-    }
-  }, [searchParams, router]);
+  const SearchParamsWrapper = () => {
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
+    useEffect(() => {
+      const shouldShowAlert = searchParams.get('showAlert') === 'true';
+      if (shouldShowAlert) {
+        setShowAlert(true);
+        setTimeout(() => setShowAlert(false), 5000);
+        router.replace('/customer-reservations');
+      }
+    }, [searchParams, router]);
+
+    return null; // Este componente não precisa renderizar nada
+  };
 
   const renderAlert = (message: string, isVisible: boolean, closeHandler: () => void) => (
     <motion.div
@@ -155,48 +201,6 @@ export default function ReserveView() {
     </motion.div>
   );
 
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleOpen = () => setIsOpen(true);
-  const handleClose = () => setIsOpen(false);
-
-  const handleConfirm = async () => {
-    setShowCancellationAlert(true);
-    
-    // Chame a API para cancelar a reserva (passando o ID da reserva)
-    try {
-        const response = await fetch(`/api/reservation?id=${selectedReservationId}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ status: false }), // Mudando o status para falso
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to cancel the reservation');
-        }
-
-        // Aqui você pode atualizar o estado das reservas ativas, se necessário
-        // Exemplo:
-        setActiveReservations(prev => prev.filter(res => res.id !== selectedReservationId));
-    } catch (error) {
-        console.error('Error cancelling reservation:', error);
-    }
-
-    setTimeout(() => setShowCancellationAlert(false), 2000);
-    setIsOpen(false);
-  };
-
-
-  if (status === "loading") {
-    return <Loading />;
-  }
-
-  if (status === "unauthenticated") {
-    return <AuthenticationError />;
-  }
-
   return (
     <div className="rubik-400 flex flex-col min-h-screen">
       <NavbarLogged />
@@ -208,7 +212,7 @@ export default function ReserveView() {
       </div>
 
       <div className="container mx-auto px-16 py-8 bg-background min-h-45vh">
-        <h1 className="advent-pro-700 text-5xl font-bold text-darkgreen mb-12">Minhas Reservas</h1>
+        <h1 className="text-4xl md:advent-pro-700 text-5xl font-bold text-darkgreen mb-12">Minhas Reservas</h1>
 
         <div className="flex justify-between flex-col lg:flex-row gap-12">
           <Card className="text-lg-subtitle w-full lg:w-1/4">
@@ -241,10 +245,9 @@ export default function ReserveView() {
                       </button>
                     </div>
                     <div className="p-4">
-                      <p className="text-sm mb-2 text-[#4A6741]">{reservation.items}</p>
+                      <p className="text-sm mb-2 text-[#4A6741] line-clamp-2">{reservation.items}</p>
                       <div className="flex justify-between items-center">
                         <div className="flex items-center text-[#4A6741]">
-                          <Calendar className="w-4 h-4 mr-1" />
                           <p className="text-sm font-semibold">{reservation.date}</p>
                         </div>
                         <div className="flex items-center text-[#4A6741]">
@@ -257,34 +260,12 @@ export default function ReserveView() {
               </div>
             </CardContent>
           </Card>
-
-          <Card className="text-lg-subtitle w-full lg:w-3/4">
-            <CardHeader>
-              <CardTitle className="text-lg-subtitle advent-pro-600 font-semibold text-darkgreen">Histórico</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {historyItems.length > 0 ? (
-                <ul className="space-y-4">
-                  {historyItems.map((item) => (
-                    <li
-                      key={item.id}
-                      className="flex justify-between items-center bg-[#F3F3F3] p-4 rounded-lg shadow-md"
-                    >
-                      <div>
-                        <p className="advent-pro-600  text-lg-text text-darkgreen mb-1">{item.items}</p>
-                        <p className="text-lg-mdtext text-foreground">{item.date}</p>
-                      </div>
-                      <p className="text-darkgreen text-lg-text advent-pro-600">R${item.price.toFixed(2)}</p>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="text-lg-text text-darkgreen">Nenhum histórico de reservas encontrado.</p>
-              )}
-            </CardContent>
-          </Card>
         </div>
       </div>
+
+      <Suspense fallback={<div>Loading...</div>}>
+        <SearchParamsWrapper />
+      </Suspense>
 
       <Footer />
       <ConfirmationModal

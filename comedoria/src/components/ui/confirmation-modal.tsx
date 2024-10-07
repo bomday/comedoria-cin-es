@@ -1,6 +1,5 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { X } from 'lucide-react'
 
 interface ConfirmationModalProps {
   isOpen: boolean
@@ -23,7 +22,7 @@ export default function ConfirmationModal({
 }: ConfirmationModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={() => {}}>
-      <DialogContent className="sm:max-w-[425px] p-0 overflow-hidden bg-white rounded-lg"
+      <DialogContent className="max-w-[350px] sm:max-w-[350px] p-0 overflow-hidden bg-white rounded-lg"
       style={{background:"white"}}
       onInteractOutside={(e) => e.preventDefault()}
         onEscapeKeyDown={(e) => e.preventDefault()}

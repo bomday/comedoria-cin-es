@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { CirclePlus } from "lucide-react";
 import NavbarLogged from '@/components/ui/Navbar-logged'
 import PriceBanner from '@/components/ui/price-banner'
-import UserInfo from './sections/userInfo/page'
 import ButtonGroup from './sections/buttonGroup/page'
 import ConfirmationModal from '@/components/ui/confirmation-modal';
 import { useState } from 'react';
@@ -13,14 +12,12 @@ import Footer from "@/components/ui/footer";
 export default function UserAccount() {
   const [EditIsOpen, EditSetIsOpen] = useState(false);
 
-    const handleOpen = () => EditSetIsOpen(true);
-    const handleClose = () => EditSetIsOpen(false);
+  const handleOpen = () => EditSetIsOpen(true);
+  const handleClose = () => EditSetIsOpen(false);
 
-    const handleConfirm = () => {
-        console.log('Ação confirmada!');
-        // Aqui você pode adicionar a lógica que deseja executar ao confirmar
-        EditSetIsOpen(false); // Fecha o modal após a confirmação
-    };
+  const handleConfirm = () => {
+      EditSetIsOpen(false); // Fecha o modal após a confirmação
+  };
 
   return (
     <div className="rubik-400 flex flex-col h-screen bg-background text-foreground">
@@ -30,7 +27,7 @@ export default function UserAccount() {
         <h1 className="advent-pro-700 text-lg-smtitle font-bold p-4 pb-2 text-secondary ml-12">Sua conta</h1>
       </div>
 
-      <div className="max-w-2xl mx-auto mt-10">
+      <div className="max-w-4xl mx-auto mt-10 px-4 sm:px-6 lg:px-8">
         <div className="flex items-start space-x-6 mb-6">
           <div className="relative">
             <Avatar className="advent-pro-700 w-48 h-48 border-2 border-border rounded-full overflow-hidden" style={{ borderRadius: '50%' }}>
@@ -42,12 +39,15 @@ export default function UserAccount() {
             </Button>
           </div>
           <div className="advent-pro-600 flex-grow">
-            <UserInfo name="Fulano Ciclano" email="fulanociclano@mail.com" />
+            <div className="space-y-5">
+              <h2 className="text-3xl font-semibold">Fulano Ciclano</h2>
+              <p className="text-gray-600">fulanociclano@mail.com</p>
+            </div>
             <ButtonGroup/>
           </div>
         </div>
 
-        <Button onClick={handleOpen} className="w-full bg-destructive hover:bg-destructive/90 text-white py-3 h-16" style={{color:'white'}}>
+        <Button onClick={handleOpen} className="rubik-600 w-full bg-destructive hover:bg-destructive/90 text-white py-3 h-14 md:h-16" style={{color:'white'}}>
           Excluir conta
         </Button>
       </div>
