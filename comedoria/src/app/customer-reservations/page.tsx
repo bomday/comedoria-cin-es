@@ -1,7 +1,14 @@
 "use client"
-
-import { useState } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { Trash2, Image as ImageIcon } from 'lucide-react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Alert } from "@/components/ui/alert";
+import { motion, AnimatePresence } from 'framer-motion';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import PriceBanner from '@/components/ui/price-banner';
+import NavbarLogged from '@/components/ui/Navbar-logged';
+import ConfirmationModal from '@/components/ui/confirmation-modal';
+import Footer from '@/components/ui/footer';
 
 interface Reservation {
   id: string;
@@ -37,63 +44,167 @@ const historyItems: HistoryItem[] = [
 ];
 
 export default function ReserveView() {
+  const [showAlert, setShowAlert] = useState(false);
+  const [showCancellationAlert, setShowCancellationAlert] = useState(false);
   const [activeReservations, setActiveReservations] = useState<Reservation[]>(initialActiveReservations);
+  const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
 
-  const handleDelete = (id: string) => {
-    setActiveReservations(activeReservations.filter(reservation => reservation.id !== id));
+  const SearchParamsWrapper = () => {
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
+    useEffect(() => {
+      const shouldShowAlert = searchParams.get('showAlert') === 'true';
+      if (shouldShowAlert) {
+        setShowAlert(true);
+        setTimeout(() => setShowAlert(false), 5000);
+        router.replace('/customer-reservations');
+      }
+    }, [searchParams, router]);
+
+    return null; // Este componente não precisa renderizar nada
   };
 
+  const renderAlert = (message: string, isVisible: boolean, closeHandler: () => void) => (
+    <motion.div
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -50 }}
+      transition={{ duration: 0.5 }}
+      className="fixed inset-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-50"
+    >
+      <Alert message={message} isVisible={isVisible} onClose={closeHandler} />
+    </motion.div>
+  );
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpen = () => setIsOpen(true);
+  const handleClose = () => setIsOpen(false);
+
+  const handleConfirm = () => {
+    //if (currentReservationId) {
+      // Remove a reserva do estado activeReservations
+      //setActiveReservations((prev) => prev.filter(reservation => reservation.id !== currentReservationId));}
+
+    // Mostra o alerta de cancelamento
+    setShowCancellationAlert(true);
+    setTimeout(() => setShowCancellationAlert(false), 2000); // Fecha após 5 segundos
+    setIsOpen(false); // Fecha o modal após a confirmação
+  };
+
+
   return (
-    <div className="container relative mx-auto px-4 py-8">
-      <h1 className="text-5xl font-bold text-[#45480F] mb-6">Minhas Reservas</h1>
-      
-      <div className="flex flex-col justify-center md:flex-row gap-8">
-        <div className="absolute left-[164.59px] ritght-[910.78px] w-[262.2px] h-[272px]">
-          <h2 className="text-4xl font-semibold mb-4 text-[#000000]">Ativas</h2>
-          <div className="space-y-4">
-            {activeReservations.map((reservation) => (
-              <div key={reservation.id} className="bg-white rounded-lg shadow-md overflow-hidden">
-                <div className="bg-[#E2F2CB] h-32 relative">
-                  <ImageIcon className="text-[#45480F] w-12 h-12 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
-                  <button
-                    className="absolute top-4 right-4 text-[#9AB89A]"
-                    onClick={() => handleDelete(reservation.id)}
+    <div className="flex flex-col min-h-screen">
+      <NavbarLogged />
+      <div className="mt-16">
+        <AnimatePresence>
+          {showAlert && renderAlert("Sua reserva foi efetuada com sucesso!", showAlert, () => setShowAlert(false))}
+          {showCancellationAlert && renderAlert("Sua reserva foi cancelada com sucesso!", showCancellationAlert, () => setShowCancellationAlert(false))}
+        </AnimatePresence>
+        <PriceBanner/>
+      </div>
+
+      <div className="container mx-auto px-4 py-8 bg-gradient-to-br from-[#F0F4E8] to-[#E2F2CB] min-h-screen mt-8">
+        <h1 className="text-4xl md:text-5xl font-bold text-[#45480F] mb-6">Minhas Reservas</h1>
+
+        <div className="flex flex-col lg:flex-row gap-8">
+          <Card className="w-full lg:w-1/4">
+            <CardHeader>
+              <CardTitle className="text-3xl font-semibold text-[#45480F]">Ativas</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {activeReservations.map((reservation) => (
+                  <motion.div
+                    key={reservation.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3 }}
+                    className="bg-white rounded-lg shadow-md overflow-hidden"
                   >
-                    <Trash2 className="text-[#45480F] hover:text-[#606A0F] w-8 h-8" />
-                  </button>
-                </div>
-                <div className="p-4">
-                  <p className="text-sm mb-2">{reservation.items}</p>
-                  <div className="flex justify-between items-center">
-                    <p className="text-sm font-semibold text-[#4A6741]">{reservation.date}</p>
-                    <p className="text-lg font-bold text-[#4A6741]">{reservation.currency} {reservation.price.toFixed(2)}</p>
-                  </div>
-                </div>
+                    <div className="bg-[#E2F2CB] h-32 relative">
+                      <ImageIcon className="text-[#45480F] w-12 h-12 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+                      <button
+                        className="absolute top-4 right-4 text-[#9AB89A] transition-colors duration-200"
+                        aria-label="Delete reservation"
+                        onClick={() => setIsDeleteConfirmationOpen(true)}
+                      >
+                        <Trash2
+                        onClick={() => {
+                          setIsDeleteConfirmationOpen(true);
+                          handleOpen(); // Abre o modal de confirmação antes de cancelar
+                        }}
+                        className="text-[#45480F] hover:text-[#606A0F] w-6 h-6" />
+                      </button>
+                    </div>
+                    <div className="p-4">
+                      <p className="text-sm mb-2 text-[#4A6741] line-clamp-2">{reservation.items}</p>
+                      <div className="flex justify-between items-center">
+                        <div className="flex items-center text-[#4A6741]">
+                          <p className="text-sm font-semibold">{reservation.date}</p>
+                        </div>
+                        <div className="flex items-center text-[#4A6741]">
+                          <p className="text-lg font-bold">{reservation.currency} {reservation.price.toFixed(2)}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
-        
-        <div className="absolute left-[426.22px] right-[94.59px] ml-[37px] w-full md:w-2/3">
-          <h2 className="text-4xl font-semibold mb-4 text-[#000000]">Histórico</h2>
-          <div className="space-y-2">
-            {historyItems.map((item) => (
-              <div 
-                key={item.id} 
-                className={`p-3 rounded-lg flex justify-between items-center ${
-                  item.status === 'highlighted' ? 'bg-[#FF9B9B]' : 'bg-white border border[#9B470180]'
-                }`}
-              >
-                <div className="flex justify-start items-center flex-grow">
-                  <p className="text-sm font-medium text-[#000000] mr-4">{item.items}</p>
-                  <p className="text-xs text-gray-500">R$ {item.price.toFixed(2)}</p>
-                </div>
-                <p className="text-xs text-gray-500 ml-4">{item.date}</p>
+            </CardContent>
+          </Card>
+
+          <Card className="w-full lg:w-2/3">
+            <CardHeader>
+              <CardTitle className="text-3xl font-semibold text-[#45480F]">Histórico</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                {historyItems.map((item) => (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className={`p-2 flex justify-between items-center rounded-[8px] flex overflow-hidden ${
+                      item.status === 'highlighted' ? 'bg-[#FF9B9B]' : 'bg-white border border-[#9B470180]'
+                    }`}
+                  >
+                    <div className="flex justify-start items-center flex-1 min-w-0">
+                      <ImageIcon className="w-8 h-8 mr-3 flex-shrink-0" />
+                      <div className="min-w-0 flex-1">
+                        <p className="font-medium text-lg truncate">{item.items}</p>
+                        <p className="text-xs text-gray-500">{item.date}</p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-xl text-[#45480F] font-semibold">R${item.price.toFixed(2)}</p>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
-            ))}
-          </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
+
+      <Suspense fallback={<div>Loading...</div>}>
+        <SearchParamsWrapper />
+      </Suspense>
+
+      <ConfirmationModal
+        isOpen={isOpen}
+        onClose={handleClose}
+        onConfirm={handleConfirm}
+        title="Confirmação Necessária"
+        confirmText="Confirmar"
+        cancelText="Cancelar"
+        description="Tem certeza de que deseja cancelar essa reserva?"
+      />
+          
+      <Footer />
     </div>
   );
 }

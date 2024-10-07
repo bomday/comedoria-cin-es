@@ -2,14 +2,16 @@ import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
+
 const alertVariants = cva(
   "relative w-[860px] h-[48px] mx-auto rounded-lg p-4 flex items-center justify-center [&>svg~*]:pl-7 [&>svg+*]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-1/2 [&>svg]:-translate-y-1/2 [&>svg]:text-foreground",
   {
     variants: {
       variant: {
-        default: "bg-background text-foreground",
+        default: "bg-lightgreen text-darkgreen pointer-events-auto shadow-md overflow-hidden",
+        error: "bg-red text-wine pointer-events-auto shadow-md overflow-hidden",
         destructive:
-          "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive",
+          "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive pointer-events-auto shadow-md overflow-hidden",
       },
     },
     defaultVariants: {
@@ -35,7 +37,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
           role="alert"
           className={cn(
             alertVariants({ variant }),
-            "bg-[#AED970] pointer-events-auto shadow-md overflow-hidden",
+            "pointer-events-auto shadow-md overflow-hidden",
             className
           )}
           {...props}
@@ -59,8 +61,6 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
     );
   }
 );
-
-Alert.displayName = "Alert";
 
 const AlertDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
   ({ className, ...props }, ref) => (
