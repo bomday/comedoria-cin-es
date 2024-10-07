@@ -1,6 +1,4 @@
 import { Image as ImageIcon } from "lucide-react";
-import Image from 'next/image';
-import ProdutosImage from '@/app/assets/images/produtos.png';
 
 export interface CartItem {
   product_name: string,
