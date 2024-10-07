@@ -125,10 +125,8 @@ export default function ReserveView() {
     };
 
     fetchReservations();
-  }, [session, status]);
 
-  useEffect(() => {
-    const fetchReservations = async () => {
+    const fetchReservationsCustomerStatus = async () => {
       if (status === 'authenticated' && session?.user) {
         try {
           const customerResponse = await fetch(`/api/customer?email=${session.user.email}`);
@@ -170,7 +168,7 @@ export default function ReserveView() {
       }
     };
   
-    fetchReservations();
+    fetchReservationsCustomerStatus();
   }, [session, status]);  
 
   const SearchParamsWrapper = () => {
