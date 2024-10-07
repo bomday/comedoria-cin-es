@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { Trash2, Image as ImageIcon } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Alert } from "@/components/ui/alert";
@@ -185,15 +185,18 @@ export default function ReserveView() {
         </div>
       </div>
 
-      <ConfirmationModal
-        isOpen={isOpen}
-        onClose={handleClose}
-        onConfirm={handleConfirm}
-        title="Confirmação Necessária"
-        confirmText="Confirmar"
-        cancelText="Cancelar"
-        description="Tem certeza de que deseja cancelar essa reserva?"
-      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <ConfirmationModal
+          isOpen={isOpen}
+          onClose={handleClose}
+          onConfirm={handleConfirm}
+          title="Confirmação Necessária"
+          confirmText="Confirmar"
+          cancelText="Cancelar"
+          description="Tem certeza de que deseja cancelar essa reserva?"
+        />
+      </Suspense>
+           
       <Footer />
     </div>
   );
