@@ -203,94 +203,96 @@ export default function ReserveView() {
       <NavbarLogged />
       <Suspense fallback={<Loading />}>
         <SearchParamsWrapper />
-      </Suspense>
-      <div className="mt-16">
-        <AnimatePresence>
-          {showAlert && renderAlert("Sua reserva foi efetuada com sucesso!", showAlert, () => setShowAlert(false))}
-          {showCancellationAlert && renderAlert("Sua reserva foi cancelada com sucesso!", showCancellationAlert, () => setShowCancellationAlert(false))}
-        </AnimatePresence>
-      </div>
-
-      <div className="container mx-auto px-16 py-8 bg-background min-h-45vh">
-        <h1 className="text-4xl md:advent-pro-700 text-5xl font-bold text-darkgreen mb-12">Minhas Reservas</h1>
-
-        <div className="flex justify-between flex-col lg:flex-row gap-12">
-          <Card className="text-lg-subtitle w-full lg:w-1/4">
-            <CardHeader>
-              <CardTitle className="text-lg-subtitle advent-pro-600 font-semibold text-darkgreen">Ativas</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4 md:min-h-[40vh]">
-                {activeReservations.map((reservation) => (
-                  <motion.div
-                    key={reservation.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.3 }}
-                    className="bg-white rounded-lg shadow-md overflow-hidden"
-                  >
-                    <div className="bg-[#E2F2CB] h-32 relative">
-                      <ImageIcon className="text-darkgreen w-12 h-12 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
-                      <button
-                          className="absolute top-4 right-4 text-[#9AB89A] transition-colors duration-200"
-                          aria-label="Delete reservation"
-                          onClick={() => {
-                              setSelectedReservationId(reservation.id); // Armazena o ID da reserva
-                              setIsDeleteConfirmationOpen(true);
-                              handleOpen();
-                          }}
-                      >
-                          <Trash2 className="text-darkgreen hover:text-[#606A0F] w-6 h-6" />
-                      </button>
-                    </div>
-                    <div className="p-4">
-                      <p className="text-sm mb-2 text-[#4A6741] line-clamp-2">{reservation.items}</p>
-                      <div className="flex justify-between items-center">
-                        <div className="flex items-center text-[#4A6741]">
-                          <p className="text-sm font-semibold">{reservation.date}</p>
-                        </div>
-                        <div className="flex items-center text-[#4A6741]">
-                          <p className="text-sm font-semibold">R$ {reservation.price}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-          <Card className="text-lg-subtitle w-full lg:w-2/3">
-            <CardHeader>
-              <CardTitle className="text-lg-subtitle advent-pro-600 font-semibold text-darkgreen">Histórico</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2 md:min-h-[40vh]">
-                {historyItems.map((item) => (
-                  <motion.div
-                    key={item.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="p-4 flex justify-between items-center shadow-lg rounded-[8px] flex overflow-hidden"
-                  >
-                    <div className="flex justify-start items-center flex-wrap">
-                      <ImageIcon className="w-10 h-10 mr-4" />
-                      <div>
-                        <p className="font-medium text-lg">{item.items}</p>
-                        <p className="text-xs text-gray-500">{item.date}</p>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-2xl text-[#45480F] font-semibold">R$ {item.price.toFixed(2)}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+      
+        <div className="mt-16">
+          <AnimatePresence>
+            {showAlert && renderAlert("Sua reserva foi efetuada com sucesso!", showAlert, () => setShowAlert(false))}
+            {showCancellationAlert && renderAlert("Sua reserva foi cancelada com sucesso!", showCancellationAlert, () => setShowCancellationAlert(false))}
+          </AnimatePresence>
         </div>
-      </div>
+
+        <div className="container mx-auto px-16 py-8 bg-background min-h-45vh">
+          <h1 className="text-4xl md:advent-pro-700 text-5xl font-bold text-darkgreen mb-12">Minhas Reservas</h1>
+
+          <div className="flex justify-between flex-col lg:flex-row gap-12">
+            <Card className="text-lg-subtitle w-full lg:w-1/4">
+              <CardHeader>
+                <CardTitle className="text-lg-subtitle advent-pro-600 font-semibold text-darkgreen">Ativas</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4 md:min-h-[40vh]">
+                  {activeReservations.map((reservation) => (
+                    <motion.div
+                      key={reservation.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.3 }}
+                      className="bg-white rounded-lg shadow-md overflow-hidden"
+                    >
+                      <div className="bg-[#E2F2CB] h-32 relative">
+                        <ImageIcon className="text-darkgreen w-12 h-12 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+                        <button
+                            className="absolute top-4 right-4 text-[#9AB89A] transition-colors duration-200"
+                            aria-label="Delete reservation"
+                            onClick={() => {
+                                setSelectedReservationId(reservation.id); // Armazena o ID da reserva
+                                setIsDeleteConfirmationOpen(true);
+                                handleOpen();
+                            }}
+                        >
+                            <Trash2 className="text-darkgreen hover:text-[#606A0F] w-6 h-6" />
+                        </button>
+                      </div>
+                      <div className="p-4">
+                        <p className="text-sm mb-2 text-[#4A6741] line-clamp-2">{reservation.items}</p>
+                        <div className="flex justify-between items-center">
+                          <div className="flex items-center text-[#4A6741]">
+                            <p className="text-sm font-semibold">{reservation.date}</p>
+                          </div>
+                          <div className="flex items-center text-[#4A6741]">
+                            <p className="text-sm font-semibold">R$ {reservation.price}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+            <Card className="text-lg-subtitle w-full lg:w-2/3">
+              <CardHeader>
+                <CardTitle className="text-lg-subtitle advent-pro-600 font-semibold text-darkgreen">Histórico</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2 md:min-h-[40vh]">
+                  {historyItems.map((item) => (
+                    <motion.div
+                      key={item.id}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="p-4 flex justify-between items-center shadow-lg rounded-[8px] flex overflow-hidden"
+                    >
+                      <div className="flex justify-start items-center flex-wrap">
+                        <ImageIcon className="w-10 h-10 mr-4" />
+                        <div>
+                          <p className="font-medium text-lg">{item.items}</p>
+                          <p className="text-xs text-gray-500">{item.date}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-2xl text-[#45480F] font-semibold">R$ {item.price.toFixed(2)}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </Suspense>
+
       <Footer />
       <ConfirmationModal
         isOpen={isOpen}
