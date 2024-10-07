@@ -37,7 +37,7 @@ export default function Navbar() {
       <div className="md:hidden">
         <Button
           size="sm"
-          variant="btnSocialMedia"
+          variant="outline"
           onClick={() => setIsOpen(!isOpen)}
         >
           <Menu className="h-6 w-6" />

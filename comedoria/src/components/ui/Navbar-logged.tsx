@@ -22,7 +22,7 @@ export default function NavbarLogged() {
 
         {/* Botão de menu para telas pequenas */}
         <div className="md:hidden">
-          <Button size="sm" variant="btnSocialMedia" onClick={() => setIsOpen(!isOpen)}>
+          <Button size="sm" variant="ghost" onClick={() => setIsOpen(!isOpen)}>
             <Menu className="h-6 w-6" />
           </Button>
         </div>
@@ -30,17 +30,17 @@ export default function NavbarLogged() {
         {/* Menu normal para telas maiores */}
         <div className="hidden md:flex items-center rubik-600 justify-end space-x-4">
           <Link href="/products">
-            <Button size="md" variant="btnSocialMedia">
+            <Button size="md" variant="ghost">
               Salgados
             </Button>
           </Link>
           <Link href="/customer-reservations">
-            <Button size="md" variant="btnSocialMedia">
+            <Button size="md" variant="ghost">
               Suas Reservas
             </Button>
           </Link>
           <Link href="/customer-account">
-            <Button size="md" variant="btnSocialMedia">
+            <Button size="md" variant="ghost">
               Sua Conta
             </Button>
           </Link>
@@ -55,29 +55,29 @@ export default function NavbarLogged() {
 
       {/* Menu suspenso para telas pequenas */}
       <div
-        className={`absolute top-16 left-0 w-full bg-background shadow-lg z-50 p-4 transition-all duration-300 ease-in-out ${
+        className={` md:hidden flex flex-col p-4 bg-background shadow-lg z-50 items-center transition-all duration-300 ease-in-out ${
           isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0 overflow-hidden"
         }`}
       >
           <Link href="/products">
-            <Button size="md" variant="btnSocialMedia" onClick={() => setIsOpen(false)} className="text-center w-full">
+            <Button size="md" variant="ghost" onClick={() => setIsOpen(false)}>
               Salgados
             </Button>
           </Link>
           <Link href="/customer-reservations">
-            <Button size="md" variant="btnSocialMedia" onClick={() => setIsOpen(false)} className="text-center w-full">
+            <Button size="md" variant="ghost" onClick={() => setIsOpen(false)}>
               Suas Reservas
             </Button>
           </Link>
           <Link href="/customer-account">
-            <Button size="md" variant="btnSocialMedia" onClick={() => setIsOpen(false)} className="text-center w-full">
+            <Button size="md" variant="ghost" onClick={() => setIsOpen(false)}>
               Sua Conta
             </Button>
           </Link>
           <Link href="/landing-page">
             <Button
               size="sm"
-              className="bg-[#FF6B6B] hover:bg-[#FF4D4D] text-center w-full"
+              className="bg-[#FF6B6B] hover:bg-[#FF4D4D]"
               onClick={() => setIsOpen(false)}
             >
               Sair

@@ -8,6 +8,7 @@ import {CartComponent} from './sections/CartComponent/cartComponent';
 import {ProductGrid} from './sections/ProductGrid/page';
 import {SearchBar} from './sections/SearchBar/page';
 import { useCart } from './sections/CartComponent/useCartHook/page'
+import { GET } from '../api/inventory/route'
 
 export interface Product {
   product_name: string,

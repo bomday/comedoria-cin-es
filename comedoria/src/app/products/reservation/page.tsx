@@ -18,7 +18,7 @@ const FinalizeReservation = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="rubik-400 flex flex-col min-h-screen">
       <NavbarLogged />
       <div className="mt-16"> 
         <PriceBanner />
@@ -40,7 +40,8 @@ const FinalizeReservation = () => {
             </p>
             <div className="flex justify-center">
               <Button
-                className="w-full md:w-[420px] h-[64px] bg-[rgba(var(--brown-button))] hover:bg-[rgba(var(--brown-hover))] text-[#FFFFFF] text-lg font-semibold font-inter"
+                variant="btnBrown"
+                className="rubik-600 w-full md:w-[420px] h-[64px]"
                 onClick={handleReservation}
               >
                 Fazer Reserva

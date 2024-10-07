@@ -8,7 +8,7 @@ import UserInfo from './sections/userInfo/page'
 import ButtonGroup from './sections/buttonGroup/page'
 import ConfirmationModal from '@/components/ui/confirmation-modal';
 import { useState } from 'react';
-import Footer from '@/components/ui/footer';
+import Footer from "@/components/ui/footer";
 
 export default function UserAccount() {
   const [EditIsOpen, EditSetIsOpen] = useState(false);
