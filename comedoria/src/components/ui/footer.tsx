@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { Instagram, Facebook, Linkedin } from 'lucide-react';
 import { WhiteLogo } from '@/app/assets/index';
 import "@/app/globals.css";
 

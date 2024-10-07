@@ -1,7 +1,7 @@
 "use server"
 import connect from "@/lib/db";
 import Customer from "@/lib/modals/customer";
-import { CustomerAPI } from "@/app/api/customer/route";
+import { CustomerAPI } from '@/app/api/customer/route';
 import bcrypt from 'bcryptjs'
 
 export const registerClient = async (values: any) => {
@@ -25,7 +25,7 @@ export const registerClient = async (values: any) => {
         }
 
         const customerAPI = new CustomerAPI()
-        customerAPI.POST(user)
+        customerAPI.addCustomer(user)
         return { success: true };
     }catch(e: any){
         console.log(e);

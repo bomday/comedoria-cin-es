@@ -5,7 +5,7 @@ import { getServerSession } from 'next-auth/next';
 import bcrypt from 'bcryptjs';
 import { authOptions } from '@/lib/auth';
 
-class CustomerAPI {
+export class CustomerAPI {
   // Listar clientes ou pegar informações de cliente específico
   public async getCustomers(request: Request) {
     const session = await getServerSession(authOptions);
