@@ -4,9 +4,9 @@ import "@/app/globals.css";
 
 export default function Footer() {
   return (
-    <footer className="bg-wine text-white py-6 mt-auto md:py-4 md:h-[4.5rem]"> {/* Reduzir padding */}
+    <footer className="bg-wine h-[4.5rem] text-white py-6 mt-auto">
       <div className="container mx-auto px-16">
-        <div className="flex flex-col md:flex-row justify-between items-center sm:space-y-2 md:space-y-0 lg:space-y-4"> {/* Ajustar alinhamento e espaçamento */}
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-start space-y-4 md:space-y-0">
           {/* Logo Section */}
           <div className="flex justify-center md:justify-start">
             <Image

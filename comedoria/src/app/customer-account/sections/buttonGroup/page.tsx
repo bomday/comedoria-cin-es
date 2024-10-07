@@ -31,16 +31,16 @@ export default function ButtonGroup() {
     }; */
 
     return (
-        <div className="flex flex-col space-y-4 mt-5">
+        <div className="rubik-600 text-background flex flex-col space-y-4 mt-5">
           <Button 
-            className="rubik-600 w-48 bg-[rgba(var(--brown-button))] hover:bg-[rgba(var(--brown-button))] text-white py-3"
+            className="w-48 bg-brown hover:bg-brown-hover text-white py-3"
             onClick={handleOpenEditModal}
             style={{color:'white'}}
           >
             Editar Informações
           </Button>
           <Button 
-            className="rubik-600 w-48 bg-[rgba(var(--light-yellow))] hover:bg-[#F2BF5E]/90 text-white py-3"
+            className="w-48 bg-[rgba(var(--light-yellow))] hover:bg-[#F2BF5E]/80 text-white py-3"
             onClick={handleOpenResetPasswordModal}
             style={{color:'white'}}
           >

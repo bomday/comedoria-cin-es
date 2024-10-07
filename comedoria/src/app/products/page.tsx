@@ -5,10 +5,13 @@ import NavbarLogged from '@/components/ui/Navbar-logged'
 import PriceBanner from '@/components/ui/price-banner'
 import Footer from '@/components/ui/footer'
 import {CartComponent} from './sections/CartComponent/cartComponent';
-
 import {ProductGrid} from './sections/ProductGrid/productGrid';
 import {SearchBar} from './sections/SearchBar/searchBar';
 import { useCart } from './sections/CartComponent/useCartHook/useCart'
+import { useSession } from 'next-auth/react'
+import Loading from '@/app/(errors)/loading/loading'
+import AuthenticationError from '@/app/(errors)/authentication-error/authentication-error'
+
 export interface Product {
   product_name: string,
   stock: number,
@@ -22,13 +25,14 @@ export default function FecharVenda() {
   const [searchTerm, setSearchTerm] = useState<string>('')
   const router = useRouter()
   const { cartItems, addToCart, updateQuantity, calculateTotal } = useCart()
+  const { data: session, status } = useSession();
 
   useEffect(() => {
     // Função para buscar produtos da API
     const fetchProducts = async () => {
       try {
         const response = await fetch('/api/inventory'); // Ajuste a URL para corresponder ao seu endpoint
-        
+
         if (!response.ok) {
           throw new Error('Falha ao buscar produtos');
         }
@@ -42,6 +46,17 @@ export default function FecharVenda() {
 
     fetchProducts();
   }, []);
+  
+  if (status === "loading") {
+    return <Loading/>
+  }
+
+  if (status === "unauthenticated") {
+    return <AuthenticationError/>
+  }
+
+  // Só tenta acessar o usuário quando a sessão estiver autenticada
+  const user = session?.user
 
   const handleSearchTermChange = (term: string) => {
     setSearchTerm(term)

@@ -6,7 +6,6 @@ import Inventory from '@/lib/modals/inventory';
 export const GET = async (request: Request) => {
     try {
       await connect();
-      console.log("BICHO TO NO GET")
   
       // Extrair parâmetros da query string
       const url = new URL(request.url);
