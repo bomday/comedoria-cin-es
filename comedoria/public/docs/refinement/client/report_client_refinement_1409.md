@@ -2,9 +2,9 @@
 
 ## 1. Informações Gerais
 
-**Data**: 15/09/2024
+**Data**: 14/09/2024
 
-**Hora**: 09:00 - 10:00
+**Hora**: 16:00 - 17:00
 
 **Local/Plataforma**: Google Meets
 
@@ -12,7 +12,7 @@
 
 **Participantes**:
 
-- Maria Antonia Monteiro da Silva(Funcionária)
+- Williams Andrade de Souza Filho (Gerente)
 
 ## 2. Objetivos da Reunião
 
@@ -42,7 +42,7 @@ O objetivo desta reunião de refinamento foi revisar e discutir os itens do back
     - Funcionamento do menu superior para desktop
     - Funcionamento do menu lateral para mobile
 - **Ajustes Necessários**: 
-    - Modificação de um botão para adicionar link para grupo de whatsapp da organização
+    - Modificar a imagem do hero pois o uso de imagem com sachês pode induzir o cliente a acreditar que a organização dispõe de sachês na venda também
 - **Responsável pelos Ajustes**: Celeste Azul Gomes de Gouveia Pereira
 - **Estimativa (Story Points)**: 1
 
@@ -55,9 +55,9 @@ O objetivo desta reunião de refinamento foi revisar e discutir os itens do back
     - Uso de e-mail como fator de validação da conta
     - Possibilidade de cadastro com conta Google ou Facebook
 - **Ajustes Necessários**: 
-    - Criar tela simples para “Esqueci minha senha”
+    - Colocar link da tela de login para a tela de cadastro na visualização mobile
 - **Responsável pelos Ajustes**: Celeste Azul Gomes de Gouveia Pereira
-- **Estimativa (Story Points)**: 3
+- **Estimativa (Story Points)**: 1
 
 ### 3.2. Item 4: Protótipo em alto nível da HU 2
 
@@ -78,9 +78,9 @@ O objetivo desta reunião de refinamento foi revisar e discutir os itens do back
     - Opção da visualização do estoque como em card ou em lista
     - Área de clique dos botões do carrinho na versão mobile
 - **Ajustes Necessários**: 
-    - Nenhum acréscimo
-- **Responsável pelos Ajustes**: -
-- **Estimativa (Story Points)**: -
+    - Aumentar a área de clique do botão de carrinho na versão mobile
+- **Responsável pelos Ajustes**: Celeste Azul Gomes de Gouveia Pereira
+- **Estimativa (Story Points)**: 2
 
 ### 3.2. Item 6: Protótipo em alto nível da HU 8
 
@@ -89,11 +89,11 @@ O objetivo desta reunião de refinamento foi revisar e discutir os itens do back
     - Visualização e validação das telas
     - Discussão sobre a necessidade de uma tela para ver os pedidos de forma detalhada
     - Discussão sobre a melhor forma de visualizar o histórico de reservas para o cliente
-    - Ideias de features futuras envolvendo refazer uma reserva ou entrar em contato com o cliente a partir de uma reserva específica
 - **Ajustes Necessários**: 
-    - Conversar sobre viabilidade técnica pro MVP com a representante dos devs
+    - Mudança da visualização do histórico de card para lista
+    - Adição da possibilidade de cancelar reserva no componente do card
 - **Responsável pelos Ajustes**: Celeste Azul Gomes de Gouveia Pereira
-- **Estimativa (Story Points)**: 1
+- **Estimativa (Story Points)**: 3
 
 ### 3.2. Item 7: Protótipo em baixo nível das telas ainda não produzidas
 
@@ -102,12 +102,10 @@ O objetivo desta reunião de refinamento foi revisar e discutir os itens do back
     - Apresentação da arquitetura de informação das telas propostas
     - Atenção para a área de clique dos botões na área de estoque
     - Discussão sobre a utilização de listas ou carros na área de reposição de estoque
-    - Possibilidade de começar uma nova venda mais facilmente
 - **Ajustes Necessários**: 
-    - Encontrar uma solução para nova venda de forma mais prática para o funcionário
-    - Adicionar a opção do gerente colocar um funcionário para cobrir turno de outro
-- **Responsável pelos Ajustes**: Celeste Azul Gomes de Gouveia Pereira
-- **Estimativa (Story Points)**: 3
+    - Nenhum necessário
+- **Responsável pelos Ajustes**: -
+- **Estimativa (Story Points)**: -
 
 ### 3.2. Item 8: Seleção de estatísticas para gerenciamento
 
@@ -117,9 +115,10 @@ O objetivo desta reunião de refinamento foi revisar e discutir os itens do back
     - Variáveis que afetam as vendas na visão do cliente
     - Visualizações de dado mais úteis 
 - **Ajustes Necessários**: 
-    - Nenhum acréscimo
-- **Responsável pelos Ajustes**: -
-- **Estimativa (Story Points)**: -
+    - Seleção de estatísticas
+    - Seleção de visualização
+- **Responsável pelos Ajustes**: Rafael Henrique Ayres
+- **Estimativa (Story Points)**: 3
 
 
 ## 4. Priorização dos Itens
@@ -128,17 +127,19 @@ Após a discussão, os seguintes itens foram priorizados para a próxima sprint:
 
 - **Item 2**: Prioridade Baixa
 - **Item 3**: Prioridade Baixa
+- **Item 5**: Prioridade Média
 - **Item 6**: Prioridade Alta
-- **Item 7**: Prioridade Média
+- **Item 8**: Prioridade Alta
 
 ## 5. Ações Decorrentes
 
 | Ação | Responsável | Prazo |
 | --- | --- | --- |
-| Fazer modificação do item 2 | Celeste Azul Gomes de Gouveia Pereira | 23/09 |
-| Criação de tela nova do item 3 | Celeste Azul Gomes de Gouveia Pereira | 23/09 |
-| Conversar com dev sobre item 6 | Celeste Azul Gomes de Gouveia Pereira | 15/09 |
-| Idealizar tela do item 7 | Celeste Azul Gomes de Gouveia Pereira | 20/09 |
+| Atualizar imagem do item 2 | Celeste Azul Gomes de Gouveia Pereira | 23/09 |
+| Inserir os links do item 3 | Celeste Azul Gomes de Gouveia Pereira | 23/09 |
+| Atualizar o componente do item 5 | Celeste Azul Gomes de Gouveia Pereira | 21/09 |
+| Refatoração da tela do item 6 | Celeste Azul Gomes de Gouveia Pereira | 19/09 |
+| Pesquisa das estatísticas do item 7 | Rafael Henrique Ayres | 19/09 |
 
 ## 6. Próxima Reunião
 
