@@ -1,7 +1,7 @@
 import React from 'react';
-import SearchBar from '@/app/management/customers/search-bar/page';
+import SearchBar from '@/app/management/customers/search-bar/searchBar';
 import Sidebar from '@/components/ui/sidebar'
-import CustomerList from '@/app/management/customers/customer-list/page';
+import CustomerList from '@/app/management/customers/customer-list/customerList';
 
 const ClientManagementPage: React.FC = () => {
   return (

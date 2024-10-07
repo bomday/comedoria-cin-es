@@ -37,10 +37,7 @@ export default function Forms() {
         } else {
             if (status === "authenticated") {
                 router.push("/products");
-            } else if (status === "loading") {
-                router.push("/loading");
             } 
-
             loginFormRef.current?.reset();
         }
     };
@@ -179,10 +176,10 @@ export default function Forms() {
                                 onCheckedChange={(checked: boolean) => setIsTermsChecked(checked as boolean)}
                                 className="mt-1"
                             />
-                            <label htmlFor="terms" className="rubik-400 text-sm text-gray-200">
+                            <label htmlFor="terms" className="rubik-400 text-sm text-foreground">
                             Ao criar sua conta você aceita os{" "}
-                            <a href="#" className="text-[#AED970] hover:underline">Termos e Condições de Uso</a> e a{" "}
-                            <a href="#" className="text-[#AED970] hover:underline">Política de Privacidade</a>
+                            <a href="https://github.com/bomday/comedoria-cin-es/blob/main/comedoria/public/docs/business/terms_and_conditions.md" className="text-wine hover:underline">Termos e Condições de Uso</a> e a{" "}
+                            <a href="https://github.com/bomday/comedoria-cin-es/blob/main/comedoria/public/docs/business/privacy_policy.md" className="text-wine hover:underline">Política de Privacidade</a>
                             </label>
                         </div>
                         <Button type="submit" className="rubik-600 w-full bg-brown hover:bg-[#7c3d11]">Criar conta</Button>
