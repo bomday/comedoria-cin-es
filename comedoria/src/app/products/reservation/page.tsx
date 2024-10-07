@@ -11,6 +11,7 @@ import AuthenticationError from "@/app/(errors)/authentication-error/authenticat
 import Loading from "@/app/(errors)/loading/loading";
 import { useSession } from 'next-auth/react'
 import { useCart } from "./sections/useCartHook/useCart";
+import { useSearchParams } from 'next/navigation';
 
 const FinalizeReservation = () => {
   const router = useRouter();
@@ -106,30 +107,32 @@ const FinalizeReservation = () => {
   }; 
 
   return (
-    <div className="rubik-400 flex flex-col min-h-screen">
-      <NavbarLogged />
-      <div className="mt-16"> 
-        <PriceBanner />
-      </div>
-      <main className="flex-grow container mx-auto px-16 py-8">
-        <h2 className="rubik-700 text-4xl font-bold text-foreground mb-8 text-left">
-          Finalize sua reserva
-        </h2>
-        <Suspense fallback={<div>Loading...</div>}> {/* Boundary de Suspense */}
-          <CartContent /> {/* Agora o conteúdo do carrinho está encapsulado no Suspense */}
-        </Suspense>
-        <div className="flex justify-center">
-          <Button
-            variant="btnBrown"
-            className="rubik-600 w-full md:w-[420px] h-[64px]"
-            onClick={handleReservation}
-          >
-            Fazer Reserva
-          </Button>
+    <Suspense fallback={<div>Loading...</div>}>
+      <div className="rubik-400 flex flex-col min-h-screen">
+        <NavbarLogged />
+        <div className="mt-16"> 
+          <PriceBanner />
         </div>
-      </main>
-      <Footer />
-    </div>
+        <main className="flex-grow container mx-auto px-16 py-8">
+          <h2 className="rubik-700 text-4xl font-bold text-foreground mb-8 text-left">
+            Finalize sua reserva
+          </h2>
+          
+          <CartContent /> {/* Agora o conteúdo do carrinho está encapsulado no Suspense */}
+          
+          <div className="flex justify-center">
+            <Button
+              variant="btnBrown"
+              className="rubik-600 w-full md:w-[420px] h-[64px]"
+              onClick={handleReservation}
+            >
+              Fazer Reserva
+            </Button>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    </Suspense>
   );
 };
 
