@@ -3,19 +3,19 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Products } from '@/app/assets/index';
 import Link from 'next/link';
 import Image from 'next/image';
 
 interface Product {
   id: number;
-  name: string;
+  product_name: string;
   description: string;
   available: number;
 }
 
-const products: Product[] = [
+/*const products: Product[] = [
   { id: 1, name: "Fantastic Shoes", description: "Fantastic baby", available: 8 },
   { id: 2, name: "Fantastic Shoes", description: "Fantastic baby", available: 8 },
   { id: 3, name: "Fantastic Shoes", description: "Fantastic baby", available: 8 },
@@ -27,16 +27,38 @@ const products: Product[] = [
   { id: 11, name: "Fantastic Shoes", description: "", available: 0 },
   { id: 12, name: "Fantastic Shoes", description: "", available: 0 },
   { id: 13, name: "Fantastic Shoes", description: "", available: 0 },
-];
+];*/
 
 export default function Forms() {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [products, setProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>(products)
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
-  const filteredProducts = products.filter(
-    (product) =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.description.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Função para buscar produtos da API
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('/api/inventory'); // Ajuste a URL para seu endpoint
+        if (!response.ok) {
+          throw new Error('Falha ao buscar produtos');
+        }
+        const data = await response.json();
+        setProducts(data); // Armazena os produtos da API
+        setFilteredProducts(data); // Inicializa produtos filtrados
+      } catch (error) {
+        console.error('Erro ao buscar produtos:', error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const handleSearchTermChange = (term: string) => {
+    setSearchTerm(term)
+    setFilteredProducts(products.filter(product =>
+      product.product_name.toLowerCase().includes(term.toLowerCase())
+    ))
+  }
 
   return (
     <section className="mt-2">
@@ -77,7 +99,7 @@ export default function Forms() {
                 <div className="relative w-full" style={{ paddingTop: "100%" }}>
                   <Image
                     src={Products}
-                    alt={product.name}
+                    alt={product.product_name}
                     layout="fill"
                     objectFit="cover"
                     className={product.available === 0 ? "grayscale" : ""}
@@ -87,7 +109,7 @@ export default function Forms() {
                   </div>
                 </div>
                 <div className="p-3 sm:p-4 flex-1 flex flex-col">
-                  <h3 className="font-inter text-sm sm:text-base mb-1 sm:mb-2">{product.name}</h3>
+                  <h3 className="font-inter text-sm sm:text-base mb-1 sm:mb-2">{product.product_name}</h3>
                   {product.available > 0 ? (
                     <p className="text-xs sm:text-sm font-inter text-gray-500">
                       <b>Disponível: {product.available}</b>

@@ -1,75 +1,84 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect  } from 'react';
 import { ArrowLeft, Search, Plus, Minus, Image as ImageIcon } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {Products} from '@/app/assets/index';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 interface Product {
-  id: number
-  name: string
-  type: string
-  flavors: string
-  quantity: number
-  price: number
-  available: number
+  product_name: string,
+  stock: number,
+  price: number,
+  image_url: string
 }
 
 export default function Sales() {
-  const [products] = useState<Product[]>([
-    { id: 1, name: 'Esfiha de Frango e Cheddar', type: 'Esfiha', flavors: 'Frango e Cheddar', quantity: 0, price: 5.50, available: 10 },
-    { id: 2, name: 'Esfiha de Frango e Catupiry', type: 'Esfiha', flavors: 'Frango e Catupiry', quantity: 0, price: 5.50, available: 8 },
-    { id: 3, name: 'Esfiha de Frango e Calabresa', type: 'Esfiha', flavors: 'Frango e Calabresa', quantity: 0, price: 6.00, available: 5 },
-    { id: 4, name: 'Pastel de Queijo', type: 'Esfiha', flavors: 'Queijo', quantity: 0, price: 5.00, available: 10 },
-    { id: 5, name: 'Esfiha de Carne', type: 'Esfiha', flavors: 'Carne', quantity: 0, price: 6.50, available: 15 },
-    { id: 6, name: 'Esfiha de Calabresa', type: 'Esfiha', flavors: 'Calabresa', quantity: 0, price: 5.50, available: 12 },
-    { id: 7, name: 'Coxinha de Frango', type: 'Esfiha', flavors: 'Frango', quantity: 0, price: 5.50, available: 7 },
-    { id: 8, name: 'Hambúguer de Carne e Cheddar', type: 'Esfiha', flavors: 'Carne e Cheddar', quantity: 0, price: 6.00, available: 20 }
-  ])
+  const [products, setProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>(products)
+  const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>('')
 
-  const [selectedProducts, setSelectedProducts] = useState<Product[]>([])
-  const [searchTerm, setSearchTerm] = useState('')
+  useEffect(() => {
+    // Função para buscar produtos da API
+    const fetchProducts = async () => {
+      try {
+        console.log("CHAMANDO API")
+        const response = await fetch('/api/inventory'); // Ajuste a URL para corresponder ao seu endpoint
+        console.log("RESPOSTA " + response)
+        if (!response.ok) {
+          throw new Error('Falha ao buscar produtos');
+        }
+        const data = await response.json();
+        setProducts(data); // Armazena produtos retornados da API
+        setFilteredProducts(data); // Inicializa produtos filtrados
+      } catch (error) {
+        console.error('Erro ao buscar produtos:', error);
+      }
+    };
 
-  const productTypes = ['Esfiha', 'Coxinha', 'Hambúguer', 'Pastel']; // Defina os tipos desejados aqui
+    fetchProducts();
+  }, []);
 
   const handleProductSelect = (product: Product) => {
-    const isSelected = selectedProducts.some(p => p.id === product.id)
+    const isSelected = selectedProducts.some(p => p.product_name === p.product_name);
     if (isSelected) {
-      setSelectedProducts(selectedProducts.filter(p => p.id !== product.id))
+      setSelectedProducts(selectedProducts.filter(p => p.product_name !== p.product_name));
     } else {
-      setSelectedProducts([...selectedProducts, { ...product, quantity: 1 }])
+      setSelectedProducts([...selectedProducts, { ...product, stock: 1 }]);
     }
-  }
+  };
 
-  const handleQuantityChange = (id: number, change: number) => {
-    setSelectedProducts(prevProducts => 
+  const handleQuantityChange = (name: string, change: number) => {
+    setSelectedProducts(prevProducts =>
       prevProducts.reduce((acc, product) => {
-        if (product.id === id) {
-          const newQuantity = Math.max(0, product.quantity + change)
-          if (newQuantity === 0) {
-            return acc
-          }
-          return [...acc, { ...product, quantity: newQuantity }]
+        if (product.product_name === name) {
+          const newQuantity = Math.max(0, product.stock + change);
+          return [...acc, { ...product, stock: newQuantity }];
         }
-        return [...acc, product]
-      }, [] as Product[]))
-  }
+        return [...acc, product];
+      }, [] as Product[])
+    );
+  };
 
-  const filteredProducts = products.filter(product =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase())
-  )
+  const handleSearchTermChange = (term: string) => {
+    setSearchTerm(term)
+    setFilteredProducts(products.filter(product =>
+      product.product_name.toLowerCase().includes(term.toLowerCase())
+    ))
+  }
 
   const generateFinalizeLink = () => {
     const queryParams = selectedProducts
-      .filter(product => productTypes.includes(product.type) && product.quantity > 0) // Usando includes
-      .map((product, index) => `product_${index + 1}=${encodeURIComponent(product.name)}&quantity_${index + 1}=${encodeURIComponent(product.quantity)}&price_${index + 1}=${encodeURIComponent(product.price)}`)
+      .filter(product => product.stock > 0)
+      .map((product, index) => `product_${index + 1}=${encodeURIComponent(product.product_name)}&quantity_${index + 1}=${encodeURIComponent(product.stock)}&price_${index + 1}=${encodeURIComponent(product.price)}`)
       .join('&');
 
     return `/sales/finalize-sales?${queryParams}`;
-  }
+  };
 
   return (
     <section className="mt-2">
@@ -97,27 +106,27 @@ export default function Sales() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {filteredProducts.map((product) => (
-                <div key={product.id} className="shadow-sm transition-transform transform hover:scale-105 bg-background border-[0.29px] rounded-lg overflow-hidden flex flex-col">
+                <div key={product.product_name} className="shadow-sm transition-transform transform hover:scale-105 bg-background border-[0.29px] rounded-lg overflow-hidden flex flex-col">
                   <div className="relative w-full" style={{ paddingTop: '100%' }}>
                     <Image
                       src={Products}
-                      alt={product.name}
+                      alt={product.product_name}
                       layout="fill"
                       objectFit="cover"
-                      className={product.available === 0 ? 'grayscale' : ''}
+                      className={product.stock === 0 ? 'grayscale' : ''}
                     />
                     <div className="absolute top-2 right-2 text-xs font-inter text-gray-500 bg-transparent px-2 py-1 rounded">
-                      {product.available === 0 ? 'Indisponível' : `Disponível: ${product.available}`}
+                      {product.stock === 0 ? 'Indisponível' : `Disponível: ${product.stock}`}
                     </div>
                   </div>
                   <div className="p-4 flex-1 flex flex-col justify-between">
-                    <h3 className="font-inter text-base mb-2">{product.name}</h3>
+                    <h3 className="font-inter text-base mb-2">{product.product_name}</h3>
                     <div className="flex justify-between items-center">
                       <span className="text-base font-inter"><b>R${product.price.toFixed(2)}</b></span>
                       <Button
                         size="sm"
                         className="bg-[#AED970] hover:bg-[#98C256] text-[#FFFFFF] rounded-lg"
-                        disabled={product.available === 0}
+                        disabled={product.stock === 0}
                         onClick={() => handleProductSelect(product)}
                       >
                         <Plus className="h-4 w-4" />
@@ -131,7 +140,7 @@ export default function Sales() {
 
           <div className="w-full md:w-[419px]">
             {selectedProducts.map(product => (
-              <div key={product.id} className="shadow-sm transition-transform transform hover:scale-105 mb-4 bg-background border-[0.29px] border-[#9B470180] rounded-lg">
+              <div key={product.product_name} className="shadow-sm transition-transform transform hover:scale-105 mb-4 bg-background border-[0.29px] border-[#9B470180] rounded-lg">
                 <div className="flex items-center">
                   <div className="w-[15%] h-[72px] bg-[#F9F9DF] rounded-lg flex items-center justify-center mr-4">
                     <ImageIcon
@@ -139,21 +148,21 @@ export default function Sales() {
                     />
                   </div>
                   <div>
-                    <h2 className="font-inter"><b>{product.name}</b></h2>
+                    <h2 className="font-inter"><b>{product.product_name}</b></h2>
                   </div>
                   <div className="flex items-center ml-auto mr-2">
                     <Button
                       size="sm"
                       className="bg-[#F9F9DF] hover:bg-[#E0E0B0] border-[#8B4513]" 
-                      onClick={() => handleQuantityChange(product.id, -1)}
+                      onClick={() => handleQuantityChange(product.product_name, -1)}
                     >
                       <Minus className="h-3 w-3 text-[#8B4513]" />
                     </Button>
-                    <span className="w-6 text-center font-inter"><b>{product.quantity}</b></span>
+                    <span className="w-6 text-center font-inter"><b>{product.stock}</b></span>
                     <Button
                       size="sm"
                       className="bg-[#F9F9DF] hover:bg-[#E0E0B0] border-[#8B4513]"
-                      onClick={() => handleQuantityChange(product.id, 1)}
+                      onClick={() => handleQuantityChange(product.product_name, 1)}
                     >
                       <Plus className="h-3 w-3 text-[#8B4513]" />
                     </Button>
@@ -167,7 +176,7 @@ export default function Sales() {
             )}
             <div className="flex justify-between mt-4">
               <span className="font-inter"><b>Total:</b></span>
-              <span className="font-inter"><b>R${selectedProducts.reduce((total, product) => total + (product.price * product.quantity), 0).toFixed(2)}</b></span>
+              <span className="font-inter"><b>R${selectedProducts.reduce((total, product) => total + (product.price * product.stock), 0).toFixed(2)}</b></span>
             </div>
             <Link href={generateFinalizeLink()} passHref>
               <Button
