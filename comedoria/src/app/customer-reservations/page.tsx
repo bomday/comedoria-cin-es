@@ -47,18 +47,23 @@ export default function ReserveView() {
   const [showAlert, setShowAlert] = useState(false);
   const [showCancellationAlert, setShowCancellationAlert] = useState(false);
   const [activeReservations, setActiveReservations] = useState<Reservation[]>(initialActiveReservations);
-  const router = useRouter();
-  const searchParams = useSearchParams();
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
 
-  useEffect(() => {
-    const shouldShowAlert = searchParams.get('showAlert') === 'true';
-    if (shouldShowAlert) {
-      setShowAlert(true);
-      setTimeout(() => setShowAlert(false), 5000);
-      router.replace('/customer-reservations');
-    }
-  }, [searchParams, router]);
+  const SearchParamsWrapper = () => {
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
+    useEffect(() => {
+      const shouldShowAlert = searchParams.get('showAlert') === 'true';
+      if (shouldShowAlert) {
+        setShowAlert(true);
+        setTimeout(() => setShowAlert(false), 5000);
+        router.replace('/customer-reservations');
+      }
+    }, [searchParams, router]);
+
+    return null; // Este componente não precisa renderizar nada
+  };
 
   const renderAlert = (message: string, isVisible: boolean, closeHandler: () => void) => (
     <motion.div
@@ -186,17 +191,19 @@ export default function ReserveView() {
       </div>
 
       <Suspense fallback={<div>Loading...</div>}>
-        <ConfirmationModal
-          isOpen={isOpen}
-          onClose={handleClose}
-          onConfirm={handleConfirm}
-          title="Confirmação Necessária"
-          confirmText="Confirmar"
-          cancelText="Cancelar"
-          description="Tem certeza de que deseja cancelar essa reserva?"
-        />
+        <SearchParamsWrapper />
       </Suspense>
-           
+
+      <ConfirmationModal
+        isOpen={isOpen}
+        onClose={handleClose}
+        onConfirm={handleConfirm}
+        title="Confirmação Necessária"
+        confirmText="Confirmar"
+        cancelText="Cancelar"
+        description="Tem certeza de que deseja cancelar essa reserva?"
+      />
+          
       <Footer />
     </div>
   );

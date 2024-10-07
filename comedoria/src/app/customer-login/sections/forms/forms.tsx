@@ -37,10 +37,7 @@ export default function Forms() {
         } else {
             if (status === "authenticated") {
                 router.push("/products");
-            } else if (status === "loading") {
-                router.push("/loading");
             } 
-
             loginFormRef.current?.reset();
         }
     };
