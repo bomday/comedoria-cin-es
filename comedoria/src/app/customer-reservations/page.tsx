@@ -1,6 +1,6 @@
 "use client"
 import { useState, useEffect } from 'react';
-import { Trash2, Image as ImageIcon, Calendar, DollarSign } from 'lucide-react';
+import { Trash2, Image as ImageIcon } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Alert } from "@/components/ui/alert";
 import { motion, AnimatePresence } from 'framer-motion';
