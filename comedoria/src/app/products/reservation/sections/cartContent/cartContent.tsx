@@ -1,6 +1,6 @@
-import { CartItemDisplay } from "@/app/products/reservation/sections/cartItemDisplay/cartItemDisplay";
-import { TotalDisplay } from "@/app/products/reservation/sections/totalDisplay/totalDisplay";
-import { useCart } from "@/app/products/reservation/sections/useCartHook/useCart";
+import { CartItemDisplay } from "../cartItemDisplayCard/cartItemDisplay";
+import { TotalDisplay } from "../totalDisplayCard/totalDisplay";
+import { useCart } from "../useCartHook/useCart";
 
 export const CartContent = () => {
     const { cartItems, calculateTotal } = useCart();
