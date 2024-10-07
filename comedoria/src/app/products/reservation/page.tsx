@@ -5,9 +5,9 @@ import NavbarLogged from "@/components/ui/Navbar-logged";
 import Footer from "@/components/ui/footer";
 import PriceBanner from "@/components/ui/price-banner";
 import { useRouter } from "next/navigation";
-import CartItemDisplay from "./sections/CartItemDisplay/page";
-import TotalDisplay from "./sections/TotalDisplay/page";
-import { useCart } from "./sections/useCartHook/page";
+import CartItemDisplay from "./sections/CartItemDisplay/cartItemDisplay";
+import TotalDisplay from "./sections/TotalDisplay/totalDisplay";
+import { useCart } from "./sections/useCartHook/useCart";
 
 const FinalizeReservation = () => {
   const { cartItems, calculateTotal } = useCart();
@@ -31,7 +31,7 @@ const FinalizeReservation = () => {
           <div className="flex flex-col mx-auto max-w-full md:max-w-[640px]">
             <div className="space-y-4 mb-4">
               {cartItems.map(item => (
-                <CartItemDisplay key={item.id} item={item} />
+                <CartItemDisplay key={item.product_name} item={item} />
               ))}
             </div>
             <TotalDisplay total={calculateTotal()} />

@@ -3,12 +3,11 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 
 export interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-  type: string;
-  flavor: string;
+  product_name: string,
+  stock: number,
+  price: number,
+  image_url: string,
+  quantity: number
 }
 
 export const useCart = () => {
