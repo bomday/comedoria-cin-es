@@ -27,7 +27,7 @@ export default function UserAccount() {
     <NavbarLogged />
     <div className="mt-16 px-4 sm:px-6 lg:px-0"> 
       <PriceBanner/>
-      <h1 className="text-3xl md:text-4xl font-bold p-4 pb-2 text-secondary">Sua conta</h1>
+      <h1 className="advent-pro-700 text-3xl md:text-4xl font-bold p-4 pb-2 text-secondary">Sua conta</h1>
       </div>
 
       <div className="max-w-4xl mx-auto mt-10 px-4 sm:px-6 lg:px-8">
@@ -48,7 +48,7 @@ export default function UserAccount() {
           </div>
         </div>
 
-        <Button onClick={handleOpen} className="w-full bg-destructive hover:bg-destructive/90 text-white py-3 h-14 md:h-16" style={{color:'white'}}>
+        <Button onClick={handleOpen} className="rubik-600 w-full bg-destructive hover:bg-destructive/90 text-white py-3 h-14 md:h-16" style={{color:'white'}}>
           Excluir conta
         </Button>
       </div>

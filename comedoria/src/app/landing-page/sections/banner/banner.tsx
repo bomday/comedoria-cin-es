@@ -12,7 +12,7 @@ export default function Banner() {
   };
 
   return (
-    <section className="relative h-[calc(100vh)]">
+    <section style={{ height: '100vh', maxHeight: '80vh' }} className="relative sm:max-h-[80vh]">
         <Image
           src={CoxinhaBackground}
           alt="Coxinhas fritas"

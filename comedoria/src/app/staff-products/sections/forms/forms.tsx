@@ -40,11 +40,11 @@ export default function Forms() {
 
   return (
     <section className="mt-2">
-      <div className="flex flex-col gap-10 mx-auto justify-center inset-0 p-6 md:p-10 lg:p-20 bg-black bg-opacity-40 z-10">
-        <div className="bg-black bg-opacity-40 p-6 md:p-8 rounded-lg w-full">
-          <h1 className="text-3xl md:text-5xl advent-pro-700 text-[#45480F] mb-6">Estoque</h1>
-          <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-            <div className="relative w-full md:w-full lg:w-96">
+      <div className="flex flex-col gap-6 mx-auto justify-center inset-0 p-4 sm:p-6 md:p-10 lg:p-20 bg-black bg-opacity-40 z-10">
+        <div className="bg-black bg-opacity-40 p-4 sm:p-6 md:p-8 rounded-lg w-full">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl advent-pro-700 text-[#45480F] mb-4 sm:mb-6">Estoque</h1>
+          <div className="flex flex-col sm:flex-row justify-between items-center mb-4 sm:mb-6 gap-4">
+            <div className="relative w-full sm:w-1/2 lg:w-96">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <Input
                 type="search"
@@ -55,20 +55,20 @@ export default function Forms() {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
-            <div className="flex flex-col md:flex-row gap-4 w-full">
-              <Link href="/sales">
-                <Button className="flex  w-full md:w-auto bg-[#F2BF5E] hover:bg-[#D9A84E] rubik-600 flex-grow h-12 text-lg text-beige">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full sm:w-auto">
+              <Link href="/sales" className="w-full sm:w-auto">
+                <Button className="w-full bg-[#F2BF5E] hover:bg-[#D9A84E] rubik-600 h-10 sm:h-12 text-base sm:text-lg text-beige">
                   Realizar Venda
                 </Button>
               </Link>
-              <Link href="/inventory">
-                <Button className="flex w-full md:w-auto bg-[#9B4701] hover:bg-[#8A3E01] rubik-600 flex-grow h-12 text-lg text-beige">
+              <Link href="/inventory" className="w-full sm:w-auto">
+                <Button className="w-full bg-[#9B4701] hover:bg-[#8A3E01] rubik-600 h-10 sm:h-12 text-base sm:text-lg text-beige">
                   Repor Estoque
                 </Button>
               </Link>
             </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
             {filteredProducts.map((product) => (
               <div
                 key={product.id}
@@ -86,10 +86,10 @@ export default function Forms() {
                     {product.available === 0 ? "Indisponível" : ``}
                   </div>
                 </div>
-                <div className="p-4 flex-1 flex flex-col">
-                  <h3 className="font-inter text-base mb-2">{product.name}</h3>
+                <div className="p-3 sm:p-4 flex-1 flex flex-col">
+                  <h3 className="font-inter text-sm sm:text-base mb-1 sm:mb-2">{product.name}</h3>
                   {product.available > 0 ? (
-                    <p className="text-sm font-inter text-gray-500">
+                    <p className="text-xs sm:text-sm font-inter text-gray-500">
                       <b>Disponível: {product.available}</b>
                     </p>
                   ) : null}
