@@ -5,28 +5,15 @@ import NavbarLogged from '@/components/ui/Navbar-logged'
 import PriceBanner from '@/components/ui/price-banner'
 import Footer from '@/components/ui/footer'
 import {CartComponent} from './sections/CartComponent/cartComponent';
-import {ProductGrid} from './sections/ProductGrid/page';
-import {SearchBar} from './sections/SearchBar/page';
-import { useCart } from './sections/CartComponent/useCartHook/page'
-import { GET } from '../api/inventory/route'
-
+import {ProductGrid} from './sections/ProductGrid/productGrid';
+import {SearchBar} from './sections/SearchBar/searchBar';
+import { useCart } from './sections/CartComponent/useCartHook/useCart'
 export interface Product {
   product_name: string,
   stock: number,
   price: number,
   image_url: string
 }
-
-/* export const products: Product[] = [
-  { product_name: 'Esfiha de Frango e Cheddar', stock: 10, price: 4.00, image_url: '' },
-  { product_name: 'Esfiha de Frango e Catupiry', stock: 8, price: 4.00, image_url: "" },
-  { product_name: 'Esfiha de Frango e Calabresa', stock: 5, price: 4.00, image_url: "" },
-  { product_name: 'Esfiha de Queijo', stock: 0, price: 4.00, image_url: "" },
-  { product_name: 'Esfiha de Carne', stock: 15, price: 4.00, image_url: "" },
-  { product_name: 'Esfiha de Calabresa', stock: 12, price: 4.00, image_url: "" },
-  { product_name: 'Esfiha de Frango', stock: 7, price: 4.00, image_url: "" },
-  { product_name: 'Esfiha de Chocolate', stock: 20, price: 4.00, image_url: "" }
-]; */
 
 export default function FecharVenda() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -39,9 +26,8 @@ export default function FecharVenda() {
     // Função para buscar produtos da API
     const fetchProducts = async () => {
       try {
-        console.log("CHMANDO API")
         const response = await fetch('/api/inventory'); // Ajuste a URL para corresponder ao seu endpoint
-        console.log("RESPOSTA " + response)
+        
         if (!response.ok) {
           throw new Error('Falha ao buscar produtos');
         }
