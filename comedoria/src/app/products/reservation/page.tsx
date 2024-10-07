@@ -9,10 +9,12 @@ import CartItemDisplay from "./sections/CartItemDisplay/cartItemDisplay";
 import TotalDisplay from "./sections/TotalDisplay/totalDisplay";
 import { useCart } from "./sections/useCartHook/useCart";
 import { Suspense } from "react"; // Importando Suspense
+import { useSearchParams } from "next/navigation"; // Importando useSearchParams
 
 const FinalizeReservation = () => {
   const { cartItems, calculateTotal } = useCart();
   const router = useRouter();
+  const searchParams = useSearchParams(); // Aqui você usa useSearchParams
 
   const handleReservation = () => {
     router.replace('/customer-reservations?showAlert=true');
