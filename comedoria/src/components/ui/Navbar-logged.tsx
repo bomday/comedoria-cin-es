@@ -54,27 +54,30 @@ export default function NavbarLogged() {
       </div>
 
       {/* Menu suspenso para telas pequenas */}
-      {isOpen && (
-        <div className="md:hidden flex flex-col space-y-2 p-4">
+      <div
+        className={`absolute top-16 left-0 w-full bg-background shadow-lg z-50 p-4 transition-all duration-300 ease-in-out ${
+          isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0 overflow-hidden"
+        }`}
+      >
           <Link href="/products">
-            <Button size="md" variant="btnSocialMedia" onClick={() => setIsOpen(false)}>
+            <Button size="md" variant="btnSocialMedia" onClick={() => setIsOpen(false)} className="text-center w-full">
               Salgados
             </Button>
           </Link>
           <Link href="/customer-reservations">
-            <Button size="md" variant="btnSocialMedia" onClick={() => setIsOpen(false)}>
+            <Button size="md" variant="btnSocialMedia" onClick={() => setIsOpen(false)} className="text-center w-full">
               Suas Reservas
             </Button>
           </Link>
           <Link href="/customer-account">
-            <Button size="md" variant="btnSocialMedia" onClick={() => setIsOpen(false)}>
+            <Button size="md" variant="btnSocialMedia" onClick={() => setIsOpen(false)} className="text-center w-full">
               Sua Conta
             </Button>
           </Link>
           <Link href="/landing-page">
             <Button
               size="sm"
-              className="bg-[#FF6B6B] hover:bg-[#FF4D4D]"
+              className="bg-[#FF6B6B] hover:bg-[#FF4D4D] text-center w-full"
               onClick={() => setIsOpen(false)}
             >
               Sair
@@ -82,7 +85,6 @@ export default function NavbarLogged() {
             </Button>
           </Link>
         </div>
-      )}
     </nav>
   );
 }

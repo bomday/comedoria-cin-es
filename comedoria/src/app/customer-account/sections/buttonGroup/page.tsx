@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import EditInfo from "@/components/ui/EditInfoPopup";
 import { useState } from 'react';
 import MessageModal from '@/components/ui/message-modal';
+import Footer from "@/components/ui/footer";
 
-// Componente ButtonGroup para os botões de ação
+// Componente para os botões
 export default function ButtonGroup() {
     // Estados para controlar a visibilidade dos modais
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -17,7 +18,6 @@ export default function ButtonGroup() {
   
     // Função para salvar mudanças no modal de edição
     const handleSaveChanges = () => {
-      console.log('Salvando mudanças...');
       // Lógica para salvar as informações
       setIsEditModalOpen(false); // Fechar o modal após salvar
     };
@@ -34,14 +34,16 @@ export default function ButtonGroup() {
     return (
         <div className="flex flex-col space-y-4 mt-5">
           <Button 
-            className="w-48 bg-[rgba(var(--brown-button))] hover:bg-[rgba(var(--brown-hover))] text-white py-3"
+            className="w-48 bg-[rgba(var(--brown-button))] hover:bg-[rgba(var(--brown-button))] text-white py-3"
             onClick={handleOpenEditModal}
+            style={{color:'white'}}
           >
             Editar Informações
           </Button>
           <Button 
             className="w-48 bg-[rgba(var(--light-yellow))] hover:bg-[#F2BF5E]/90 text-white py-3"
             onClick={handleOpenResetPasswordModal}
+            style={{color:'white'}}
           >
             Redefinir Senha
           </Button>

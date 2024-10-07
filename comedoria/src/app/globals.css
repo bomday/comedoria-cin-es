@@ -122,3 +122,8 @@
   max-width: 90%;
   overflow-y: auto;
 }
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

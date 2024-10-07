@@ -100,7 +100,7 @@ export default function ReserveView() {
       </div>
 
       <div className="container mx-auto px-4 py-8 bg-gradient-to-br from-[#F0F4E8] to-[#E2F2CB] min-h-screen mt-8">
-        <h1 className="text-5xl font-bold text-[#45480F] mb-6">Minhas Reservas</h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-[#45480F] mb-6">Minhas Reservas</h1>
 
         <div className="flex flex-col lg:flex-row gap-8">
           <Card className="w-full lg:w-1/4">
@@ -134,14 +134,12 @@ export default function ReserveView() {
                       </button>
                     </div>
                     <div className="p-4">
-                      <p className="text-sm mb-2 text-[#4A6741]">{reservation.items}</p>
+                      <p className="text-sm mb-2 text-[#4A6741] line-clamp-2">{reservation.items}</p>
                       <div className="flex justify-between items-center">
                         <div className="flex items-center text-[#4A6741]">
-                          <Calendar className="w-4 h-4 mr-1" />
                           <p className="text-sm font-semibold">{reservation.date}</p>
                         </div>
                         <div className="flex items-center text-[#4A6741]">
-                          <DollarSign className="w-4 h-4 mr-1" />
                           <p className="text-lg font-bold">{reservation.currency} {reservation.price.toFixed(2)}</p>
                         </div>
                       </div>
@@ -164,19 +162,19 @@ export default function ReserveView() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.3 }}
-                    className={`p-4 flex justify-between items-center rounded-[8px] flex overflow-hidden ${
+                    className={`p-2 flex justify-between items-center rounded-[8px] flex overflow-hidden ${
                       item.status === 'highlighted' ? 'bg-[#FF9B9B]' : 'bg-white border border-[#9B470180]'
                     }`}
                   >
-                    <div className="flex justify-start items-center flex-wrap">
-                      <ImageIcon className="w-10 h-10 mr-4" />
-                      <div>
-                        <p className="font-medium text-lg">{item.items}</p>
+                    <div className="flex justify-start items-center flex-1 min-w-0">
+                      <ImageIcon className="w-8 h-8 mr-3 flex-shrink-0" />
+                      <div className="min-w-0 flex-1">
+                        <p className="font-medium text-lg truncate">{item.items}</p>
                         <p className="text-xs text-gray-500">{item.date}</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-2xl text-[#45480F] font-semibold">{item.price.toFixed(2)} €</p>
+                      <p className="text-xl text-[#45480F] font-semibold">R${item.price.toFixed(2)}</p>
                     </div>
                   </motion.div>
                 ))}
