@@ -6,12 +6,10 @@ import Footer from "@/components/ui/footer";
 import PriceBanner from "@/components/ui/price-banner";
 import { useRouter } from "next/navigation";
 import { Suspense } from "react"; // Importando Suspense
-import { useSearchParams } from "next/navigation"; // Importando useSearchParams
 import { CartContent } from "./sections/cartContent/cartContent";
 
 const FinalizeReservation = () => {
   const router = useRouter();
-  const searchParams = useSearchParams(); // Aqui você usa useSearchParams
 
   const handleReservation = () => {
     router.replace('/customer-reservations?showAlert=true');
