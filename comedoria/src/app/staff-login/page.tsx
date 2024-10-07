@@ -5,10 +5,12 @@ import "@/app/globals.css"
 
 export default function StaffLogin() {
   return (
-    <>
-        <Navbar/>
-        <Forms/>
-        <Footer/>
-    </>
+    <div className="flex flex-col min-h-screen">
+      <Navbar />
+      <div className="flex-grow">
+        <Forms />
+      </div>
+      <Footer />
+    </div>
   )
 }

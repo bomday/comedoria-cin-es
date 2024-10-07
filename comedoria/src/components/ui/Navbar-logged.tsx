@@ -54,8 +54,11 @@ export default function NavbarLogged() {
       </div>
 
       {/* Menu suspenso para telas pequenas */}
-      {isOpen && (
-        <div className="md:hidden flex flex-col space-y-2 p-4">
+      <div
+        className={` md:hidden flex flex-col p-4 bg-background shadow-lg z-50 items-center transition-all duration-300 ease-in-out ${
+          isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0 overflow-hidden"
+        }`}
+      >
           <Link href="/products">
             <Button size="md" variant="ghost" onClick={() => setIsOpen(false)}>
               Salgados
@@ -82,7 +85,6 @@ export default function NavbarLogged() {
             </Button>
           </Link>
         </div>
-      )}
     </nav>
   );
 }

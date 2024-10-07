@@ -5,9 +5,9 @@ import "@/app/globals.css";
 
 export default function Footer() {
   return (
-    <footer className="bg-wine h-[4.5rem] text-white py-6 mt-auto">
+    <footer className="bg-wine text-white py-2 md:py-4 mt-auto"> {/* Reduzir padding */}
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-center md:items-start space-y-4 md:space-y-0">
+        <div className="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0"> {/* Ajustar alinhamento e espaçamento */}
           {/* Logo Section */}
           <div className="flex justify-center md:justify-start">
             <Image
@@ -23,21 +23,10 @@ export default function Footer() {
           </div>
 
           {/* Links and Social Media */}
-          <div className="flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0">
-            <div className="flex items-center space-x-4 text-sm mr-2">
+          <div className="flex flex-col md:flex-row items-center md:items-start space-y-2 md:space-y-0"> {/* Espaçamento ajustado */}
+            <div className="flex items-center space-x-4 text-sm">
               <a href="#" className="text-[#FFFFFF] hover:text-gray-300">Terms & Conditions</a>
               <a href="#" className="text-[#FFFFFF] hover:text-gray-300">Privacy Policy</a>
-            </div>
-            <div className="flex space-x-4 mt-2 md:mt-0">
-              <a href="#" className="hover:text-gray-300">
-                <Instagram className="text-[#FFFFFF] w-5 h-5" />
-              </a>
-              <a href="#" className="hover:text-gray-300">
-                <Facebook className="text-[#FFFFFF] w-5 h-5" />
-              </a>
-              <a href="#" className="hover:text-gray-300">
-                <Linkedin className="text-[#FFFFFF] w-5 h-5" />
-              </a>
             </div>
           </div>
         </div>

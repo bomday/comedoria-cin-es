@@ -25,19 +25,22 @@ export default function SalesHistory() {
   return (
     <section className="mt-2">
       <div className="flex flex-col items-start px-4 lg:px-20 py-6 lg:py-10 bg-white">
-      <div className="w-full max-w-screen-xl mx-auto mt-8">
-      <h1 className="text-4xl lg:text-5xl font-bold text-[#45480F] mb-4">Vendas</h1>
-      <div className="flex justify-between items-center w-full mb-6">
-      <h2 className="text-2xl lg:text-3xl font-semibold text-black">Histórico</h2>
-            <Button variant="btnGreen" className="text-beige w-full lg:w-auto">
+      <div className="w-full max-w-screen-xl mx-auto mt-4 lg:mt-8">
+      <h1 className="text-3xl lg:text-5xl font-bold text-[#45480F] mb-4 hidden lg:block">
+            Vendas
+          </h1>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center w-full mb-6">
+      <h2 className="mt-5 text-xl lg:text-3xl font-semibold text-black mb-2 sm:mb-0">Histórico</h2>
+      <Button variant="btnGreen" className="text-beige w-full sm:w-auto">
               Gerar PDF
             </Button>
           </div>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto -mx-4 sm:-mx-6 lg:-mx-8">
+          <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
             <Table className="w-full">
               <TableHeader>
                 <TableRow>
-                  <TableHead className="border-dashed border-r p-1 text-center text-black">Salgados</TableHead>
+                <TableHead className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Salgados</TableHead>
                   <TableHead className="border-dashed border-r p-1 text-center text-black">Vendedor</TableHead>
                   <TableHead className="border-dashed border-r p-1 text-center text-black">Cliente</TableHead>
                   <TableHead className="border-dashed border-r p-1 text-center text-black">Tipo</TableHead>
@@ -48,8 +51,8 @@ export default function SalesHistory() {
               <TableBody>
                 {salesData.map((sale, index) => (
                   <TableRow key={index}>
-                    <TableCell className="border-dashed border-r p-1 text-center">{sale.salgados}</TableCell>
-                    <TableCell className="border-dashed border-r p-1 text-center">{sale.vendedor}</TableCell>
+                    <TableCell className="border-dashed border-r py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{sale.salgados}</TableCell>
+                    <TableCell className="border-dashed border-r">{sale.vendedor}</TableCell>
                     <TableCell className="border-dashed border-r p-1 text-center">{sale.cliente}</TableCell>
                     <TableCell className="border-dashed border-r p-1 text-center">{sale.tipo}</TableCell>
                     <TableCell className="border-dashed border-r p-1 text-center">{sale.dataHora}</TableCell>
@@ -58,6 +61,7 @@ export default function SalesHistory() {
                 ))}
               </TableBody>
             </Table>
+            </div>
           </div>
         </div>
       </div>

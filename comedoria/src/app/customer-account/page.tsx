@@ -17,8 +17,6 @@ export default function UserAccount() {
     const handleClose = () => EditSetIsOpen(false);
 
     const handleConfirm = () => {
-        console.log('Ação confirmada!');
-        // Aqui você pode adicionar a lógica que deseja executar ao confirmar
         EditSetIsOpen(false); // Fecha o modal após a confirmação
     };
 
@@ -26,21 +24,22 @@ export default function UserAccount() {
 
   return (
     <div className="flex flex-col h-screen bg-background text-foreground">
-      <NavbarLogged />
-      <div className="mt-16"> 
-        <PriceBanner/>
-        <h1 className="text-4xl font-bold p-4 pb-2 text-secondary">Sua conta</h1>
+    <NavbarLogged />
+    <div className="mt-16 px-4 sm:px-6 lg:px-0"> 
+      <PriceBanner/>
+      <h1 className="advent-pro-700 text-3xl md:text-4xl font-bold p-4 pb-2 text-secondary">Sua conta</h1>
       </div>
 
-      <div className="max-w-2xl mx-auto mt-10">
+      <div className="max-w-4xl mx-auto mt-10 px-4 sm:px-6 lg:px-8">
         <div className="flex items-start space-x-6 mb-6">
-          <div className="relative">
-            <Avatar className="w-48 h-48 border-2 border-border rounded-full overflow-hidden" style={{ borderRadius: '50%' }}>
-              <AvatarImage src="/placeholder.svg" alt="Fulano Ciclano"/>
-              <AvatarFallback>FC</AvatarFallback>
-            </Avatar>
-            <Button variant={null} className="absolute bottom-0 right-0 bg-transparent p-2 ">
-              <CirclePlus className="text-foreground"/>
+        <div className="relative">
+        <Avatar className="w-32 h-32 md:w-48 md:h-48 border-2 border-border rounded-full overflow-hidden" style={{ borderRadius: '50%' }}>
+            <AvatarImage src="/placeholder.svg" alt="Fulano Ciclano"/>
+            <AvatarFallback>FC</AvatarFallback>
+          </Avatar>
+          <Button variant={null}
+          className="absolute bottom-0 right-0 bg-transparent p-2 ">
+          <CirclePlus className="text-foreground"/>
             </Button>
           </div>
           <div className="flex-grow">
@@ -49,7 +48,7 @@ export default function UserAccount() {
           </div>
         </div>
 
-        <Button onClick={handleOpen} className="w-full bg-destructive hover:bg-destructive/90 text-white py-3 h-16" style={{color:'white'}}>
+        <Button onClick={handleOpen} className="rubik-600 w-full bg-destructive hover:bg-destructive/90 text-white py-3 h-14 md:h-16" style={{color:'white'}}>
           Excluir conta
         </Button>
       </div>

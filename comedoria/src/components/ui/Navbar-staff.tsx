@@ -56,25 +56,37 @@ export default function NavbarStaff() {
       </div>
 
       {/* Menu suspenso para telas pequenas */}
-      {isOpen && (
-        <div className="md:hidden flex flex-col space-y-2 p-4">
+      <div
+        className={` md:hidden flex flex-col p-4 bg-background shadow-lg z-50 items-center transition-all duration-300 ease-in-out ${
+          isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0 overflow-hidden"
+        }`}
+      >
           <Link href="/staff-products">
-            <Button size='md' variant="outline" onClick={() => setIsOpen(false)}>Estoque</Button>
+            <Button size="md" variant="ghost" onClick={() => setIsOpen(false)}>
+              Estoque
+            </Button>
           </Link>
-          <Link href="/staff-reservations"> 
-            <Button size='md' variant="outline" onClick={() => setIsOpen(false)}>Reservas</Button>
+          <Link href="/staff-reservations">
+            <Button size="md" variant="ghost" onClick={() => setIsOpen(false)}>
+              Reservas
+            </Button>
           </Link>
-          <Link href="/sales/sales-history"> 
-            <Button size='md' variant="outline" onClick={() => setIsOpen(false)}>Vendas</Button>
+          <Link href="/sales/sales-history">
+            <Button size="md" variant="ghost" onClick={() => setIsOpen(false)}>
+              Vendas
+            </Button>
           </Link>
-          <Link href="/landing-page"> 
-            <Button size="sm" className="bg-[#FF6B6B] hover:bg-[#FF4D4D]" onClick={() => setIsOpen(false)}>
+          <Link href="/landing-page">
+            <Button
+              size="sm"
+              className="bg-[#FF6B6B] hover:bg-[#FF4D4D]"
+              onClick={() => setIsOpen(false)}
+            >
               Sair
               <LogOut className="ml-2 h-4 w-4" />
             </Button>
           </Link>
         </div>
-      )}
     </nav>
   );
 }
