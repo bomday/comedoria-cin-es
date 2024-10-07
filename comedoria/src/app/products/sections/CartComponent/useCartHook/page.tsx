@@ -1,3 +1,4 @@
+'use client'
 // src/hooks/useCart.ts
 import { useState } from 'react';
 
