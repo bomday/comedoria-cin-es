@@ -1,17 +1,16 @@
 "use server"
 import connect from "@/lib/db";
 import Customer from "@/lib/modals/customer";
-import { CustomerAPI } from '@/app/api/customer/route';
-import bcrypt from 'bcryptjs'
+import bcrypt from 'bcryptjs';
+import { POST } from '@/app/api/customer/route'; // Importa a função POST diretamente
 
 export const registerClient = async (values: any) => {
-
     const { email, password, username } = values;
 
     try {
         await connect();
         const userFound = await Customer.findOne({ email });
-        if(userFound){
+        if (userFound) {
             return { error: "Email já cadastrado!" };
         }
 
@@ -22,12 +21,23 @@ export const registerClient = async (values: any) => {
             email,
             password: passwordHasheada,
             username
-        }
+        };
 
-        const customerAPI = new CustomerAPI()
-        customerAPI.addCustomer(user)
-        return { success: true };
-    }catch(e: any){
+        // Envie a solicitação POST diretamente
+        const response = await POST(new Request('', {
+            method: 'POST',
+            body: JSON.stringify(user),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }));
+
+        if (response.status === 201) {
+            return { success: true };
+        } else {
+            return { error: await response.text() };
+        }
+    } catch (e: any) {
         console.log(e);
         return { error: e.message };
     }

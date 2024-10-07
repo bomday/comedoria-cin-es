@@ -1,132 +1,114 @@
-import { NextResponse } from 'next/server';
-import connect from '@/lib/db';
-import Customer from '@/lib/modals/customer';
-import { getServerSession } from 'next-auth/next';
-import bcrypt from 'bcryptjs';
-import { authOptions } from '@/lib/auth';
+import { NextResponse } from 'next/server'
+import connect from '@/lib/db'
+import Customer from '@/lib/modals/customer'
+import { getServerSession } from 'next-auth/next'
+import bcrypt from 'bcryptjs'
+import { authOptions } from '@/lib/auth'
 
-export class CustomerAPI {
-  // Listar clientes ou pegar informações de cliente específico
-  public async getCustomers(request: Request) {
+// Função para listar ou pegar informações de cliente específico
+export const GET = async (request: Request) => {
     const session = await getServerSession(authOptions);
     if (!session) {
-      return new NextResponse('Unauthorized', { status: 401 });
+        return new NextResponse('Unauthorized', { status: 401 });
     }
 
     try {
-      await connect();
+        await connect();
 
-      const url = new URL(request.url);
-      const email = url.searchParams.get('email');
+        const url = new URL(request.url);
+        const email = url.searchParams.get('email'); // Obter o email da query string
 
-      if (email) {
-        const customer = await Customer.findOne({ email: email });
-        if (!customer) {
-          return new NextResponse('Customer not found', { status: 404 });
+        if (email) {
+            const customer = await Customer.findOne({ email: email });
+            if (!customer) {
+                return new NextResponse('Customer not found', { status: 404 });
+            }
+            return new NextResponse(JSON.stringify(customer), { status: 200 });
         }
-        return new NextResponse(JSON.stringify(customer), { status: 200 });
-      }
 
-      const customers = await Customer.find();
-      return new NextResponse(JSON.stringify(customers), { status: 200 });
+        const customers = await Customer.find();
+        return new NextResponse(JSON.stringify(customers), { status: 200 });
+        
     } catch (error: any) {
-      return new NextResponse(error.message, { status: 500 });
+        return new NextResponse(error.message, { status: 500 });
     }
-  }
+};
 
-  // Adicionar cliente
-  public async addCustomer(user: { email: any; password: any; username: any }) {
-    const { email, password, username } = user;
+// Função para adicionar um cliente
+export const POST = async (request: Request) => {
+    const { email, password, username } = await request.json();
+
     if (!email || !password || !username) {
-      return new NextResponse('All fields (email, password, username) are required and cannot be empty', { status: 400 });
+        return new NextResponse('All fields (email, password, username) are required and cannot be empty', { status: 400 });
     }
 
     try {
-      await connect();
-      const newCustomer = new Customer({ email, password, username });
-      await newCustomer.save();
+        await connect();
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        
+        const newCustomer = new Customer({ email, password: hashedPassword, username });
+        await newCustomer.save();
 
-      const { password: _, ...customerWithoutPassword } = newCustomer.toObject();
-      return new NextResponse(JSON.stringify(customerWithoutPassword), { status: 201 });
+        const { password: _, ...customerWithoutPassword } = newCustomer.toObject();
+        return new NextResponse(JSON.stringify(customerWithoutPassword), { status: 201 });
     } catch (error: any) {
-      return new NextResponse(error.message, { status: 500 });
+        return new NextResponse(error.message, { status: 500 });
     }
-  }
+};
 
-  // Atualizar cliente
-  public async updateCustomer(request: Request) {
+// Atualizar cliente
+export const PUT = async (request: Request) => {
     const session = await getServerSession(authOptions);
     if (!session) {
-      return new NextResponse('Unauthorized', { status: 401 });
+        return new NextResponse('Unauthorized', { status: 401 });
     }
 
     const url = new URL(request.url);
-    const email = url.searchParams.get('email');
-    const updates = await request.json();
-
-    Object.keys(updates).forEach(key => {
-      if (!updates[key]) {
-        delete updates[key];
-      }
-    });
-
-    if (Object.keys(updates).length === 0) {
-      return new NextResponse('No fields to update', { status: 400 });
-    }
+    const email = url.searchParams.get('email'); // Obter o email da query string
+    const updates = await request.json(); // Campos de atualização fornecidos no corpo da requisição
 
     if (updates.password) {
-      const salt = await bcrypt.genSalt(10);
-      updates.password = await bcrypt.hash(updates.password, salt);
+        const salt = await bcrypt.genSalt(10);
+        updates.password = await bcrypt.hash(updates.password, salt);
     }
 
     try {
-      await connect();
+        await connect();
+        const updatedCustomer = await Customer.findOneAndUpdate(
+            { email },
+            { $set: updates },
+            { new: true }
+        ).select('-password');
 
-      const updatedCustomer = await Customer.findOneAndUpdate(
-        { email },
-        { $set: updates },
-        { new: true }
-      ).select('-password');
+        if (!updatedCustomer) {
+            return new NextResponse('Customer not found', { status: 404 });
+        }
 
-      if (!updatedCustomer) {
-        return new NextResponse('Customer not found', { status: 404 });
-      }
-
-      return new NextResponse(JSON.stringify(updatedCustomer), { status: 200 });
+        return new NextResponse(JSON.stringify(updatedCustomer), { status: 200 });
     } catch (error: any) {
-      return new NextResponse(error.message, { status: 500 });
+        return new NextResponse(error.message, { status: 500 });
     }
-  }
+};
 
-  // Deletar cliente
-  public async deleteCustomer(request: Request) {
+// Deletar cliente
+export const DELETE = async (request: Request) => {
     const session = await getServerSession(authOptions);
     if (!session) {
-      return new NextResponse('Unauthorized', { status: 401 });
+        return new NextResponse('Unauthorized', { status: 401 });
     }
 
     const url = new URL(request.url);
-    const email = url.searchParams.get('email');
+    const email = url.searchParams.get('email'); // Obter o email da query string
 
     try {
-      await connect();
-      const deletedCustomer = await Customer.findOneAndDelete({ email });
-
-      if (!deletedCustomer) {
-        return new NextResponse('Customer not found', { status: 404 });
-      }
-      return new NextResponse('Customer deleted successfully', { status: 200 });
+        await connect();
+        const deletedCustomer = await Customer.findOneAndDelete({ email });
+        if (!deletedCustomer) {
+            return new NextResponse('Customer not found', { status: 404 });
+        }
+        return new NextResponse('Customer deleted successfully', { status: 200 });
     } catch (error: any) {
-      return new NextResponse(error.message, { status: 500 });
+        return new NextResponse(error.message, { status: 500 });
     }
-  }
-}
-
-// Instancia a classe CustomerAPI
-const customerAPI = new CustomerAPI();
-
-// Exporte as funções do manipulador da rota
-export const GET = (request: Request) => customerAPI.getCustomers(request);
-export const POST = (request: Request) => request.json().then(user => customerAPI.addCustomer(user));
-export const PUT = (request: Request) => customerAPI.updateCustomer(request);
-export const DELETE = (request: Request) => customerAPI.deleteCustomer(request);
+};
