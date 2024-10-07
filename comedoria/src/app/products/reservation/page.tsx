@@ -11,7 +11,6 @@ import AuthenticationError from "@/app/(errors)/authentication-error/authenticat
 import Loading from "@/app/(errors)/loading/loading";
 import { useSession } from 'next-auth/react'
 import { useCart } from "./sections/useCartHook/useCart";
-import { useSearchParams } from 'next/navigation';
 
 const FinalizeReservation = () => {
   const router = useRouter();

@@ -2,7 +2,6 @@
 import connect from "@/lib/db";
 import Customer from "@/lib/modals/customer";
 import bcrypt from 'bcryptjs';
-import { POST } from '@/app/api/customer/route'; // Importa a função POST diretamente
 
 export const registerClient = async (values: any) => {
     const { email, password, username } = values;
@@ -24,7 +23,7 @@ export const registerClient = async (values: any) => {
         };
 
         // Ensure the correct endpoint is used
-        const response = await POST(new Request('/api/customer', { 
+        const response = await fetch(new Request('/api/customer', { 
             method: 'POST',
             body: JSON.stringify(user),
             headers: {
