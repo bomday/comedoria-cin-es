@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { CirclePlus } from "lucide-react";
 import NavbarLogged from '@/components/ui/Navbar-logged'
 import PriceBanner from '@/components/ui/price-banner'
-import UserInfo from './sections/userInfo/page'
 import ButtonGroup from './sections/buttonGroup/page'
 import ConfirmationModal from '@/components/ui/confirmation-modal';
 import { useState } from 'react';
@@ -13,14 +12,12 @@ import Footer from "@/components/ui/footer";
 export default function UserAccount() {
   const [EditIsOpen, EditSetIsOpen] = useState(false);
 
-    const handleOpen = () => EditSetIsOpen(true);
-    const handleClose = () => EditSetIsOpen(false);
+  const handleOpen = () => EditSetIsOpen(true);
+  const handleClose = () => EditSetIsOpen(false);
 
-    const handleConfirm = () => {
-        EditSetIsOpen(false); // Fecha o modal após a confirmação
-    };
-
-
+  const handleConfirm = () => {
+      EditSetIsOpen(false); // Fecha o modal após a confirmação
+  };
 
   return (
     <div className="flex flex-col h-screen bg-background text-foreground">
@@ -43,7 +40,10 @@ export default function UserAccount() {
             </Button>
           </div>
           <div className="flex-grow">
-            <UserInfo name="Fulano Ciclano" email="fulanociclano@mail.com" />
+            <div className="space-y-5">
+              <h2 className="text-3xl font-semibold">Fulano Ciclano</h2>
+              <p className="text-gray-600">fulanociclano@mail.com</p>
+            </div>
             <ButtonGroup />
           </div>
         </div>

@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import EditInfo from "@/components/ui/EditInfoPopup";
 import { useState } from 'react';
 import MessageModal from '@/components/ui/message-modal';
-import Footer from "@/components/ui/footer";
 
 // Componente para os botões
 export default function ButtonGroup() {
@@ -26,10 +25,10 @@ export default function ButtonGroup() {
     const handleOpenResetPasswordModal = () => setIsResetPasswordModalOpen(true);
     const handleCloseResetPasswordModal = () => setIsResetPasswordModalOpen(false);
 
-    // Função para confirmar a redefinição da senha
+    /* // Função para confirmar a redefinição da senha
     const handleConfirmResetPassword = () => {
       setIsResetPasswordModalOpen(false); // Fechar o modal após confirmar
-    };
+    }; */
 
     return (
         <div className="flex flex-col space-y-4 mt-5">
