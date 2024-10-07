@@ -37,7 +37,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
           role="alert"
           className={cn(
             alertVariants({ variant }),
-            "bg-[#AED970] pointer-events-auto shadow-md overflow-hidden",
+            "pointer-events-auto shadow-md overflow-hidden",
             className
           )}
           {...props}

@@ -25,8 +25,8 @@ export default function Footer() {
           {/* Links and Social Media */}
           <div className="flex flex-col md:flex-row items-center md:items-start space-y-2 md:space-y-0"> {/* Espaçamento ajustado */}
             <div className="flex items-center space-x-4 text-sm">
-              <a href="#" className="text-[#FFFFFF] hover:text-gray-300">Terms & Conditions</a>
-              <a href="#" className="text-[#FFFFFF] hover:text-gray-300">Privacy Policy</a>
+              <a href="https://github.com/bomday/comedoria-cin-es/blob/main/comedoria/public/docs/business/terms_and_conditions.md" className="text-[#FFFFFF] hover:text-gray-300">Terms & Conditions</a>
+              <a href="https://github.com/bomday/comedoria-cin-es/blob/main/comedoria/public/docs/business/privacy_policy.md" className="text-[#FFFFFF] hover:text-gray-300">Privacy Policy</a>
             </div>
           </div>
         </div>

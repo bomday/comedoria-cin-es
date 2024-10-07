@@ -16,7 +16,7 @@ const buttonVariants = cva(
           "ghost",
         outline:
           "outline",
-        btnBrwon:
+        btnBrown:
           "bg-brown text-beige hover:bg-brown-hover",
       },
       size: {

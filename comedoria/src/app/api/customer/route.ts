@@ -51,6 +51,8 @@ export class CustomerAPI {
       await connect();
       const newCustomer = new Customer({ email, password, username });
       await newCustomer.save()
+      console.log(newCustomer)
+      console.log("HELLO")
       
       const { password: _, ...customerWithoutPassword } = newCustomer.toObject()
       return new NextResponse(JSON.stringify(customerWithoutPassword), { status: 201 })
@@ -135,3 +137,30 @@ export class CustomerAPI {
     }
   };
 }
+
+// Listar clientes ou pegar informações de cliente específico
+export const GET = async (request: Request) => {
+  try {
+    await connect();
+
+    // Extrair parâmetros da query string
+    const url = new URL(request.url);
+    const email = url.searchParams.get('email'); // Obter o email da query string
+
+    // Se um email estiver presente nos parâmetros, busque o cliente específico
+    if (email) {
+      const customer = await Customer.findOne({ email: email });
+      if (!customer) {
+        return new NextResponse('Customer not found', { status: 404 });
+      }
+      return new NextResponse(JSON.stringify(customer), { status: 200 });
+    } 
+    
+    // Se não houver email, liste todos os clientes
+    const customers = await Customer.find();
+    return new NextResponse(JSON.stringify(customers), { status: 200 });
+    
+  } catch (error: any) {
+    return new NextResponse(error.message, { status: 500 });
+  }
+};
