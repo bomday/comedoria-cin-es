@@ -10,14 +10,17 @@
     --main-darkgreen: 63 66% 17%;
     --main-yellow: 39 85% 66%;
     --main-beige: 60 68% 93%;
+    --brown-button: 155, 71, 1, 1;
+    --light-yellow: 242, 191, 94;
 
     /*Cores Hover*/
     --wine-hover: 351 80% 20%;
     --darkgreen-hover: 63 66% 10%;
+    --brown-hover: 27 99% 25%; 
 
     /* Cores de Alertas */
-    --lightgreen: 84 75% 44% 0.63;
-    --red: 0 100% 51% 0.59;
+    --lightgreen: 85 58% 65%;
+    --red: 0 100% 80%;
 
     /* Padrão */ 
     --background: 36 45% 98%;
@@ -84,7 +87,7 @@
   }
   body {
     @apply bg-background text-foreground;
-  }  
+  }
 }
 
 /* Fontes e tamanhos dos textos*/
@@ -130,4 +133,41 @@
     font-weight: 400;
     font-style: normal;
   }
+}
+
+.edit-staff-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: 'transparent';
+}
+
+.edit-staff-modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 90%;
+  max-height: 90%;
+  overflow-y: auto;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column; /* Coloca os botões um embaixo do outro */
+  gap: 16px; /* Espaçamento entre os botões */
+}
+
+.edit-staff-modal-content {
+  background-color: white;
+  padding: 26px;
+  border-radius: 18px;
+  max-width: 90%;
+  overflow-y: auto;
+}
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

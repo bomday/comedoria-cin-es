@@ -1,9 +1,10 @@
 import { Banner, Mission, Process, Contact } from './sections/index'
-import Navbar from '@/components/ui/navbar'
+import Navbar from '@/components/ui/Navbar'
 import Footer from '@/components/ui/footer'
 import "@/app/globals.css"
 
 export default function LandingPage() {
+  
   return (
     <>
       <Navbar/>
