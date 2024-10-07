@@ -173,7 +173,7 @@ export default function ReserveView() {
   const SearchParamsWrapper = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
-
+  
     useEffect(() => {
       const shouldShowAlert = searchParams.get('showAlert') === 'true';
       if (shouldShowAlert) {
@@ -182,9 +182,9 @@ export default function ReserveView() {
         router.replace('/customer-reservations');
       }
     }, [searchParams, router]);
-
+  
     return null; // Este componente não precisa renderizar nada
-  };
+  };  
 
   const renderAlert = (message: string, isVisible: boolean, closeHandler: () => void) => (
     <motion.div
@@ -201,6 +201,9 @@ export default function ReserveView() {
   return (
     <div className="rubik-400 flex flex-col min-h-screen">
       <NavbarLogged />
+      <Suspense fallback={<Loading />}>
+        <SearchParamsWrapper />
+      </Suspense>
       <div className="mt-16">
         <AnimatePresence>
           {showAlert && renderAlert("Sua reserva foi efetuada com sucesso!", showAlert, () => setShowAlert(false))}
@@ -288,11 +291,6 @@ export default function ReserveView() {
           </Card>
         </div>
       </div>
-
-      <Suspense fallback={<div>Loading...</div>}>
-        <SearchParamsWrapper />
-      </Suspense>
-
       <Footer />
       <ConfirmationModal
         isOpen={isOpen}
