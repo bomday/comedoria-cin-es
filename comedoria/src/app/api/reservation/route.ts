@@ -14,7 +14,7 @@ export const GET = async (request: Request) => {
     const status = url.searchParams.get('status'); // Buscar reservas pelo status
 
     // Criar o objeto de busca com base nos parâmetros
-    let query: any = {};
+    const query: any = {};
 
     // Se o customerId estiver presente, adiciona ao filtro
     if (customerId) {
