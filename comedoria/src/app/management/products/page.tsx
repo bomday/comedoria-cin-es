@@ -135,7 +135,7 @@ export default function ProductManagement() {
       <EditProduct
         isOpen={isEditProductOpen}
         onClose={() => setIsEditProductOpen(false)}
-        onSave={handleProductEdit} product={null} />
+        onSave={handleProductEdit} />
       <ConfirmationModal
         isOpen={isDeleteConfirmationOpen}
         onClose={() => setIsDeleteConfirmationOpen(false)}
